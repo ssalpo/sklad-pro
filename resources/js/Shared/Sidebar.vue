@@ -13,7 +13,7 @@
 
             <div class="navbar-nav flex-row d-lg-none">
                 <div class="nav-item dropdown">
-                    <UserDropdown type="sidebar" />
+                    <UserDropdown v-if="$page.props.shared.isAuth" type="sidebar" />
                 </div>
             </div>
 

@@ -1,18 +1,18 @@
 <?php
 
+use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\DashboardController;
 use Illuminate\Support\Facades\Route;
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider and all of them will
-| be assigned to the "web" middleware group. Make something great!
-|
-*/
+Route::middleware(['auth:sanctum'])->group(function () {
 
-Route::get('/', function () {
-    return inertia('Welcome');
+    Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard.index');
+
+});
+
+// Auth
+Route::controller(LoginController::class)->group(static function () {
+    Route::get('/', 'create')->name('login')->middleware('guest');
+    Route::post('login', 'store')->middleware('guest');
+    Route::delete('logout', 'destroy')->name('logout');
 });
