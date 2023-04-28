@@ -36,12 +36,22 @@ class HandleInertiaRequests extends Middleware
      */
     public function share(Request $request): array
     {
+        if ($request->session()->has('errors')) {
+            $toast = [
+                'message' => 'Проверьте корректность введенных данных.',
+                'type' => 'error'
+            ];
+        } else {
+            $toast = $request->session()->get('toast');
+        }
+
         return array_merge(parent::share($request), [
             'shared' => [
                 'isAuth' => auth()->check(),
                 'userId' => auth()->id(),
                 'userName' => auth()->user()?->name
-            ]
+            ],
+            'toast' => $toast
         ]);
     }
 }
