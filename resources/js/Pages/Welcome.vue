@@ -1,13 +1,13 @@
 <template>
-    <h1>Welcome {{name}}</h1>
+    <PageWrapper>
+        Hello sanjar
+    </PageWrapper>
 </template>
 
 <script>
+import PageWrapper from "../Shared/PageWrapper.vue";
+
 export default {
-    data(){
-        return {
-            name: 'Sanjar'
-        }
-    }
+    components: {PageWrapper}
 }
 </script>
