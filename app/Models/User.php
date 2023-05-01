@@ -3,6 +3,8 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+use App\Models\Traits\CurrentUser;
+use App\Models\Traits\DatesFormatable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -12,7 +14,7 @@ use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable
 {
-    use HasApiTokens, HasFactory, Notifiable, SoftDeletes;
+    use HasApiTokens, HasFactory, Notifiable, SoftDeletes, DatesFormatable, CurrentUser;
 
     /**
      * The attributes that are mass assignable.
@@ -25,6 +27,7 @@ class User extends Authenticatable
         'email',
         'password',
         'is_active',
+        'company_id',
     ];
 
     /**
@@ -47,9 +50,15 @@ class User extends Authenticatable
         'is_active' => 'bool'
     ];
 
-    public function setPasswordAttribute(string $value)
+    protected $appends = [
+        'created_at_formatted'
+    ];
+
+    public function setPasswordAttribute(?string $value)
     {
-        $this->attributes['password'] = Hash::make($value);
+        if($value) {
+            $this->attributes['password'] = Hash::make($value);
+        }
     }
 
     public function company()

@@ -134,9 +134,11 @@
                                           :href="route('showcases.index')">
                                         Витрины
                                     </Link>
-                                    <a class="dropdown-item" href="#">
+                                    <Link class="dropdown-item"
+                                          :class="{active: $page.component.startsWith('Users')}"
+                                          :href="route('users.index')">
                                         Пользователи
-                                    </a>
+                                    </Link>
                                 </div>
                             </div>
                         </div>
@@ -172,7 +174,8 @@ export default {
     },
     computed: {
         directoriesIsActive() {
-            return this.$page.component.startsWith('Showcases');
+            return this.$page.component.startsWith('Showcases') ||
+                this.$page.component.startsWith('Users');
         }
     }
 }
