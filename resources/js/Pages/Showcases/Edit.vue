@@ -1,6 +1,6 @@
 <template>
     <PageWrapper
-        :header-title="!showcase?.id ? `Новая витрина` : `Редактирование витрины ${showcase.name}`"
+        :header-title="!showcase?.id ? `Новая витрина` : `Редактирование ${showcase.name}`"
     >
         <form @submit.prevent="submit">
             <card>
