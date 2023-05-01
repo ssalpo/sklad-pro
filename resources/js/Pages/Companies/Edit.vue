@@ -165,7 +165,8 @@
                         </div>
                     </Card>-->
 
-            <button class="btn btn-md btn-info">Сохранить</button>
+            <button class="btn btn-md btn-info me-3">Сохранить</button>
+            <Link :href="route('companies.index')" class="btn btn-md">Отменить</Link>
         </form>
     </PageWrapper>
 </template>
@@ -183,7 +184,7 @@ import CheckboxSwitch from "../../Shared/Form/CheckboxSwitch.vue";
 import Alert from "../../Shared/Alert.vue";
 
 export default {
-    components: {Alert, CheckboxSwitch, TextInput, Card, IconBlockquote, PageWrapper, IconPlus},
+    components: {Alert, CheckboxSwitch, TextInput, Card, IconBlockquote, PageWrapper, IconPlus, Link},
     props: ['company'],
     data() {
         return {

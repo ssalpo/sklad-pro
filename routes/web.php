@@ -3,13 +3,16 @@
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\CompanyController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\QrCodeController;
 use Illuminate\Support\Facades\Route;
 
 Route::middleware(['auth:sanctum'])->group(function () {
 
     Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard.index');
+
     Route::resource('companies', CompanyController::class)->except(['show', 'destroy']);
 
+    Route::get('qr-codes', [QrCodeController::class, 'index'])->name('qr-codes.index');
 });
 
 // Auth

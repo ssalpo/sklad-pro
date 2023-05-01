@@ -42,7 +42,9 @@
                             </span>
                         </a>
 
-                        <Link class="nav-link" :href="route('companies.index')">
+                        <Link class="nav-link"
+                              :class="{ active : $page.url.startsWith('/companies') }"
+                              :href="route('companies.index')">
                             <span class="nav-link-icon d-md-none d-lg-inline-block">
                                 <IconBuildingSkyscraper :size="24" stroke-width="1.5"/>
                             </span>
@@ -52,7 +54,10 @@
                             </span>
                         </Link>
 
-                        <a class="nav-link" href="">
+                        <Link class="nav-link"
+                              :href="route('qr-codes.index')"
+                              :class="{ active : $page.url.startsWith('/qr-codes') }"
+                        >
                             <span class="nav-link-icon d-md-none d-lg-inline-block">
                                 <IconQrcode :size="24" stroke-width="1.5"/>
                             </span>
@@ -60,7 +65,7 @@
                             <span class="nav-link-title">
                                 QR-коды и ссылки
                             </span>
-                        </a>
+                        </Link>
                     </li>
                 </ul>
             </div>

@@ -11,7 +11,7 @@
         </template>
 
         <CompanyCard :company="company"
-                     class="mb-2"
+                     class="mb-3"
                      :key="company.id"
                      v-for="company in companies" />
 
