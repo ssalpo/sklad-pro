@@ -1,5 +1,5 @@
 <template>
-    <label class="form-label" :for="uid" v-if="label">{{ label }}</label>
+    <label class="form-label" :class="{required: labelRequired}" :for="uid" v-if="label">{{ label }}</label>
     <input type="text"
            :id="uid"
            v-bind="$attrs"
@@ -7,7 +7,7 @@
            :value="modelValue"
            class="form-control" :class="{'is-invalid': invalidText}" />
 
-    <div class="invalid-feedback" v-if="invalidText">{{invalidText}}</div>
+    <div class="invalid-feedback" v-if="invalidText && !withoutInvalidText">{{invalidText}}</div>
 </template>
 
 <script>
@@ -16,8 +16,10 @@ export default {
     mixins: [Uuid],
     props: {
         label: String,
+        labelRequired: Boolean,
         modelValue: [Number, String],
-        invalidText: String
+        invalidText: String,
+        withoutInvalidText: Boolean,
     }
 }
 </script>

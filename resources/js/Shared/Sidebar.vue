@@ -1,7 +1,9 @@
 <template>
     <aside class="navbar navbar-vertical navbar-expand-lg navbar-dark">
         <div class="container-fluid">
-            <button class="navbar-toggler collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#sidebar-menu" aria-controls="sidebar-menu" aria-expanded="false" aria-label="Toggle navigation">
+            <button class="navbar-toggler collapsed" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#sidebar-menu" aria-controls="sidebar-menu" aria-expanded="false"
+                    aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
 
@@ -13,7 +15,7 @@
 
             <div class="navbar-nav flex-row d-lg-none">
                 <div class="nav-item dropdown">
-                    <UserDropdown v-if="$page.props.shared.isAuth" type="sidebar" />
+                    <UserDropdown v-if="$page.props.shared.isAuth" type="sidebar"/>
                 </div>
             </div>
 
@@ -22,11 +24,41 @@
                     <li class="nav-item">
                         <a class="nav-link" href="">
                             <span class="nav-link-icon d-md-none d-lg-inline-block">
-                                <IconHome :size="24" stroke-width="1" />
+                                <IconBlockquote :size="24" stroke-width="1.5"/>
                             </span>
 
                             <span class="nav-link-title">
-                                Home
+                                Отзывы
+                            </span>
+                        </a>
+
+                        <a class="nav-link" href="">
+                            <span class="nav-link-icon d-md-none d-lg-inline-block">
+                                <IconMessage :size="24" stroke-width="1.5"/>
+                            </span>
+
+                            <span class="nav-link-title">
+                                Диалоги
+                            </span>
+                        </a>
+
+                        <a class="nav-link" href="">
+                            <span class="nav-link-icon d-md-none d-lg-inline-block">
+                                <IconBuildingSkyscraper :size="24" stroke-width="1.5"/>
+                            </span>
+
+                            <span class="nav-link-title">
+                                Мои компании
+                            </span>
+                        </a>
+
+                        <a class="nav-link" href="">
+                            <span class="nav-link-icon d-md-none d-lg-inline-block">
+                                <IconQrcode :size="24" stroke-width="1.5"/>
+                            </span>
+
+                            <span class="nav-link-title">
+                                QR-коды и ссылки
                             </span>
                         </a>
                     </li>
@@ -37,10 +69,16 @@
 </template>
 
 <script>
-import {IconHome} from "@tabler/icons-vue";
+import {
+    IconHome,
+    IconBlockquote,
+    IconMessage,
+    IconBuildingSkyscraper,
+    IconQrcode,
+} from "@tabler/icons-vue";
 import UserDropdown from "./UserDropdown.vue";
 
 export default {
-    components: {UserDropdown, IconHome}
+    components: {UserDropdown, IconHome, IconBlockquote, IconMessage, IconBuildingSkyscraper, IconQrcode}
 }
 </script>
