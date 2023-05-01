@@ -42,7 +42,7 @@
                             </span>
                         </a>
 
-                        <a class="nav-link" href="">
+                        <Link class="nav-link" :href="route('companies.index')">
                             <span class="nav-link-icon d-md-none d-lg-inline-block">
                                 <IconBuildingSkyscraper :size="24" stroke-width="1.5"/>
                             </span>
@@ -50,7 +50,7 @@
                             <span class="nav-link-title">
                                 Мои компании
                             </span>
-                        </a>
+                        </Link>
 
                         <a class="nav-link" href="">
                             <span class="nav-link-icon d-md-none d-lg-inline-block">
@@ -75,10 +75,19 @@ import {
     IconMessage,
     IconBuildingSkyscraper,
     IconQrcode,
-} from "@tabler/icons-vue";
-import UserDropdown from "./UserDropdown.vue";
+} from "@tabler/icons-vue"
+import UserDropdown from "./UserDropdown.vue"
+import {Link} from "@inertiajs/inertia-vue3"
 
 export default {
-    components: {UserDropdown, IconHome, IconBlockquote, IconMessage, IconBuildingSkyscraper, IconQrcode}
+    components: {
+        UserDropdown,
+        IconHome,
+        IconBlockquote,
+        IconMessage,
+        IconBuildingSkyscraper,
+        IconQrcode,
+        Link
+    }
 }
 </script>

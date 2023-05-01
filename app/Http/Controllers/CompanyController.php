@@ -18,7 +18,7 @@ class CompanyController extends Controller
 
     public function index()
     {
-        $companies = Company::all();
+        $companies = Company::my()->get();
 
         return inertia('Companies/Index', compact('companies'));
     }

@@ -10,8 +10,8 @@
                     <div class="card-body text-dark">
                         {{company.name}}
 
-                        <div class="d-block d-md-none text-dark">
-                            Редактирование.
+                        <div class="d-block d-md-none text-primary">
+                            Редактировать
                         </div>
 
 
