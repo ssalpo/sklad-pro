@@ -190,10 +190,10 @@ export default {
             logoPreview: this.company?.logo_url,
             form: useForm({
                 name: this.company?.name,
-                email_show: this.company?.email_show === undefined || true,
-                email_required: this.company?.email_required === undefined || false,
-                phone_show: this.company?.phone_show === undefined || true,
-                phone_required: this.company?.phone_required === undefined || false,
+                email_show: this.company?.email_show !== undefined ? this.company?.email_show : true,
+                email_required: this.company?.email_required !== undefined ? this.company?.email_required : false,
+                phone_show: this.company?.phone_show !== undefined ? this.company?.phone_show : true,
+                phone_required: this.company?.phone_required !== undefined ? this.company?.phone_required : false,
                 phone_required_review_gte_than: this.company?.phone_required_review_gte_than || 3,
                 logo: null
             })
