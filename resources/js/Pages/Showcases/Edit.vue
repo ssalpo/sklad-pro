@@ -4,7 +4,7 @@
     >
         <form @submit.prevent="submit">
             <card>
-                <div class="col-6 offset-3">
+                <div class="col col-sm-6 offset-sm-3">
                     <TextInput
                         label="Название витрины"
                         label-required
@@ -15,7 +15,7 @@
                 </div>
 
                 <template #cardFooter>
-                    <div class="col-6 offset-3">
+                    <div class="col col-sm-6 offset-sm-3">
                         <button type="submit" class="btn btn-primary me-2">Добавить</button>
                         <Link :href="route('showcases.index')" class="btn">Отменить</Link>
                     </div>
