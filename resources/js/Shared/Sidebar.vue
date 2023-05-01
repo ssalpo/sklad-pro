@@ -28,7 +28,7 @@
                                 <IconChartHistogram :size="24" stroke-width="1.5"/>
                               </span>
 
-                              <span class="nav-link-title">
+                            <span class="nav-link-title">
                                 Аналитика
                               </span>
                         </a>
@@ -87,7 +87,7 @@
                                 <IconBuildingStore :size="24" stroke-width="1.5"/>
                               </span>
 
-                              <span class="nav-link-title">
+                            <span class="nav-link-title">
                                 Склад
                               </span>
                         </a>
@@ -108,19 +108,19 @@
                             </div>
                         </div>
                     </li>
-                    <li class="nav-item">
+                    <li class="nav-item" :class="{active: directoriesIsActive}">
                         <a class="nav-link dropdown-toggle" href="#navbar-layout" data-bs-toggle="dropdown"
                            data-bs-auto-close="false" role="button" aria-expanded="true">
                               <span class="nav-link-icon d-md-none d-lg-inline-block">
                                 <IconList :size="24" stroke-width="1.5"/>
                               </span>
 
-                              <span class="nav-link-title">
+                            <span class="nav-link-title">
                                 Справочники
                               </span>
                         </a>
 
-                        <div class="dropdown-menu">
+                        <div class="dropdown-menu" :class="{show: directoriesIsActive}">
                             <div class="dropdown-menu-columns">
                                 <div class="dropdown-menu-column">
                                     <a class="dropdown-item" href="#">
@@ -129,7 +129,9 @@
                                     <a class="dropdown-item" href="#">
                                         Номенклатура
                                     </a>
-                                    <Link class="dropdown-item" :href="route('showcases.index')">
+                                    <Link class="dropdown-item"
+                                          :class="{active: $page.component.startsWith('Showcases')}"
+                                          :href="route('showcases.index')">
                                         Витрины
                                     </Link>
                                     <a class="dropdown-item" href="#">
@@ -167,6 +169,11 @@ export default {
         IconCalculator,
         IconBuildingStore,
         IconBusinessplan,
+    },
+    computed: {
+        directoriesIsActive() {
+            return this.$page.component.startsWith('Showcases');
+        }
     }
 }
 </script>
