@@ -18,14 +18,20 @@ class UsersTableSeeder extends Seeder
     {
         $users = [
             [
-                'name' => 'Admin',
-                'username' => 'admin',
-                'is_active' => true,
-                'password' => 'admin'
-            ],
-            [
                 'name' => 'User 1',
                 'username' => 'user1',
+                'is_active' => true,
+                'password' => 'secret'
+            ],
+            [
+                'name' => 'User 2',
+                'username' => 'user2',
+                'is_active' => true,
+                'password' => 'secret'
+            ],
+            [
+                'name' => 'User 3',
+                'username' => 'user3',
                 'is_active' => true,
                 'password' => 'secret'
             ],

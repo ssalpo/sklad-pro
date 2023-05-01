@@ -51,4 +51,9 @@ class User extends Authenticatable
     {
         $this->attributes['password'] = Hash::make($value);
     }
+
+    public function company()
+    {
+        return $this->belongsTo(Company::class);
+    }
 }
