@@ -5,7 +5,7 @@
 
             <h3 v-else class="card-title">{{ cardTitle }}</h3>
         </div>
-        <div class="card-body">
+        <div :class="{'card-body': !withoutBody}">
             <slot/>
         </div>
         <div class="card-footer" v-if="$slots.cardFooter">
@@ -21,7 +21,8 @@ import {Link} from "@inertiajs/inertia-vue3"
 export default {
     components: {IconPlus, Link},
     props: {
-        cardTitle: String
+        cardTitle: String,
+        withoutBody: Boolean
     }
 }
 </script>

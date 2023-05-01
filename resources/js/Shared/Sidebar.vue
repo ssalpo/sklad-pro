@@ -129,9 +129,9 @@
                                     <a class="dropdown-item" href="#">
                                         Номенклатура
                                     </a>
-                                    <a class="dropdown-item" href="#">
-                                        Магазины
-                                    </a>
+                                    <Link class="dropdown-item" :href="route('showcases.index')">
+                                        Витрины
+                                    </Link>
                                     <a class="dropdown-item" href="#">
                                         Пользователи
                                     </a>
@@ -159,6 +159,7 @@ import {Link} from "@inertiajs/inertia-vue3"
 
 export default {
     components: {
+        Link,
         UserDropdown,
         IconList,
         IconChartHistogram,
