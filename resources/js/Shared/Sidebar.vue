@@ -80,7 +80,7 @@
                             </span>
                         </a>
                     </li>
-                    <li class="nav-item">
+                    <li class="nav-item" :class="{active: storehouseIsActive}">
                         <a class="nav-link dropdown-toggle" href="#navbar-layout" data-bs-toggle="dropdown"
                            data-bs-auto-close="false" role="button" aria-expanded="true">
                               <span class="nav-link-icon d-md-none d-lg-inline-block">
@@ -88,16 +88,20 @@
                               </span>
 
                             <span class="nav-link-title">
-                                Склад
-                              </span>
+                              Склад
+                            </span>
                         </a>
 
                         <div class="dropdown-menu">
                             <div class="dropdown-menu-columns">
                                 <div class="dropdown-menu-column">
-                                    <a class="dropdown-item" href="#">
+                                    <Link
+                                        class="dropdown-item"
+                                        :class="{active: $page.component.startsWith('NomenclatureArrivals')}"
+                                        :href="route('nomenclature-arrivals.index')"
+                                    >
                                         Приход
-                                    </a>
+                                    </Link>
                                     <a class="dropdown-item" href="#">
                                         Списание
                                     </a>
@@ -182,6 +186,9 @@ export default {
                 this.$page.component.startsWith('Users') ||
                 this.$page.component.startsWith('Nomenclature') ||
                 this.$page.component.startsWith('Clients');
+        },
+        storehouseIsActive() {
+            return this.$page.component.startsWith('NomenclatureArrivals');
         }
     }
 }
