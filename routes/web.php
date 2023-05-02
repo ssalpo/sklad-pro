@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\ClientController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\NomenclatureController;
 use App\Http\Controllers\ShowcaseController;
@@ -16,6 +17,8 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::resource('users', UserController::class);
 
     Route::resource('nomenclatures', NomenclatureController::class);
+
+    Route::resource('clients', ClientController::class);
 });
 
 // Auth

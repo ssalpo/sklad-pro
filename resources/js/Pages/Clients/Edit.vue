@@ -1,25 +1,34 @@
 <template>
     <PageWrapper
-        :header-title="!showcase?.id ? `Новая витрина` : `Редактирование ${showcase.name}`"
+        :header-title="!client?.id ? `Новый клиент` : `Редактирование ${client.name}`"
     >
         <form @submit.prevent="submit">
             <card>
-                <div class="col col-sm-6 offset-sm-3">
+                <div class="col col-sm-6 offset-sm-3 mb-3">
                     <TextInput
-                        label="Название витрины"
+                        label="Имя"
                         label-required
-                        placeholder="Введите название витрины"
+                        placeholder="Введите имя клиента"
                         v-model="form.name"
                         :invalid-text="form.errors.name"
+                    />
+                </div>
+
+                <div class="col col-sm-6 offset-sm-3 mb-3">
+                    <TextInput
+                        label="Телефон"
+                        placeholder="Введите номер телефона"
+                        v-model="form.phone"
+                        :invalid-text="form.errors.phone"
                     />
                 </div>
 
                 <template #cardFooter>
                     <div class="col col-sm-6 offset-sm-3">
                         <button :disabled="form.processing" type="submit" class="btn btn-primary me-2">
-                            {{showcase?.id ? 'Изменить' : 'Добавить'}}
+                            {{client?.id ? 'Изменить' : 'Добавить'}}
                         </button>
-                        <Link :disabled="form.processing" :href="route('showcases.index')" class="btn">Отменить</Link>
+                        <Link :disabled="form.processing" :href="route('clients.index')" class="btn">Отменить</Link>
                     </div>
                 </template>
             </card>
@@ -35,22 +44,23 @@ import {useForm, Link} from "@inertiajs/inertia-vue3";
 
 export default {
     components: {TextInput, Card, PageWrapper, Link},
-    props: ['showcase'],
+    props: ['client'],
     data() {
         return {
             form: useForm({
-                name: this.showcase?.name
+                name: this.client?.name,
+                phone: this.client?.phone,
             })
         }
     },
     methods: {
         submit() {
-            if (!this.showcase?.id) {
-                this.form.post(route('showcases.store'));
+            if (!this.client?.id) {
+                this.form.post(route('clients.store'));
                 return;
             }
 
-            this.form.put(route('showcases.update', this.showcase.id))
+            this.form.put(route('clients.update', this.client.id))
         }
     }
 }

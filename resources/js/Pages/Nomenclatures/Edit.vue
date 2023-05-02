@@ -69,6 +69,7 @@ export default {
         submit() {
             if (!this.nomenclature?.id) {
                 this.form.post(route('nomenclatures.store'));
+                return;
             }
 
             this.form.put(route('nomenclatures.update', this.nomenclature.id))

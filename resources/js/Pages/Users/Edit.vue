@@ -69,6 +69,7 @@ export default {
         submit() {
             if (!this.user?.id) {
                 this.form.post(route('users.store'));
+                return;
             }
 
             this.form.put(route('users.update', this.user.id))
