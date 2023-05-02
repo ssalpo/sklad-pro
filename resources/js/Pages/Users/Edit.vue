@@ -36,7 +36,9 @@
 
                 <template #cardFooter>
                     <div class="col col-sm-6 offset-sm-3">
-                        <button :disabled="form.processing" type="submit" class="btn btn-primary me-2">Добавить</button>
+                        <button :disabled="form.processing" type="submit" class="btn btn-primary me-2">
+                            {{user?.id ? 'Изменить' : 'Добавить'}}
+                        </button>
                         <Link :disabled="form.processing" :href="route('users.index')" class="btn">Отменить</Link>
                     </div>
                 </template>

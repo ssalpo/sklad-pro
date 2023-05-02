@@ -126,9 +126,11 @@
                                     <a class="dropdown-item" href="#">
                                         Клиенты
                                     </a>
-                                    <a class="dropdown-item" href="#">
+                                    <Link class="dropdown-item"
+                                          :class="{active: $page.component.startsWith('Nomenclatures')}"
+                                          :href="route('nomenclatures.index')">
                                         Номенклатура
-                                    </a>
+                                    </Link>
                                     <Link class="dropdown-item"
                                           :class="{active: $page.component.startsWith('Showcases')}"
                                           :href="route('showcases.index')">
@@ -175,7 +177,8 @@ export default {
     computed: {
         directoriesIsActive() {
             return this.$page.component.startsWith('Showcases') ||
-                this.$page.component.startsWith('Users');
+                this.$page.component.startsWith('Users') ||
+                this.$page.component.startsWith('Nomenclature');
         }
     }
 }
