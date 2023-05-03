@@ -51,15 +51,15 @@
                     />
                 </div>
 
-<!--                <div class="col col-sm-6 offset-sm-3 mb-3">
-                    <TextInput
+                <div class="col col-sm-6 offset-sm-3 mb-3">
+                    <AirDatePicker
                         label="Дата прихода"
                         placeholder="Выберите дату прихода"
-                        type="date"
-                        v-model="form.arrival_at"
                         :invalid-text="form.errors.arrival_at"
+                        timepicker
+                        v-model="form.arrival_at"
                     />
-                </div>-->
+                </div>
 
                 <template #cardFooter>
                     <div class="col col-sm-6 offset-sm-3">
@@ -81,9 +81,10 @@ import TextInput from "../../Shared/Form/TextInput.vue";
 import {useForm, Link} from "@inertiajs/inertia-vue3";
 import TomSelectNomenclatures from "../../Shared/Form/TomSelectNomenclatures.vue";
 import NumericField from "../../Shared/Form/NumericField.vue";
+import AirDatePicker from "../../Shared/Form/AirDatePicker.vue";
 
 export default {
-    components: {NumericField, TomSelectNomenclatures, TextInput, Card, PageWrapper, Link},
+    components: {AirDatePicker, NumericField, TomSelectNomenclatures, TextInput, Card, PageWrapper, Link},
     props: ['nomenclatureArrival'],
     data() {
         return {

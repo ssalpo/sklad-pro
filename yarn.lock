@@ -401,6 +401,11 @@
   "resolved" "https://registry.npmjs.org/@vue/shared/-/shared-3.2.47.tgz"
   "version" "3.2.47"
 
+"air-datepicker@^3.3.5":
+  "integrity" "sha512-5JQLvhgiOwOX1SGT1Zo1J2GgYijNs9g9yzjvrUWqQekMkuAMRL7m0DNC3zDnm7cNCNAgbE4DF+BBD9w+IbfQow=="
+  "resolved" "https://registry.npmjs.org/air-datepicker/-/air-datepicker-3.3.5.tgz"
+  "version" "3.3.5"
+
 "ansi-styles@^3.2.1":
   "integrity" "sha512-VT0ZI6kZRdTh8YyJw3SMbYm/u+NqfsAxEpWO0Pf9sq8/e94WxxOpPKx9FR1FlyCtOVDNOQ+8ntlqFxiRc+r5qA=="
   "resolved" "https://registry.npmjs.org/ansi-styles/-/ansi-styles-3.2.1.tgz"

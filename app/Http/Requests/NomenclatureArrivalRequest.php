@@ -29,7 +29,7 @@ class NomenclatureArrivalRequest extends FormRequest
             'base_price' => 'required|regex:/^\d+(\.\d{1,3})?$/|gt:0',
             'price_for_sale' => 'required|regex:/^\d+(\.\d{1,3})?$/|gt:0',
             'comment' => 'nullable|string',
-            // 'arrival_at' => 'nullable|date_format:Y-m-d H:i'
+            'arrival_at' => 'nullable|date_format:Y-m-d H:i'
         ];
     }
 
@@ -37,7 +37,7 @@ class NomenclatureArrivalRequest extends FormRequest
     {
         return $this->merge([
             'company_id' => auth()->user()->company_id,
-          //   'arrival_at' => $this->arrival_at ? Carbon::parse($this->arrival_at)->format('Y-m-d H:i') : null
+             'arrival_at' => $this->arrival_at ? Carbon::parse($this->arrival_at)->format('Y-m-d H:i') : null
         ]);
     }
 }
