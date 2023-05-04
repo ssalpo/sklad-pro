@@ -7,6 +7,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\NomenclatureArrivalController;
 use App\Http\Controllers\NomenclatureController;
 use App\Http\Controllers\ShowcaseController;
+use App\Http\Controllers\StorehouseController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -23,6 +24,8 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::resource('clients', ClientController::class);
 
     Route::resource('nomenclature-arrivals', NomenclatureArrivalController::class);
+
+    Route::get('storehouse-balance', [StorehouseController::class, 'index'])->name('storehouse-balance');
 });
 
 // Autocomplete routes

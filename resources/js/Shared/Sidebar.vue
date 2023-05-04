@@ -24,13 +24,13 @@
                     <li class="nav-item">
                         <a class="nav-link dropdown-toggle" href="#navbar-layout" data-bs-toggle="dropdown"
                            data-bs-auto-close="false" role="button" aria-expanded="true">
-                              <span class="nav-link-icon d-md-none d-lg-inline-block">
-                                <IconChartHistogram :size="24" stroke-width="1.5"/>
-                              </span>
+                            <span class="nav-link-icon d-md-none d-lg-inline-block">
+                              <IconChartHistogram :size="24" stroke-width="1.5"/>
+                            </span>
 
                             <span class="nav-link-title">
-                                Аналитика
-                              </span>
+                               Аналитика
+                            </span>
                         </a>
 
                         <div class="dropdown-menu">
@@ -59,7 +59,7 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="">
+                        <Link class="nav-link" :href="route('storehouse-balance')">
                             <span class="nav-link-icon d-md-none d-lg-inline-block">
                                 <IconCalculator :size="24" stroke-width="1.5"/>
                             </span>
@@ -67,7 +67,7 @@
                             <span class="nav-link-title">
                                 Остатки
                             </span>
-                        </a>
+                        </Link>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="">
