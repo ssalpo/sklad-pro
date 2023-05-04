@@ -1,5 +1,4 @@
 <template>
-
     <label class="form-label" :class="{required: labelRequired}" :for="uid" v-if="label">{{ label }}</label>
     <input :id="uid"
            v-bind="$attrs"

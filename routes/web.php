@@ -6,6 +6,7 @@ use App\Http\Controllers\ClientController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\NomenclatureArrivalController;
 use App\Http\Controllers\NomenclatureController;
+use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ShowcaseController;
 use App\Http\Controllers\StorehouseController;
 use App\Http\Controllers\UserController;
@@ -25,12 +26,15 @@ Route::middleware(['auth:sanctum'])->group(function () {
 
     Route::resource('nomenclature-arrivals', NomenclatureArrivalController::class);
 
+    Route::resource('orders', OrderController::class);
+
     Route::get('storehouse-balance', [StorehouseController::class, 'index'])->name('storehouse-balance');
 });
 
 // Autocomplete routes
 Route::group(['prefix' => 'autocomplete', 'as' => 'autocomplete.'], static function () {
     Route::get('nomenclatures', [AutocompleteController::class, 'nomenclatures'])->name('nomenclatures');
+    Route::get('clients', [AutocompleteController::class, 'clients'])->name('clients');
 })->middleware(['auth:sanctum']);
 
 // Auth

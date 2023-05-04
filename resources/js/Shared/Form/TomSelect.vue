@@ -1,7 +1,7 @@
 <template>
     <label class="form-label" :class="{required: labelRequired}" v-if="label">{{ label }}</label>
 
-    <select ref="tomSelect"></select>
+    <select :ref="`tomSelect${uid}`" v-bind="$attrs"></select>
 
     <div class="invalid-feedback-simple" v-if="invalidText && !withoutInvalidText">{{invalidText}}</div>
 </template>
@@ -9,8 +9,10 @@
 <script>
 import TomSelect from "tom-select";
 import "tom-select/dist/css/tom-select.bootstrap5.min.css";
+import Uuid from "../../Mixins/Uuid";
 
 export default {
+    mixins: [Uuid],
     props: {
         label: String,
         labelRequired: Boolean,
@@ -46,7 +48,7 @@ export default {
 
         const options = {
             ...this.config,
-            options: this.options,
+            options: JSON.parse(JSON.stringify(this.options)),
             preload: this.preload,
             loadThrottle: 300,
             allowEmptyOption: true,
@@ -78,7 +80,7 @@ export default {
             options['controlInput'] = null;
         }
 
-        this.instance = new TomSelect(this.$refs.tomSelect, options)
+        this.instance = new TomSelect(this.$refs[`tomSelect${this.uid}`], options)
 
         this.instance.setValue(this.modelValue)
     },
