@@ -96,7 +96,7 @@
                             </span>
                         </a>
 
-                        <div class="dropdown-menu">
+                        <div class="dropdown-menu" :class="{show: storehouseIsActive}">
                             <div class="dropdown-menu-columns">
                                 <div class="dropdown-menu-column">
                                     <Link
@@ -188,7 +188,7 @@ export default {
         directoriesIsActive() {
             return this.$page.component.startsWith('Showcases') ||
                 this.$page.component.startsWith('Users') ||
-                this.$page.component.startsWith('Nomenclature') ||
+                this.$page.component.startsWith('Nomenclatures') ||
                 this.$page.component.startsWith('Clients');
         },
         storehouseIsActive() {

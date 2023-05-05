@@ -4,6 +4,9 @@
             v-model="orderItem.nomenclature_id"
             :disabled-values="selectedNomenclatures"
             without-invalid-text
+            :options="nomenclatures"
+            :prefetch="false"
+            :remote="false"
             :invalidText="formData.errors['orderItems.' + currentIndex + '.nomenclature_id']"
         />
 

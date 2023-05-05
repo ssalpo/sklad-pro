@@ -33,7 +33,9 @@ class OrderController extends Controller
 
     public function create()
     {
-        $nomenclatures = Nomenclature::all()->transform(fn($m) => [
+        $nomenclatures = Nomenclature::whereHas('nomenclatureArrivals')
+            ->get()
+            ->transform(fn($m) => [
             'id' => $m->id,
             'text' => $m->name
         ]);

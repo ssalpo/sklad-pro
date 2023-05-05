@@ -6,6 +6,7 @@ use App\Models\Scopes\CurrentCompanyScope;
 use App\Models\Traits\DatesFormatable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Nomenclature extends Model
@@ -23,13 +24,18 @@ class Nomenclature extends Model
         'created_at_formatted'
     ];
 
-    public function company()
-    {
-        return $this->belongsTo(Company::class);
-    }
-
     protected static function booted(): void
     {
         static::addGlobalScope(new CurrentCompanyScope);
+    }
+
+    public function nomenclatureArrivals(): HasMany
+    {
+        return $this->hasMany(NomenclatureArrival::class);
+    }
+
+    public function company()
+    {
+        return $this->belongsTo(Company::class);
     }
 }
