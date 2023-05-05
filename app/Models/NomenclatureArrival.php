@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Scopes\CurrentCompanyScope;
 use App\Models\Traits\DatesFormatable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -29,6 +30,11 @@ class NomenclatureArrival extends Model
     protected $appends = [
         'created_at_formatted'
     ];
+
+    protected static function booted(): void
+    {
+        static::addGlobalScope(new CurrentCompanyScope);
+    }
 
     public function company(): BelongsTo
     {

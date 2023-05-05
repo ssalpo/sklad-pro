@@ -13,6 +13,6 @@ class CurrentCompanyScope implements Scope
      */
     public function apply(Builder $builder, Model $model): void
     {
-        $builder->where('company_id', auth()->user()->company_id);
+        $builder->where($model->getTable() . '.company_id', auth()->user()->company_id);
     }
 }

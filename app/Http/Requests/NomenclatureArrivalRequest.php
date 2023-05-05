@@ -37,7 +37,7 @@ class NomenclatureArrivalRequest extends FormRequest
     {
         return $this->merge([
             'company_id' => auth()->user()->company_id,
-             'arrival_at' => $this->arrival_at ? Carbon::parse($this->arrival_at)->format('Y-m-d H:i') : null
+            'arrival_at' => ($this->arrival_at ? Carbon::parse($this->arrival_at) : now())->format('Y-m-d H:i')
         ]);
     }
 }
