@@ -47,4 +47,25 @@ class OrderController extends Controller
 
         return to_route('orders.index');
     }
+
+    public function show(Order $order)
+    {
+        $order->load(['client', 'orderItems.nomenclature']);
+
+        return inertia('Orders/Show', [
+            'order' => [
+                'id' => $order->id,
+                'amount' => $order->amount,
+                'profit' => $order->profit,
+                'client' => ['name' => $order->client?->name],
+                'items' => $order->orderItems->transform(fn($m) => [
+                    'price_for_sale' => $m->price_for_sale,
+                    'quantity' => $m->quantity,
+                    'nomenclature' => ['name' => $m->nomenclature->name],
+                    'total_amount' => $m->total_amount,
+                    'total_profit' => $m->total_profit,
+                ])
+            ]
+        ]);
+    }
 }

@@ -13,7 +13,13 @@
                         <h2 class="page-title" v-if="$slots.headerTitle || headerTitle">
                             <slot v-if="!headerTitle" name="headerTitle"/>
 
-                            <span v-else>{{ headerTitle }}</span>
+                            <span v-else>
+                                <Link :href="backUrl" v-if="backUrl" class="text-primary">
+                                    <IconArrowBack :size="14" stroke-width="2" />
+                                </link>
+
+                                {{ headerTitle }}
+                            </span>
                         </h2>
 
                         <div class="page-pretitle" v-if="$slots.headerPreTitle || headerPreTitle">
@@ -44,8 +50,10 @@
 
 <script>
 import {Head, Link} from '@inertiajs/inertia-vue3'
+import {IconArrowBack} from "@tabler/icons-vue"
 export default {
     props: {
+        backUrl: String,
         headerPreTitle: String,
         headerTitle: String,
         metaTitle: String,
@@ -54,7 +62,7 @@ export default {
             default: true
         }
     },
-    components: {Head},
+    components: {Head, Link, IconArrowBack},
     computed: {
         headerTitleIsShow() {
             return this.$slots.headerPreTitle || this.$slots.headerTitle || this.headerTitle || this.headerPreTitle;

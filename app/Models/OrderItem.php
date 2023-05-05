@@ -27,4 +27,14 @@ class OrderItem extends Model
     {
         return $this->belongsTo(Nomenclature::class);
     }
+
+    public function getTotalAmountAttribute()
+    {
+        return $this->price_for_sale * $this->quantity;
+    }
+
+    public function getTotalProfitAttribute()
+    {
+        return ($this->price_for_sale - $this->base_price) * $this->quantity;
+    }
 }

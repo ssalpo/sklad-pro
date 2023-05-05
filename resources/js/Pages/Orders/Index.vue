@@ -13,7 +13,7 @@
 
         <card without-body>
             <div class="table-responsive">
-                <table class="table table-vcenter card-table">
+                <table class="table table-vcenter table-hover card-table">
                     <thead>
                     <tr>
                         <th width="40">Номер заказа</th>
@@ -24,7 +24,11 @@
                     </tr>
                     </thead>
                     <tbody>
-                        <tr v-for="order in orders.data">
+                        <tr
+                            class="cursor-pointer"
+                            v-for="order in orders.data"
+                            @click="$inertia.visit(route('orders.show', order.id))"
+                        >
                             <td>{{order.id}}</td>
                             <td>{{numberFormat(order.amount, 2)}} сом.</td>
                             <td>{{numberFormat(order.profit, 2)}} сом.</td>
@@ -47,12 +51,11 @@
 import PageWrapper from "../../Shared/PageWrapper.vue";
 import {Link} from "@inertiajs/inertia-vue3";
 import Card from "../../Shared/Card.vue";
-import DeleteBtn from "../../Shared/DeleteBtn.vue";
 import {numberFormat} from "../../functions";
 import Pagination from "../../Shared/Pagination.vue";
 
 export default {
-    components: {Pagination, DeleteBtn, Card, PageWrapper, Link},
+    components: {Pagination, Card, PageWrapper, Link},
     props: ['orders'],
     methods: {
         numberFormat

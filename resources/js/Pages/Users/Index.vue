@@ -10,7 +10,7 @@
 
         <card without-body>
             <div class="table-responsive">
-                <table class="table table-vcenter card-table">
+                <table class="table table-vcenter text-nowrap card-table">
                     <thead>
                     <tr>
                         <th width="40">ID</th>
