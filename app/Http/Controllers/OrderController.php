@@ -18,7 +18,17 @@ class OrderController extends Controller
 
     public function index()
     {
-        dd(Order::all());
+        $orders = Order::with('client')->paginate()
+            ->onEachSide(0)
+            ->through(fn($m) => [
+                'id' => $m->id,
+                'amount' => $m->amount,
+                'profit' => $m->profit,
+                'client' => ['name' => $m->client?->name],
+                'created_at_formatted' => $m->created_at_formatted
+            ]);
+
+        return inertia('Orders/Index', compact('orders'));
     }
 
     public function create()

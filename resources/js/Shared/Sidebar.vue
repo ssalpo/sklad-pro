@@ -48,7 +48,11 @@
                     </li>
 
                     <li class="nav-item">
-                        <a class="nav-link" href="">
+                        <Link
+                            class="nav-link"
+                            :href="route('orders.index')"
+                            :class="{active: $page.component.startsWith('Orders')}"
+                        >
                             <span class="nav-link-icon d-md-none d-lg-inline-block">
                                 <IconListDetails :size="24" stroke-width="1.5"/>
                             </span>
@@ -56,7 +60,7 @@
                             <span class="nav-link-title">
                                 Продажи
                             </span>
-                        </a>
+                        </Link>
                     </li>
                     <li class="nav-item">
                         <Link class="nav-link" :href="route('storehouse-balance')">
