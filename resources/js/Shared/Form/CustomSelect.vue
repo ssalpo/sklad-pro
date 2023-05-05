@@ -1,23 +1,54 @@
 <template>
-    <div class="dropdown d-block custom-select-wrapper" :class="{'full-width': this.full}">
-        <button :class="['btn dropdown-toggle custom-select-btn', btnClass]" type="button"
+    <label class="form-label" :class="{required: labelRequired}" :for="uid" v-if="label">{{ label }}</label>
+
+    <div v-bind="$attrs"
+         class="dropdown d-block custom-select-wrapper"
+         :class="{'full-width': full, 'is-invalid': invalidText}"
+    >
+
+        <button :class="['btn dropdown-toggle custom-select-btn', btnClass]"
+                type="button"
                 :id="`dropdownMenuButton${uid}`"
-                data-bs-toggle="dropdown" aria-expanded="false">
-            {{ selected || placeholder || '&nbsp;' }}
+                data-bs-toggle="dropdown"
+                aria-expanded="false"
+        >
+            <span v-if="selected">{{ selected }}</span>
+            <span v-if="!selected && placeholder" class="text-muted">{{ placeholder }}</span>
         </button>
+
+        <!-- Dropdown wrapper -->
         <div class="dropdown-menu" :aria-labelledby="`dropdownMenuButton${uid}`">
+            <!-- Search Input -->
+
             <div class="custom-select-search-input" v-if="searchable">
-                <input type="text" @keyup="onKeyUp" ref="searchInput" class="form-control"
-                       placeholder="Найти">
+                <input type="text"
+                       @keyup="onSearch"
+                       ref="searchInput"
+                       class="form-control"
+                       placeholder="Найти"
+                />
             </div>
 
+            <!-- Not found text -->
+            <a class="dropdown-item disabled"
+               v-if="!listOptions.length"
+               href="javascript:void(0)">
+                Ничего не найдено
+            </a>
+
+            <!-- List Item -->
             <a class="dropdown-item"
                href="javascript:void(0)"
-               :class="{disabled: disabledValues.includes(option[returnValueKey]), active: option[returnValueKey] === value}"
-               @click.prevent="!disabledValues.includes(option[returnValueKey]) ? onChange(option): null"
-               v-for="option in filteredOptions">{{ render !== null ? render(option[labelKey]) : option[labelKey]  }}</a>
+               v-for="option in listOptions"
+               :class="activeStateClasses(option)"
+               @click.prevent="onChange(option)"
+            >
+                {{ option.text }}
+            </a>
         </div>
     </div>
+
+    <div class="invalid-feedback" v-if="invalidText && !withoutInvalidText">{{invalidText}}</div>
 </template>
 
 <script>
@@ -25,94 +56,119 @@ import find from "lodash/find";
 import get from "lodash/get";
 import debounce from "lodash/debounce";
 import Uuid from "../../Mixins/Uuid";
+
 export default {
     mixins: [Uuid],
     props: {
-        searchable: {
-            type: Boolean,
-            default: () => false
-        },
-        render: {
-            type: Function,
-            default: null
-        },
+        label: String,
+        labelRequired: Boolean,
+        invalidText: String,
+        withoutInvalidText: Boolean,
+
+        searchable: Boolean,
+        full: Boolean,
+        prefetch: Boolean,
+        remote: Boolean,
+        remoteUrl: String,
         disabledValues: {
             type: Array,
-            default: () => []
-        },
-        full: {
-            type: Boolean
+            default: []
         },
         btnClass: {
             type: String,
-            default: () => 'btn-default'
+            default: 'btn-default'
         },
         placeholder: {
             type: String,
-            default: () => null
+            default: null
         },
         options: {
             type: Array,
-            default: () => []
+            default: []
         },
-        value: {
+        modelValue: {
             type: [String, Number],
-            default: () => null
-        },
-        labelKey: {
-            type: String,
-            default: () => 'text'
-        },
-        returnValue: {
-            type: String,
-            default: () => 'string'
-        },
-        returnValueKey: {
-            type: String,
-            default: () => 'id'
-        },
-    },
-    data: () => ({
-        searchQuery: '',
-        selected: null
-    }),
-    created() {
-        this.setSelected(this.value);
-    },
-    computed: {
-        filteredOptions() {
-            if (!this.searchable) {
-                return this.options;
-            }
-
-            const regex = new RegExp(this.searchQuery, 'ig');
-
-            return this.searchQuery
-                ? this.options.filter(e => regex.test(e[this.labelKey]))
-                : this.options;
+            default: null
         }
     },
+    data() {
+        return {
+            listOptions: this.options,
+            searchQuery: '',
+            selected: null
+        }
+    },
+    created() {
+        this.prefetchData()
+    },
     methods: {
-        onKeyUp: debounce(function (e) {
-            this.searchQuery = e.target.value;
-        }, 500),
-        findLabel(v) {
-            return get(find(this.options, [this.returnValueKey, v]), this.labelKey)
+        onSearch: debounce(function (e) {
+            this.searchQuery = e.target.value
+
+            this.getData();
+        }, 300),
+        prefetchData() {
+            if(!this.prefetch) return
+
+            this.getData()
+        },
+        getData() {
+            if (this.remote && this.remoteUrl) {
+                axios.get(this.remoteUrl + `?q=${this.searchQuery}`)
+                    .then((r) => {
+                        this.listOptions = r.data
+
+                        if (this.modelValue) {
+                            this.setSelected(this.modelValue)
+                        }
+                    })
+
+                return
+            }
+
+            const regex = new RegExp(this.searchQuery, 'ig')
+
+            this.listOptions = this.options.filter(e => regex.test(e.text))
         },
         onChange(option) {
-            this.selected = option[this.labelKey];
-            this.searchQuery = '';
-            this.$refs.searchInput.value = '';
+            this.clearSearchQuery()
 
-            this.$emit('update:modelValue', option[this.returnValueKey])
+            console.log(this.modelValue !== option.id ? option.id : null)
+
+            this.$emit('update:modelValue', this.modelValue !== option.id ? option.id : null)
+        },
+        clearSearchQuery() {
+            if (!this.searchable) return
+
+            this.$refs.searchInput.value = this.searchQuery = '';
+        },
+        isDisabled(option) {
+            let disabledValues = this.disabledValues.filter(item => item !== this.modelValue)
+
+            return disabledValues.includes(option.id)
+        },
+        isActive(option) {
+            return option.id === this.modelValue
+        },
+        activeStateClasses(option) {
+            return {
+                disabled: this.isDisabled(option),
+                active: this.isActive(option)
+            }
+        },
+        findLabel(v) {
+            return get(find(this.listOptions, ['id', v]), 'text')
         },
         setSelected(v) {
             this.selected = this.findLabel(v)
         }
     },
     watch: {
-        value(v) {
-            this.setSelected(v)
+        modelValue: {
+            immediate: true,
+            handler: function (v) {
+                this.setSelected(v)
+            }
         }
     }
 }
@@ -141,15 +197,21 @@ export default {
 }
 
 .dropdown-menu {
-    overflow-y: scroll;
+    overflow-y: auto;
     max-height: 240px;
     min-width: 210px;
+    padding: 0;
 }
 
 
+.custom-select-search-input input:focus {
+    box-shadow: none;
+}
+
 .custom-select-search-input input {
     border-radius: 0;
-    border-bottom: 1px solid;
+    border-color: #fff;
+    border-bottom: var(--tblr-border-width) solid var(--tblr-border-color);
     width: 100%;
 }
 </style>

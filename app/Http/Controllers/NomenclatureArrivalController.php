@@ -43,7 +43,7 @@ class NomenclatureArrivalController extends Controller
     {
         $this->nomenclatureArrivalService->store($request->validated());
 
-        Toast::success('Новый приход успешно добавлена.');
+        Toast::success('Новый приход успешно добавлен.');
 
         return to_route('nomenclature-arrivals.index');
     }

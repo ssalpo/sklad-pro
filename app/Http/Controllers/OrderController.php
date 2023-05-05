@@ -24,7 +24,7 @@ class OrderController extends Controller
     public function create()
     {
         $nomenclatures = Nomenclature::all()->transform(fn($m) => [
-            'value' => $m->id,
+            'id' => $m->id,
             'text' => $m->name
         ]);
 

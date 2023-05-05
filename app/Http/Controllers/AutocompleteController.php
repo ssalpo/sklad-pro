@@ -10,22 +10,28 @@ class AutocompleteController extends Controller
 {
     public function nomenclatures()
     {
-        return Nomenclature::when(
-            request('q'),
-            static fn($q, $v) => $q->where('name', 'like', '%' . $v . '%')
-        )->get()->transform(fn($m) => [
-            'value' => $m->id,
-            'text' => $m->name
-        ]);
+        return $this->transformCollection(
+            Nomenclature::when(
+                request('q'),
+                static fn($q, $v) => $q->where('name', 'like', '%' . $v . '%')
+            )->get()
+        );
     }
 
     public function clients()
     {
-        return Client::when(
-            request('q'),
-            static fn($q, $v) => $q->where('name', 'like', '%' . $v . '$')
-        )->get()->transform(fn($m) => [
-            'value' => $m->id,
+        return $this->transformCollection(
+            Client::when(
+                request('q'),
+                static fn($q, $v) => $q->where('name', 'like', '%' . $v . '%')
+            )->get()
+        );
+    }
+
+    private function transformCollection($items)
+    {
+        return $items->transform(fn($m) => [
+            'id' => $m->id,
             'text' => $m->name
         ]);
     }

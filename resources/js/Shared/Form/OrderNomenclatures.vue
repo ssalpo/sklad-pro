@@ -1,22 +1,11 @@
 <template>
     <fieldset class="form-fieldset">
-<!--        <TomSelectNomenclatures
-            :preload="false"
-            :options="nomenclatures"
-            :invalid-text="formData.errors['orderItems.' + currentIndex + '.nomenclature_id']"
+        <SelectNomenclatures
             v-model="orderItem.nomenclature_id"
-        />-->
-
-        <TomSelect
-            :preload="false"
-            :options="nomenclatures"
-            :invalid-text="formData.errors['orderItems.' + currentIndex + '.nomenclature_id']"
-            v-model="orderItem.nomenclature_id"
+            :disabled-values="selectedNomenclatures"
+            without-invalid-text
+            :invalidText="formData.errors['orderItems.' + currentIndex + '.nomenclature_id']"
         />
-
-<!--        <select v-model="orderItem.nomenclature_id">
-            <option :value="nomenclature.id" v-for="nomenclature in nomenclatures">{{nomenclature.text}}</option>
-        </select>-->
 
         <div class="row mt-3">
             <div class="col-4">
@@ -55,13 +44,12 @@
 <script>
 import NumericField from "./NumericField.vue";
 import {IconTrash} from "@tabler/icons-vue";
-import TomSelectNomenclatures from "./TomSelectNomenclatures.vue";
-import TomSelect from "./TomSelect.vue";
+import SelectNomenclatures from "./SelectNomenclatures.vue";
 
 export default {
     name: "OrderNomenclatures",
     emits: ['removeItem'],
-    components: {TomSelect, TomSelectNomenclatures, IconTrash, NumericField},
+    components: {SelectNomenclatures, IconTrash, NumericField},
     props: {
         currentIndex: Number,
         formData: {

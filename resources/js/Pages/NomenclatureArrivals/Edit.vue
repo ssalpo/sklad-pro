@@ -5,11 +5,11 @@
         <form @submit.prevent="submit">
             <card>
                 <div class="col col-sm-6 offset-sm-3 mb-3">
-                    <TomSelectNomenclatures
+                    <SelectNomenclatures
                         label="Номенклатура"
                         label-required
-                        :invalid-text="form.errors.nomenclature_id"
                         v-model="form.nomenclature_id"
+                        :invalidText="form.errors.nomenclature_id"
                     />
                 </div>
 
@@ -79,12 +79,20 @@ import PageWrapper from "../../Shared/PageWrapper.vue";
 import Card from "../../Shared/Card.vue";
 import TextInput from "../../Shared/Form/TextInput.vue";
 import {useForm, Link} from "@inertiajs/inertia-vue3";
-import TomSelectNomenclatures from "../../Shared/Form/TomSelectNomenclatures.vue";
 import NumericField from "../../Shared/Form/NumericField.vue";
 import AirDatePicker from "../../Shared/Form/AirDatePicker.vue";
+import SelectNomenclatures from "../../Shared/Form/SelectNomenclatures.vue";
 
 export default {
-    components: {AirDatePicker, NumericField, TomSelectNomenclatures, TextInput, Card, PageWrapper, Link},
+    components: {
+        PageWrapper,
+        SelectNomenclatures,
+        AirDatePicker,
+        NumericField,
+        TextInput,
+        Card,
+        Link
+    },
     props: ['nomenclatureArrival'],
     data() {
         return {

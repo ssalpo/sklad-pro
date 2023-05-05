@@ -5,26 +5,31 @@
         <form @submit.prevent="submit">
             <card>
                 <div class="col col-sm-6 offset-sm-3 mb-3">
-                    <TomSelectClients
-                        label="Клиент"
-                        :invalid-text="form.errors.client_id"
+                    <SelectClients
                         v-model="form.client_id"
+                        :invalid-text="form.errors.client_id"
+                        label="Клиент"
                     />
                 </div>
 
                 <div class="col col-sm-6 offset-sm-3 mb-3">
                     <label class="form-label required">Товары</label>
 
-                    <order-nomenclatures
+                    <OrderNomenclatures
                         :class="{'mb-2': form.orderItems.length > index + 1}"
                         v-for="(orderItem, index) in form.orderItems"
                         :nomenclatures="nomenclatures"
+                        :selected-nomenclatures="selectedNomenclatures"
                         :currentIndex="index"
                         :key="index"
                         :orderItem="orderItem"
                         @removeItem="removeOrderItem"
                         :form-data="form"
                     />
+
+                    <div class="invalid-feedback-simple" v-if="form.errors.orderItems">
+                        {{form.errors.orderItems}}
+                    </div>
 
                 </div>
 
@@ -61,23 +66,21 @@ import PageWrapper from "../../Shared/PageWrapper.vue"
 import Card from "../../Shared/Card.vue"
 import TextInput from "../../Shared/Form/TextInput.vue"
 import {useForm, Link} from "@inertiajs/inertia-vue3"
-import TomSelectNomenclatures from "../../Shared/Form/TomSelectNomenclatures.vue"
 import NumericField from "../../Shared/Form/NumericField.vue"
-import TomSelectClients from "../../Shared/Form/TomSelectClients.vue"
 import {IconPlus} from "@tabler/icons-vue"
-import OrderNomenclatures from "../../Shared/Form/OrderNomenclatures.vue";
 import keyBy from "lodash/keyBy";
 import compact from "lodash/compact";
 import map from "lodash/map";
 import {numberFormat} from "../../functions";
+import SelectClients from "../../Shared/Form/SelectClients.vue";
+import OrderNomenclatures from "../../Shared/Form/OrderNomenclatures.vue";
 
 export default {
     props: ['nomenclatures'],
     components: {
         OrderNomenclatures,
-        TomSelectClients,
+        SelectClients,
         NumericField,
-        TomSelectNomenclatures,
         TextInput,
         Card,
         PageWrapper,
@@ -106,9 +109,6 @@ export default {
         },
         groupedNomenclatures() {
             return keyBy(this.nomenclatures, 'id')
-        },
-        mappedNomenclatures() {
-
         },
         selectedNomenclatures() {
             return compact(map(this.form.orderItems, 'nomenclature_id'))

@@ -21,7 +21,6 @@
         "air-datepicker": "^3.3.5",
         "lodash": "^4.17.21",
         "sass": "^1.58.3",
-        "tom-select": "^2.2.2",
         "uuid": "^9.0.0",
         "vue": "^3.2.36",
         "vue-cookies": "^1.8.3",
