@@ -30,15 +30,26 @@
             </div>
 
             <!-- Not found text -->
-            <a class="dropdown-item disabled"
-               v-if="!listOptions.length"
-               href="javascript:void(0)">
+            <div
+                class="dropdown-item disabled"
+                v-if="!listOptions.length && !loading"
+            >
                 Ничего не найдено
-            </a>
+            </div>
+
+            <!-- Loading indicator -->
+            <div
+                class="dropdown-item disabled"
+                v-if="loading"
+            >
+                Загрузка...
+            </div>
+
 
             <!-- List Item -->
             <a class="dropdown-item"
                href="javascript:void(0)"
+               v-if="!loading"
                v-for="option in listOptions"
                :class="activeStateClasses(option)"
                @click.prevent="onChange(option)"
@@ -48,7 +59,7 @@
         </div>
     </div>
 
-    <div class="invalid-feedback" v-if="invalidText && !withoutInvalidText">{{invalidText}}</div>
+    <div class="invalid-feedback" v-if="invalidText && !withoutInvalidText">{{ invalidText }}</div>
 </template>
 
 <script>
@@ -95,7 +106,8 @@ export default {
         return {
             listOptions: this.options,
             searchQuery: '',
-            selected: null
+            selected: null,
+            loading: false
         }
     },
     created() {
@@ -108,12 +120,14 @@ export default {
             this.getData();
         }, 300),
         prefetchData() {
-            if(!this.prefetch) return
+            if (!this.prefetch) return
 
             this.getData()
         },
         getData() {
             if (this.remote && this.remoteUrl) {
+                this.loading = true;
+
                 axios.get(this.remoteUrl + `?q=${this.searchQuery}`)
                     .then((r) => {
                         this.listOptions = r.data
@@ -122,6 +136,7 @@ export default {
                             this.setSelected(this.modelValue)
                         }
                     })
+                    .finally(() => this.loading = false)
 
                 return
             }
