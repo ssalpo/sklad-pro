@@ -8,6 +8,10 @@
                 <table class="table table-vcenter text-nowrap card-table">
                     <tbody>
                         <tr>
+                            <td width="250" class="text-start text-sm-end fw-bold">Магазин</td>
+                            <td>{{order.showcase.name || '-'}}</td>
+                        </tr>
+                        <tr>
                             <td width="250" class="text-start text-sm-end fw-bold">Клиент</td>
                             <td>{{order.client.name || '-'}}</td>
                         </tr>

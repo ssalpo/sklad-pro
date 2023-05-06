@@ -57,7 +57,7 @@ class OrderService
             }
 
             $amount += $priceForSale * (int)$item['quantity'];
-            $profit += !$nomenclature->price ? 0 : ($priceForSale - $nomenclature->price) * (int)$item['quantity'];
+            $profit += !$nomenclature->base_price ? 0 : ($priceForSale - $nomenclature->base_price) * (int)$item['quantity'];
         }
 
         return compact('amount', 'profit');

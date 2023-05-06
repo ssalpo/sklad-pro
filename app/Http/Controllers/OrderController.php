@@ -18,11 +18,12 @@ class OrderController extends Controller
 
     public function index()
     {
-        $orders = Order::with('client')->paginate()
+        $orders = Order::with(['client', 'showcase'])->paginate()
             ->onEachSide(0)
             ->through(fn($m) => [
                 'id' => $m->id,
                 'amount' => $m->amount,
+                'showcase' => ['name' => $m->showcase?->name],
                 'profit' => $m->profit,
                 'client' => ['name' => $m->client?->name],
                 'created_at_formatted' => $m->created_at_formatted
@@ -52,12 +53,13 @@ class OrderController extends Controller
 
     public function show(Order $order)
     {
-        $order->load(['client', 'orderItems.nomenclature']);
+        $order->load(['client', 'showcase', 'orderItems.nomenclature']);
 
         return inertia('Orders/Show', [
             'order' => [
                 'id' => $order->id,
                 'amount' => $order->amount,
+                'showcase' => ['name' => $order->showcase?->name],
                 'profit' => $order->profit,
                 'client' => ['name' => $order->client?->name],
                 'items' => $order->orderItems->transform(fn($m) => [

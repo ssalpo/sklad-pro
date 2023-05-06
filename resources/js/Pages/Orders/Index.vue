@@ -13,10 +13,11 @@
 
         <card without-body>
             <div class="table-responsive">
-                <table class="table table-vcenter table-hover card-table">
+                <table class="table table-vcenter table-hover text-nowrap card-table">
                     <thead>
                     <tr>
                         <th width="40">Номер заказа</th>
+                        <th width="40">Витрина</th>
                         <th>Сумма</th>
                         <th>Прибыль</th>
                         <th>Клиент</th>
@@ -30,6 +31,7 @@
                             @click="$inertia.visit(route('orders.show', order.id))"
                         >
                             <td>{{order.id}}</td>
+                            <td>{{order.showcase.name || '-'}}</td>
                             <td>{{numberFormat(order.amount, 2)}} сом.</td>
                             <td>{{numberFormat(order.profit, 2)}} сом.</td>
                             <td>{{order.client.name || '-'}}</td>

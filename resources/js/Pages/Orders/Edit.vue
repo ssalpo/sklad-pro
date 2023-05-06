@@ -13,6 +13,14 @@
                 </div>
 
                 <div class="col col-sm-6 offset-sm-3 mb-3">
+                    <SelectShowcases
+                        v-model="form.showcase_id"
+                        :invalid-text="form.errors.showcase_id"
+                        label="Витрина"
+                    />
+                </div>
+
+                <div class="col col-sm-6 offset-sm-3 mb-3">
                     <label class="form-label required">Товары</label>
 
                     <OrderNomenclatures
@@ -74,10 +82,12 @@ import map from "lodash/map";
 import {numberFormat} from "../../functions";
 import SelectClients from "../../Shared/Form/SelectClients.vue";
 import OrderNomenclatures from "../../Shared/Form/OrderNomenclatures.vue";
+import SelectShowcases from "../../Shared/Form/SelectShowcases.vue";
 
 export default {
     props: ['nomenclatures'],
     components: {
+        SelectShowcases,
         OrderNomenclatures,
         SelectClients,
         NumericField,
@@ -90,6 +100,7 @@ export default {
     data() {
         return {
             form: useForm({
+                showcase_id: null,
                 client_id: null,
                 orderItems: [
                     {nomenclature_id: null, quantity: null, price_for_sale: null}

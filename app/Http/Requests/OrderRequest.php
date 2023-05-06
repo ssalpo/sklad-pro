@@ -22,6 +22,7 @@ class OrderRequest extends FormRequest
     public function rules(): array
     {
         return [
+            'showcase_id' => 'nullable|exists:showcases,id',
             'company_id' => 'required',
             'user_id' => 'required|exists:users,id',
             'client_id' => 'nullable|exists:clients,id',

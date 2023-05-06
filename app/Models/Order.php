@@ -15,6 +15,7 @@ class Order extends Model
     use HasFactory, SoftDeletes, DatesFormatable;
 
     protected $fillable = [
+        'showcase_id',
         'company_id',
         'user_id',
         'client_id',
@@ -45,6 +46,11 @@ class Order extends Model
     protected static function booted(): void
     {
         static::addGlobalScope(new CurrentCompanyScope);
+    }
+
+    public function showcase(): BelongsTo
+    {
+        return $this->belongsTo(Showcase::class);
     }
 
     public function user(): BelongsTo

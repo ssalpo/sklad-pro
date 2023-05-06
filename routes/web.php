@@ -35,6 +35,7 @@ Route::middleware(['auth:sanctum'])->group(function () {
 Route::group(['prefix' => 'autocomplete', 'as' => 'autocomplete.'], static function () {
     Route::get('nomenclatures', [AutocompleteController::class, 'nomenclatures'])->name('nomenclatures');
     Route::get('clients', [AutocompleteController::class, 'clients'])->name('clients');
+    Route::get('showcases', [AutocompleteController::class, 'showcases'])->name('showcases');
 })->middleware(['auth:sanctum']);
 
 // Auth
