@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use App\Models\Showcase;
 use Illuminate\Foundation\Http\FormRequest;
 
 class OrderRequest extends FormRequest
@@ -21,8 +22,8 @@ class OrderRequest extends FormRequest
      */
     public function rules(): array
     {
-        return [
-            'showcase_id' => 'nullable|exists:showcases,id',
+        $rules = [
+            'showcase_id' => [],
             'company_id' => 'required',
             'user_id' => 'required|exists:users,id',
             'client_id' => 'nullable|exists:clients,id',
@@ -31,6 +32,11 @@ class OrderRequest extends FormRequest
             'orderItems.*.quantity' => 'required|integer|gt:0',
             'orderItems.*.price_for_sale' => 'required|regex:/^\d+(\.\d{1,3})?$/',
         ];
+
+        $rules['showcase_id'][] = Showcase::count() > 1 ? 'required' : 'nullable';
+        $rules['showcase_id'][] = 'exists:showcases,id';
+
+        return $rules;
     }
 
     protected function prepareForValidation()

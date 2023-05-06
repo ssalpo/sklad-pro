@@ -12,9 +12,10 @@
                     />
                 </div>
 
-                <div class="col col-sm-6 offset-sm-3 mb-3">
+                <div class="col col-sm-6 offset-sm-3 mb-3" v-if="showcasesCount > 1">
                     <SelectShowcases
                         v-model="form.showcase_id"
+                        label-required
                         :invalid-text="form.errors.showcase_id"
                         label="Витрина"
                     />
@@ -85,7 +86,7 @@ import OrderNomenclatures from "../../Shared/Form/OrderNomenclatures.vue";
 import SelectShowcases from "../../Shared/Form/SelectShowcases.vue";
 
 export default {
-    props: ['nomenclatures'],
+    props: ['nomenclatures', 'showcasesCount'],
     components: {
         SelectShowcases,
         OrderNomenclatures,

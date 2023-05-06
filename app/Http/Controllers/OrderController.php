@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\OrderRequest;
 use App\Models\Nomenclature;
 use App\Models\Order;
+use App\Models\Showcase;
 use App\Services\OrderService;
 use Illuminate\Http\Request;
 
@@ -18,6 +19,8 @@ class OrderController extends Controller
 
     public function index()
     {
+        $showcasesCount = Showcase::count();
+
         $orders = Order::with(['client', 'showcase'])->paginate()
             ->onEachSide(0)
             ->through(fn($m) => [
@@ -29,19 +32,23 @@ class OrderController extends Controller
                 'created_at_formatted' => $m->created_at_formatted
             ]);
 
-        return inertia('Orders/Index', compact('orders'));
+        return inertia('Orders/Index', compact('orders', 'showcasesCount'));
     }
 
     public function create()
     {
         $nomenclatures = Nomenclature::whereHas('nomenclatureArrivals')
             ->get()
-            ->transform(fn($m) => [
-            'id' => $m->id,
-            'text' => $m->name
-        ]);
+            ->transform(
+                fn($m) => [
+                    'id' => $m->id,
+                    'text' => $m->name
+                ]
+            );
 
-        return inertia('Orders/Edit', compact('nomenclatures'));
+        $showcasesCount = Showcase::count();
+
+        return inertia('Orders/Edit', compact('nomenclatures', 'showcasesCount'));
     }
 
     public function store(OrderRequest $request)
@@ -55,7 +62,10 @@ class OrderController extends Controller
     {
         $order->load(['client', 'showcase', 'orderItems.nomenclature']);
 
+        $showcasesCount = Showcase::count();
+
         return inertia('Orders/Show', [
+            'showcasesCount' => $showcasesCount,
             'order' => [
                 'id' => $order->id,
                 'amount' => $order->amount,

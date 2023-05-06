@@ -17,7 +17,7 @@
                     <thead>
                     <tr>
                         <th width="40">Номер заказа</th>
-                        <th width="40">Витрина</th>
+                        <th width="40" v-if="showcasesCount > 0">Витрина</th>
                         <th>Сумма</th>
                         <th>Прибыль</th>
                         <th>Клиент</th>
@@ -31,7 +31,7 @@
                             @click="$inertia.visit(route('orders.show', order.id))"
                         >
                             <td>{{order.id}}</td>
-                            <td>{{order.showcase.name || '-'}}</td>
+                            <td v-if="showcasesCount > 0">{{order.showcase.name || '-'}}</td>
                             <td>{{numberFormat(order.amount, 2)}} сом.</td>
                             <td>{{numberFormat(order.profit, 2)}} сом.</td>
                             <td>{{order.client.name || '-'}}</td>
@@ -58,7 +58,7 @@ import Pagination from "../../Shared/Pagination.vue";
 
 export default {
     components: {Pagination, Card, PageWrapper, Link},
-    props: ['orders'],
+    props: ['orders', 'showcasesCount'],
     methods: {
         numberFormat
     }

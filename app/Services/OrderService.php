@@ -4,6 +4,7 @@ namespace App\Services;
 
 use App\Models\Nomenclature;
 use App\Models\Order;
+use App\Models\Showcase;
 use Illuminate\Database\Eloquent\Collection as ModelCollection;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Collection;
@@ -20,6 +21,10 @@ class OrderService
             )->get();
 
             $totals = $this->calculateTotals($data, $nomenclatures);
+
+            if (Showcase::count() <= 1) {
+                $data['showcase_id'] = Showcase::latest()->first()?->id;
+            }
 
             $order = Order::create(array_merge(
                 [

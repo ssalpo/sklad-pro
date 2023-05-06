@@ -7,8 +7,8 @@
             <div class="table-responsive">
                 <table class="table table-vcenter text-nowrap card-table">
                     <tbody>
-                        <tr>
-                            <td width="250" class="text-start text-sm-end fw-bold">Магазин</td>
+                        <tr v-if="showcasesCount">
+                            <td width="250" class="text-start text-sm-end fw-bold">Витрина</td>
                             <td>{{order.showcase.name || '-'}}</td>
                         </tr>
                         <tr>
@@ -74,7 +74,7 @@ import {numberFormat} from "../../functions";
 
 export default {
     components: {Card, PageWrapper, Link},
-    props: ['order'],
+    props: ['order', 'showcasesCount'],
     methods: {
         numberFormat
     }
