@@ -18,6 +18,10 @@ class OrderItem extends Model
         'quantity',
     ];
 
+    protected $casts = [
+        'quantity' => 'double'
+    ];
+
     public function order()
     {
         return $this->belongsTo(Order::class);

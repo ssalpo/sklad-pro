@@ -1,0 +1,87 @@
+<template>
+    <PageWrapper
+        :header-title="headerTitle"
+    >
+
+        <template #headerActions>
+            <Link :href="route('nomenclature-operations.create', {type: queryParams('type')})" class="btn btn-primary">+ {{createBtnTitle}}</Link>
+        </template>
+
+        <card without-body>
+            <div class="table-responsive">
+                <table class="table table-vcenter text-nowrap card-table">
+                    <thead>
+                    <tr>
+                        <th>Номенклатура</th>
+                        <th>Кол-во</th>
+                        <th>Себестоимость</th>
+                        <th>Комментарий</th>
+                        <th>Дата создания</th>
+                        <th width="120"></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr v-for="nomenclatureOperation in nomenclatureOperations.data">
+                        <td>{{ nomenclatureOperation.nomenclature.name }}</td>
+                        <td>{{ numberFormat(nomenclatureOperation.quantity, 2) }}</td>
+                        <td>{{ numberFormat(nomenclatureOperation.base_price, 2) }}</td>
+                        <td>{{ nomenclatureOperation.comment }}</td>
+                        <td class="text-muted">{{ nomenclatureOperation.created_at_formatted }}</td>
+                        <td class="text-end">
+                            <Link :href="route('nomenclature-operations.edit', {id: nomenclatureOperation.id, type: queryParams('type')})"
+                                  class="btn btn-sm btn-outline-primary me-2">Ред.
+                            </Link>
+
+                            <DeleteBtn
+                                :url="route('nomenclature-operations.destroy', {id: nomenclatureOperation.id, type: queryParams('type')})"
+                            />
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <template #cardFooter v-if="nomenclatureOperations.links.length > 3">
+                <Pagination :links="nomenclatureOperations.links"/>
+            </template>
+        </card>
+
+    </PageWrapper>
+</template>
+
+<script>
+import PageWrapper from "../../Shared/PageWrapper.vue";
+import {Link} from "@inertiajs/inertia-vue3";
+import Card from "../../Shared/Card.vue";
+import DeleteBtn from "../../Shared/DeleteBtn.vue";
+import {numberFormat} from "../../functions";
+import Pagination from "../../Shared/Pagination.vue";
+import {queryParams} from "../../functions";
+
+export default {
+    components: {Pagination, DeleteBtn, Card, PageWrapper, Link},
+    props: ['nomenclatureOperations'],
+    methods: {
+        numberFormat,
+        queryParams
+    },
+    computed: {
+        createBtnTitle() {
+            let editTypeLabels = {
+                1: 'Новое списание',
+                2: 'Новый возврат'
+            }
+
+            return editTypeLabels[this.queryParams('type')] || ''
+        },
+        headerTitle() {
+            let editTypeLabels = {
+                1: 'Списание',
+                2: 'Возврат'
+            }
+
+            return editTypeLabels[this.queryParams('type')] || ''
+        }
+    }
+}
+</script>

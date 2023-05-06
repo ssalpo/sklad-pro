@@ -17,7 +17,7 @@ return new class extends Migration
             $table->foreignId('nomenclature_id')->constrained();
             $table->double('base_price')->default(0);
             $table->double('price_for_sale')->default(0);
-            $table->integer('quantity')->default(0);
+            $table->double('quantity')->default(0);
             $table->softDeletes();
             $table->timestamps();
         });

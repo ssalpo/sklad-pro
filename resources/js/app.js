@@ -5,7 +5,6 @@ import DefaultLayout from './Layouts/DefaultLayout.vue'
 import { InertiaProgress } from '@inertiajs/progress'
 import Toast from "vue-toastification"
 import './tabler-init'
-import {queryParams, queryParamsExcept} from "./functions"
 import VueCookies from 'vue-cookies'
 import axios from 'axios'
 
@@ -27,7 +26,7 @@ createInertiaApp({
     },
     setup({ el, App, props, plugin }) {
         createApp({ render: () => h(App, props) })
-            .mixin({ methods: {route, queryParams, queryParamsExcept}})
+            .mixin({ methods: {route}})
             .use(plugin)
             .use(VueCookies, { expires: '1d'})
             .use(Toast, {

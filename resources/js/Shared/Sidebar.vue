@@ -106,12 +106,23 @@
                                     >
                                         Приход
                                     </Link>
-                                    <a class="dropdown-item" href="#">
+
+                                    <Link
+                                        class="dropdown-item"
+                                        :class="{active: $page.component.startsWith('NomenclatureOperation') && queryParams('type') == 1}"
+                                        :href="route('nomenclature-operations.index', {type: 1})"
+                                    >
                                         Списание
-                                    </a>
-                                    <a class="dropdown-item" href="#">
-                                        Инвентаризация
-                                    </a>
+                                    </Link>
+
+                                    <Link
+                                        class="dropdown-item"
+                                        :class="{active: $page.component.startsWith('NomenclatureOperation') && queryParams('type') == 2}"
+                                        :href="route('nomenclature-operations.index', {type: 2})"
+                                    >
+                                        Возврат
+                                    </Link>
+
                                 </div>
                             </div>
                         </div>
@@ -172,8 +183,10 @@ import {
 } from "@tabler/icons-vue"
 import UserDropdown from "./UserDropdown.vue"
 import {Link} from "@inertiajs/inertia-vue3"
+import {queryParams} from "../functions";
 
 export default {
+    methods: {queryParams},
     components: {
         Link,
         UserDropdown,
@@ -192,7 +205,8 @@ export default {
                 this.$page.component.startsWith('Clients');
         },
         storehouseIsActive() {
-            return this.$page.component.startsWith('NomenclatureArrivals');
+            return this.$page.component.startsWith('NomenclatureArrivals') ||
+                this.$page.component.startsWith('NomenclatureOperations');
         }
     }
 }
