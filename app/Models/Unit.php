@@ -12,6 +12,10 @@ class Unit extends Model
 {
     use HasFactory, SoftDeletes, DatesFormatable;
 
+    protected $appends = [
+        'created_at_formatted'
+    ];
+
     protected $fillable = ['company_id', 'name'];
 
     protected static function booted(): void
