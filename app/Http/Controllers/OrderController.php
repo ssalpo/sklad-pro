@@ -60,7 +60,7 @@ class OrderController extends Controller
 
     public function show(Order $order)
     {
-        $order->load(['client', 'showcase', 'orderItems.nomenclature']);
+        $order->load(['client', 'showcase', 'orderItems.nomenclature.unit']);
 
         $showcasesCount = Showcase::count();
 
@@ -75,7 +75,7 @@ class OrderController extends Controller
                 'items' => $order->orderItems->transform(fn($m) => [
                     'price_for_sale' => $m->price_for_sale,
                     'quantity' => $m->quantity,
-                    'nomenclature' => ['name' => $m->nomenclature->name],
+                    'nomenclature' => ['name' => $m->nomenclature->name, 'unit' => $m->nomenclature->unit->name],
                     'total_amount' => $m->total_amount,
                     'total_profit' => $m->total_profit,
                 ])

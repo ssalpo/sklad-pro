@@ -34,6 +34,15 @@
                     />
                 </div>
 
+                <div class="col col-sm-6 offset-sm-3 mb-3">
+                    <SelectUnits
+                        label="Единица измерения"
+                        label-required
+                        v-model="form.unit_id"
+                        :invalidText="form.errors.unit_id"
+                    />
+                </div>
+
                 <template #cardFooter>
                     <div class="col col-sm-6 offset-sm-3">
                         <button :disabled="form.processing" type="submit" class="btn btn-primary me-2">
@@ -52,9 +61,11 @@ import PageWrapper from "../../Shared/PageWrapper.vue";
 import Card from "../../Shared/Card.vue";
 import TextInput from "../../Shared/Form/TextInput.vue";
 import {useForm, Link} from "@inertiajs/inertia-vue3";
+import SelectUnits from "../../Shared/Form/SelectUnits.vue";
+import SelectNomenclatures from "../../Shared/Form/SelectNomenclatures.vue";
 
 export default {
-    components: {TextInput, Card, PageWrapper, Link},
+    components: {SelectNomenclatures, SelectUnits, TextInput, Card, PageWrapper, Link},
     props: ['nomenclature'],
     data() {
         return {
@@ -62,6 +73,7 @@ export default {
                 name: this.nomenclature?.name,
                 base_price: this.nomenclature?.base_price,
                 price_for_sale: this.nomenclature?.price_for_sale,
+                unit_id: this.nomenclature?.unit_id
             })
         }
     },

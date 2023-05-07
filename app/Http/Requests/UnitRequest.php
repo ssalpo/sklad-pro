@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class NomenclatureRequest extends FormRequest
+class UnitRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -22,15 +22,12 @@ class NomenclatureRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'company_id' => 'required',
-            'name' => 'required|min:2|max:255',
-            'base_price' => 'required|regex:/^\d+(\.\d{1,3})?$/|gt:0',
-            'price_for_sale' => 'required|regex:/^\d+(\.\d{1,3})?$/|gt:0',
-            'unit_id' => 'required|exists:units,id'
+            'company_id' => 'required|integer',
+            'name' => 'required|min:3|max:255'
         ];
     }
 
-    protected function prepareForValidation()
+    public function prepareForValidation()
     {
         return $this->merge([
             'company_id' => auth()->user()->company_id

@@ -36,8 +36,10 @@ class StorehouseBalanceService
         return NomenclatureArrival::select(
             'nomenclature_id',
             DB::raw('n.name AS nomenclature_name'),
-            DB::raw('SUM(quantity) AS quantity')
+            DB::raw('SUM(quantity) AS quantity'),
+            DB::raw('u.name as unit_name'),
         )->join('nomenclatures as n', 'n.id', '=', 'nomenclature_arrivals.nomenclature_id')
+            ->leftJoin('units as u', 'u.id', '=', 'n.unit_id')
             ->groupBy('nomenclature_id')
             ->get()
             ->transform(function ($m) use ($orderItems, $nomenclatureOperations) {
@@ -53,7 +55,8 @@ class StorehouseBalanceService
                 return [
                     'id' => $m->nomenclature_id,
                     'nomenclature_name' => $m->nomenclature_name,
-                    'quantity' => ($m->quantity + ($nomenclatureRefund?->quantity ?? 0)) - $subtractQuantity
+                    'quantity' => ($m->quantity + ($nomenclatureRefund?->quantity ?? 0)) - $subtractQuantity,
+                    'unit' => $m->unit_name
                 ];
             });
     }

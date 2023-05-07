@@ -17,13 +17,13 @@ class NomenclatureOperationController extends Controller
 
     public function index()
     {
-        $nomenclatureOperations = NomenclatureOperation::with('nomenclature')
+        $nomenclatureOperations = NomenclatureOperation::with('nomenclature.unit')
             ->whereType(\request('type'))
             ->paginate()
             ->onEachSide(0)
             ->through(fn($m) => [
                 'id' => $m->id,
-                'nomenclature' => ['name' => $m->nomenclature->name],
+                'nomenclature' => ['name' => $m->nomenclature->name, 'unit' => $m->nomenclature->unit->name],
                 'quantity' => $m->quantity,
                 'base_price' => $m->base_price,
                 'created_at_formatted' => $m->created_at_formatted,

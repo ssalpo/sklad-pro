@@ -158,6 +158,11 @@
                                         Витрины
                                     </Link>
                                     <Link class="dropdown-item"
+                                          :class="{active: $page.component.startsWith('Units')}"
+                                          :href="route('units.index')">
+                                        Единица измерения
+                                    </Link>
+                                    <Link class="dropdown-item"
                                           :class="{active: $page.component.startsWith('Users')}"
                                           :href="route('users.index')">
                                         Пользователи
@@ -202,7 +207,8 @@ export default {
             return this.$page.component.startsWith('Showcases') ||
                 this.$page.component.startsWith('Users') ||
                 this.$page.component.startsWith('Nomenclatures') ||
-                this.$page.component.startsWith('Clients');
+                this.$page.component.startsWith('Clients') ||
+                this.$page.component.startsWith('Units');
         },
         storehouseIsActive() {
             return this.$page.component.startsWith('NomenclatureArrivals') ||

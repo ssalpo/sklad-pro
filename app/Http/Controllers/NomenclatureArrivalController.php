@@ -17,12 +17,12 @@ class NomenclatureArrivalController extends Controller
 
     public function index()
     {
-        $nomenclatureArrivals = NomenclatureArrival::with('nomenclature')
+        $nomenclatureArrivals = NomenclatureArrival::with('nomenclature.unit')
             ->paginate()
             ->onEachSide(0)
             ->through(fn($m) => [
                 'id' => $m->id,
-                'nomenclature' => ['name' => $m->nomenclature->name],
+                'nomenclature' => ['name' => $m->nomenclature->name, 'unit' => $m->nomenclature->unit->name],
                 'quantity' => $m->quantity,
                 'base_price' => $m->base_price,
                 'price_for_sale' => $m->price_for_sale,

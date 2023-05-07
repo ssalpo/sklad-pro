@@ -22,6 +22,7 @@ class NomenclatureTableSeeder extends Seeder
                 'name' => 'Nomenclature ' . $i,
                 'base_price' => $basePrice,
                 'price_for_sale' => $priceForSale,
+                'unit_id' => 1,
             ]);
         }
     }

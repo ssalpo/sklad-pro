@@ -18,7 +18,16 @@ class NomenclatureController extends Controller
 
     public function index()
     {
-        $nomenclatures = Nomenclature::paginate()->onEachSide(0);
+        $nomenclatures = Nomenclature::with('unit')->paginate()
+            ->onEachSide(0)
+            ->through(fn($m) => [
+                'id' => $m->id,
+                'name' => $m->name,
+                'base_price' => $m->base_price,
+                'price_for_sale' => $m->price_for_sale,
+                'created_at_formatted' => $m->created_at_formatted,
+                'unit' => ['name' => $m->unit->name]
+            ]);
 
         return inertia('Nomenclatures/Index', compact('nomenclatures'));
     }

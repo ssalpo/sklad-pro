@@ -54,7 +54,7 @@
                     <tr v-for="item in order.items">
                         <td>{{item.nomenclature.name}}</td>
                         <td>{{item.price_for_sale}} сом.</td>
-                        <td>{{ item.quantity}}</td>
+                        <td>{{ item.quantity}} {{item.nomenclature.unit}}</td>
                         <td>{{item.total_amount}} сом.</td>
                         <td>{{item.total_profit}} сом.</td>
                     </tr>

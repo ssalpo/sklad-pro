@@ -10,6 +10,7 @@ use App\Http\Controllers\NomenclatureOperationController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ShowcaseController;
 use App\Http\Controllers\StorehouseController;
+use App\Http\Controllers\UnitController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -31,6 +32,8 @@ Route::middleware(['auth:sanctum'])->group(function () {
 
     Route::resource('nomenclature-operations', NomenclatureOperationController::class);
 
+    Route::resource('units', UnitController::class);
+
     Route::get('storehouse-balance', [StorehouseController::class, 'index'])->name('storehouse-balance');
 });
 
@@ -39,6 +42,7 @@ Route::group(['prefix' => 'autocomplete', 'as' => 'autocomplete.'], static funct
     Route::get('nomenclatures', [AutocompleteController::class, 'nomenclatures'])->name('nomenclatures');
     Route::get('clients', [AutocompleteController::class, 'clients'])->name('clients');
     Route::get('showcases', [AutocompleteController::class, 'showcases'])->name('showcases');
+    Route::get('units', [AutocompleteController::class, 'units'])->name('units');
 })->middleware(['auth:sanctum']);
 
 // Auth

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Client;
 use App\Models\Nomenclature;
 use App\Models\Showcase;
+use App\Models\Unit;
 use Illuminate\Http\Request;
 
 class AutocompleteController extends Controller
@@ -33,6 +34,16 @@ class AutocompleteController extends Controller
     {
         return $this->transformCollection(
             Showcase::when(
+                request('q'),
+                static fn($q, $v) => $q->where('name', 'like', '%' . $v . '%')
+            )->get()
+        );
+    }
+
+    public function units()
+    {
+        return $this->transformCollection(
+            Unit::when(
                 request('q'),
                 static fn($q, $v) => $q->where('name', 'like', '%' . $v . '%')
             )->get()
