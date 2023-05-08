@@ -86,8 +86,8 @@
                             </span>
                         </Link>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="">
+                    <li class="nav-item" :class="{active: this.$page.component.startsWith('Debts')}">
+                        <Link class="nav-link" :href="route('debts.index')">
                             <span class="nav-link-icon d-md-none d-lg-inline-block">
                                 <IconBusinessplan :size="24" stroke-width="1.5"/>
                             </span>
@@ -95,7 +95,7 @@
                             <span class="nav-link-title">
                                 Долги клиентов
                             </span>
-                        </a>
+                        </Link>
                     </li>
                     <li class="nav-item" :class="{active: storehouseIsActive}">
                         <a class="nav-link dropdown-toggle" href="#navbar-layout" data-bs-toggle="dropdown"
@@ -147,7 +147,7 @@
                                 <IconList :size="24" stroke-width="1.5"/>
                               </span>
 
-                            <span class="nav-link-title">
+                              <span class="nav-link-title">
                                 Справочники
                               </span>
                         </a>

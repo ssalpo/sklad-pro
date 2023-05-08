@@ -3,7 +3,7 @@
         :header-title="`Заказ №${order.id}`"
         :back-url="route('orders.index')"
     >
-        <card card-title="Данные заказа" class="mb-3" without-body>
+        <card class="mb-3" without-body>
             <div class="table-responsive">
                 <table class="table table-vcenter text-nowrap card-table">
                     <tbody>

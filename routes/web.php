@@ -4,6 +4,7 @@ use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\AutocompleteController;
 use App\Http\Controllers\ClientController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\DebtController;
 use App\Http\Controllers\NomenclatureArrivalController;
 use App\Http\Controllers\NomenclatureController;
 use App\Http\Controllers\NomenclatureOperationController;
@@ -33,6 +34,8 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::resource('nomenclature-operations', NomenclatureOperationController::class);
 
     Route::resource('units', UnitController::class);
+
+    Route::resource('debts', DebtController::class);
 
     Route::get('storehouse-balance', [StorehouseController::class, 'index'])->name('storehouse-balance');
 });
