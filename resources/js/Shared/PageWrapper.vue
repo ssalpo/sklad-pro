@@ -10,9 +10,9 @@
                 <div class="row g-2 align-items-center">
                     <slot name="headerRewrite" />
 
-                    <div class="col-sm-12 col-md-auto" v-if="$slots.headerRewrite">
+                    <div class="col-sm-12 col-md-auto" v-if="!$slots.headerRewrite">
                         <!-- Page pre-title -->
-                        <h2 class="page-title" v-if="($slots.headerTitle || headerTitle) && !$slots.headerRewrite">
+                        <h2 class="page-title" v-if="$slots.headerTitle || headerTitle">
                             <slot v-if="!headerTitle" name="headerTitle"/>
 
                             <span v-else>
