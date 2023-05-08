@@ -6,36 +6,36 @@
     </slot>
 
     <Teleport to="body">
-            <div class="modal-backdrop" :class="{show: isOpen}" v-if="isOpen" @click.self="close"></div>
+        <div class="modal-backdrop fade" :class="{show: isOpen}" v-if="isOpen" @click="close"></div>
 
-            <div class="modal fade" :class="{show: isOpen, 'd-block': isOpen === true}">
-                <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
-                    <div class="modal-content">
-                        <div class="modal-header" v-if="!headerDisable">
-                            <h4 class="modal-title">
-                                <slot v-if="$slots.header" name="header"/>
+        <div class="modal modal-blur fade" :class="{show: isOpen, 'd-block': isOpen === true}">
+            <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+                <div class="modal-content">
+                    <div class="modal-header" v-if="!headerDisable">
+                        <h4 class="modal-title">
+                            <slot v-if="$slots.header" name="header"/>
 
-                                <span v-if="!$slots.header && headerTitle">
+                            <span v-if="!$slots.header && headerTitle">
                                 {{ headerTitle }}
                             </span>
-                            </h4>
-                            <button type="button" class="btn-close" @click="close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-
-                        <div class="modal-body">
-                            <slot/>
-                        </div>
-
-                        <div class="modal-footer text-right" v-if="$slots.footer">
-                            <slot name="footer" :close="close" />
-                        </div>
+                        </h4>
+                        <button type="button" class="btn-close" @click="close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
                     </div>
-                    <!-- /.modal-content -->
+
+                    <div class="modal-body">
+                        <slot/>
+                    </div>
+
+                    <div class="modal-footer text-right" v-if="$slots.footer">
+                        <slot name="footer" :close="close"/>
+                    </div>
                 </div>
-                <!-- /.modal-dialog -->
+                <!-- /.modal-content -->
             </div>
+            <!-- /.modal-dialog -->
+        </div>
     </Teleport>
 </template>
 
@@ -58,7 +58,8 @@ export default {
         btnText: {
             type: String,
             default: 'Показать'
-        }
+        },
+        visibility: Boolean
     },
     data() {
         return {
@@ -89,6 +90,12 @@ export default {
     },
     watch: {
         isOpen(status) {
+            this.toggleBodyClass(status)
+        },
+        visibility(status) {
+            if (status) this.open()
+            else this.close()
+
             this.toggleBodyClass(status)
         }
     }

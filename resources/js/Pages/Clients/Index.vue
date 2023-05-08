@@ -42,7 +42,7 @@
             </div>
 
             <template #cardFooter v-if="clients.links.length > 3">
-                <Pagination :links="clients.links"/>
+                <Pagination class="float-end" :links="clients.links"/>
             </template>
         </card>
 

@@ -7,6 +7,7 @@ import Toast from "vue-toastification"
 import './tabler-init'
 import VueCookies from 'vue-cookies'
 import axios from 'axios'
+import MobileView from "./Mixins/MobileView";
 
 window.axios = axios
 
@@ -27,6 +28,7 @@ createInertiaApp({
     setup({ el, App, props, plugin }) {
         createApp({ render: () => h(App, props) })
             .mixin({ methods: {route}})
+            .mixin(MobileView)
             .use(plugin)
             .use(VueCookies, { expires: '1d'})
             .use(Toast, {

@@ -48,7 +48,7 @@
             </div>
 
             <template #cardFooter v-if="nomenclatureArrivals.links.length > 3">
-                <Pagination :links="nomenclatureArrivals.links"/>
+                <Pagination class="float-end" :links="nomenclatureArrivals.links"/>
             </template>
         </card>
 
