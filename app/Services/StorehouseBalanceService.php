@@ -18,7 +18,7 @@ class StorehouseBalanceService
         )->join(
             'orders',
             fn($q) => $q->on('orders.id', '=', 'order_items.order_id')
-                ->where('orders.status', Order::STATUS_SEND)
+                ->where('orders.status', Order::STATUS_SOLD)
                 ->where('orders.company_id', auth()->user()->company_id)
         )
             ->groupBy('nomenclature_id')

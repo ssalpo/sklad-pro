@@ -21,7 +21,20 @@
 
             <div class="navbar-collapse collapse" id="sidebar-menu" style="">
                 <ul class="navbar-nav pt-lg-3">
+
                     <li class="nav-item">
+                        <Link class="nav-link" :href="route('dashboard.index')">
+                            <span class="nav-link-icon d-md-none d-lg-inline-block">
+                              <IconChartHistogram :size="24" stroke-width="1.5"/>
+                            </span>
+
+                            <span class="nav-link-title">
+                                Аналитика
+                            </span>
+                        </Link>
+                    </li>
+
+<!--                    <li class="nav-item">
                         <a class="nav-link dropdown-toggle" href="#navbar-layout" data-bs-toggle="dropdown"
                            data-bs-auto-close="false" role="button" aria-expanded="true">
                             <span class="nav-link-icon d-md-none d-lg-inline-block">
@@ -45,7 +58,7 @@
                                 </div>
                             </div>
                         </div>
-                    </li>
+                    </li>-->
 
                     <li class="nav-item">
                         <Link

@@ -8,9 +8,11 @@
         <div class="page-header d-print-none" v-if="headerTitleIsShow">
             <div class="container-xl">
                 <div class="row g-2 align-items-center">
-                    <div class="col-sm-12 col-md-auto">
+                    <slot name="headerRewrite" />
+
+                    <div class="col-sm-12 col-md-auto" v-if="$slots.headerRewrite">
                         <!-- Page pre-title -->
-                        <h2 class="page-title" v-if="$slots.headerTitle || headerTitle">
+                        <h2 class="page-title" v-if="($slots.headerTitle || headerTitle) && !$slots.headerRewrite">
                             <slot v-if="!headerTitle" name="headerTitle"/>
 
                             <span v-else>
@@ -30,7 +32,7 @@
                     </div>
 
                     <!-- Page title actions -->
-                    <div class="col-12 col-md-auto ms-auto d-print-none" v-if="$slots.headerActions">
+                    <div class="col-12 col-md-auto ms-auto d-print-none" v-if="$slots.headerActions && !$slots.headerRewrite">
                         <div class="btn-list">
                             <slot name="headerActions"/>
                         </div>

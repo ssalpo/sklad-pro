@@ -28,7 +28,7 @@ class OrderService
 
             $order = Order::create(array_merge(
                 [
-                    'status' => Order::STATUS_NEW,
+                    'status' => Order::STATUS_SOLD,
                     'profit' => $totals['profit'],
                     'amount' => $totals['amount'],
                 ],
@@ -39,6 +39,7 @@ class OrderService
                 $nomenclature = $nomenclatures->where('id', $item['nomenclature_id'])->first();
                 $item['price'] = $nomenclature->price;
                 $item['unit'] = $nomenclature->unit;
+                $item['base_price'] = $nomenclature->base_price;
 
                 $order->orderItems()->create($item);
             }

@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Arr;
 
 class Order extends Model
 {
@@ -22,30 +23,41 @@ class Order extends Model
         'amount',
         'profit',
         'status',
-        'send_at',
-    ];
-
-    protected $casts = [
-        'send_at' => 'datetime'
     ];
 
     protected $appends = [
         'created_at_formatted'
     ];
 
-    public const STATUS_NEW = 1;
-    public const STATUS_SEND = 2;
+    public const STATUS_SOLD = 2;
     public const STATUS_CANCELED = 3;
 
     public const STATUS_LABELS = [
-        self::STATUS_NEW => 'Новый',
-        self::STATUS_SEND => 'Отправлен',
+        self::STATUS_SOLD => 'Продано',
         self::STATUS_CANCELED => 'Отменен',
     ];
 
     protected static function booted(): void
     {
         static::addGlobalScope(new CurrentCompanyScope);
+    }
+
+    public function scopeFilter($q, $data): void
+    {
+        $q->when(
+            Arr::get($data, 'client'),
+            fn($q, $v) => $q->where('client_id', $v)
+        );
+
+        $q->when(
+            Arr::get($data, 'user'),
+            fn($q, $v) => $q->where('user_id', $v)
+        );
+
+        $q->when(
+            Arr::get($data, 'id'),
+            fn($q, $v) => $q->where('id', $v)
+        );
     }
 
     public function showcase(): BelongsTo

@@ -19,8 +19,7 @@ return new class extends Migration
             $table->foreignId('client_id')->nullable()->constrained();
             $table->double('amount')->default(0);
             $table->double('profit')->default(0);
-            $table->tinyInteger('status')->default(\App\Models\Order::STATUS_NEW);
-            $table->timestamp('send_at')->nullable();
+            $table->tinyInteger('status')->default(\App\Models\Order::STATUS_SOLD);
             $table->softDeletes();
             $table->timestamps();
         });
