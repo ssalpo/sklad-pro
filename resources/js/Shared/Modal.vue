@@ -19,9 +19,7 @@
                                 {{ headerTitle }}
                             </span>
                         </h4>
-                        <button type="button" class="btn-close" @click="close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
+                        <button type="button" class="btn-close" @click="close"></button>
                     </div>
 
                     <div class="modal-body">
