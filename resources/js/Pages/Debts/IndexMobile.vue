@@ -37,9 +37,10 @@
                         </div>
 
                         <div>
-                            <Link :href="route('debts.edit', debt.id)" class="btn btn-sm btn-outline-primary me-2">
-                                Ред.
-                            </Link>
+                            <EditLinkBtn
+                                :url="route('debts.edit', debt.id)"
+                                class="me-2"
+                            />
 
                             <DeleteBtn
                                 :url="route('debts.destroy', debt.id)"
@@ -104,12 +105,13 @@ import Pagination from "../../Shared/Pagination.vue";
 import DeleteBtn from "../../Shared/DeleteBtn.vue";
 import Modal from "../../Shared/Modal.vue";
 import {numberFormat} from "../../functions";
+import EditLinkBtn from "../../Shared/EditLinkBtn.vue";
 
 export default {
     name: "IndexMobile",
     emits: ['debtSelect'],
     props: ['debts'],
-    components: {Modal, DeleteBtn, Pagination, Link, Card},
+    components: {EditLinkBtn, Modal, DeleteBtn, Pagination, Link, Card},
     data() {
         return {
             showMoreContent: false,

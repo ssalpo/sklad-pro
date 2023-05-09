@@ -30,7 +30,10 @@
                             {{ client.created_at_formatted }}
                         </td>
                         <td class="text-end">
-                            <Link :href="route('clients.edit', client.id)" class="btn btn-sm btn-outline-primary me-2">Ред.</Link>
+                            <EditLinkBtn
+                                :url="route('clients.edit', client.id)"
+                                class="me-2"
+                            />
 
                             <delete-btn
                                 :url="route('clients.destroy', client.id)"
@@ -55,9 +58,10 @@ import {Link} from "@inertiajs/inertia-vue3";
 import Card from "../../Shared/Card.vue";
 import DeleteBtn from "../../Shared/DeleteBtn.vue";
 import Pagination from "../../Shared/Pagination.vue";
+import EditLinkBtn from "../../Shared/EditLinkBtn.vue";
 
 export default {
-    components: {Pagination, DeleteBtn, Card, PageWrapper, Link},
+    components: {EditLinkBtn, Pagination, DeleteBtn, Card, PageWrapper, Link},
     props: ['clients']
 }
 </script>

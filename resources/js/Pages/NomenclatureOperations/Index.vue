@@ -28,9 +28,10 @@
                         <td>{{ nomenclatureOperation.comment }}</td>
                         <td class="text-muted">{{ nomenclatureOperation.created_at_formatted }}</td>
                         <td class="text-end">
-                            <Link :href="route('nomenclature-operations.edit', {id: nomenclatureOperation.id, type: queryParams('type')})"
-                                  class="btn btn-sm btn-outline-primary me-2">Ред.
-                            </Link>
+                            <EditLinkBtn
+                                :url="route('nomenclature-operations.edit', {id: nomenclatureOperation.id, type: queryParams('type')})"
+                                class="me-2"
+                            />
 
                             <DeleteBtn
                                 :url="route('nomenclature-operations.destroy', {id: nomenclatureOperation.id, type: queryParams('type')})"
@@ -57,9 +58,10 @@ import DeleteBtn from "../../Shared/DeleteBtn.vue";
 import {numberFormat} from "../../functions";
 import Pagination from "../../Shared/Pagination.vue";
 import {queryParams} from "../../functions";
+import EditLinkBtn from "../../Shared/EditLinkBtn.vue";
 
 export default {
-    components: {Pagination, DeleteBtn, Card, PageWrapper, Link},
+    components: {EditLinkBtn, Pagination, DeleteBtn, Card, PageWrapper, Link},
     props: ['nomenclatureOperations'],
     methods: {
         numberFormat,

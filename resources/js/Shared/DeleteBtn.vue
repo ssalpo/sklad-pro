@@ -1,12 +1,18 @@
 <template>
     <button type="button" class="btn" :class="[btnSize, btnStyle]" :disabled="loading" @click="submit">
-        <slot>Уд.</slot>
+        <slot>
+            <IconTrashX v-if="iconOnly" :size="iconSize" stroke-width="2" />
+            <span v-else>Уд.</span>
+        </slot>
     </button>
 </template>
 
 <script>
+import {IconBusinessplan, IconTrashX} from "@tabler/icons-vue";
+
 export default {
-    name: "delete-btn",
+    name: "DeleteBtn",
+    components: {IconBusinessplan, IconTrashX},
     props: {
         url: {
             type: String,
@@ -31,6 +37,14 @@ export default {
         confirmText: {
             type: String,
             default: 'Вы уверены что хотите удалить?'
+        },
+        iconOnly: {
+            type: Boolean,
+            default: true
+        },
+        iconSize: {
+            type: Number,
+            default: 18
         }
     },
     data: () => ({
@@ -38,6 +52,8 @@ export default {
     }),
     methods: {
         submit() {
+            let vm = this;
+
             if (this.showConfirm && !confirm(this.confirmText)) {
                 return;
             }
@@ -48,7 +64,9 @@ export default {
                 data: this.data,
                 preserveScroll: true,
                 preserveState: true,
-                onFinish: () => this.loading = false
+                onSuccess() {
+                    vm.loading = false
+                }
             })
         }
     }

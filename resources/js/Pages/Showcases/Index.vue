@@ -28,7 +28,10 @@
                             {{ showcase.created_at_formatted }}
                         </td>
                         <td class="text-end">
-                            <Link :href="route('showcases.edit', showcase.id)" class="btn btn-sm btn-outline-primary me-2">Ред.</Link>
+                            <EditLinkBtn
+                                :url="route('showcases.edit', showcase.id)"
+                                class="me-2"
+                            />
 
                             <delete-btn
                                 :url="route('showcases.destroy', showcase.id)"
@@ -48,9 +51,10 @@ import PageWrapper from "../../Shared/PageWrapper.vue";
 import {Link} from "@inertiajs/inertia-vue3";
 import Card from "../../Shared/Card.vue";
 import DeleteBtn from "../../Shared/DeleteBtn.vue";
+import EditLinkBtn from "../../Shared/EditLinkBtn.vue";
 
 export default {
-    components: {DeleteBtn, Card, PageWrapper, Link},
+    components: {EditLinkBtn, DeleteBtn, Card, PageWrapper, Link},
     props: ['showcases']
 }
 </script>

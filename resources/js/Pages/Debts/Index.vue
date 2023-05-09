@@ -7,7 +7,7 @@
         </template>
 
         <div class="mb-3 row row-cards">
-            <div class="col-sm-6 col-lg-3">
+            <div class="col-sm-4">
                 <MetricCard
                     :card-title="`${totalDebts} сом.`"
                     card-description="Общая сумма долга"
@@ -17,7 +17,7 @@
                     </template>
                 </MetricCard>
             </div>
-            <div class="col-sm-6 col-lg-3">
+            <div class="col-sm-4">
                 <MetricCard
                     icon-bg="bg-success"
                     :card-title="`${totalPayments} сом.`"
@@ -28,7 +28,7 @@
                     </template>
                 </MetricCard>
             </div>
-            <div class="col-sm-6 col-lg-3">
+            <div class="col-sm-4">
                 <MetricCard
                     icon-bg="bg-yellow"
                     :card-title="`${totalDebts - totalPayments} сом.`"

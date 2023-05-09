@@ -36,7 +36,10 @@
                         <td class="text-muted">{{ nomenclatureArrival.created_at_formatted }}</td>
                         <td class="text-muted">{{ nomenclatureArrival.comment }}</td>
                         <td class="text-end">
-                            <Link :href="route('nomenclature-arrivals.edit', nomenclatureArrival.id)" class="btn btn-sm btn-outline-primary me-2">Ред.</Link>
+                            <EditLinkBtn
+                                :url="route('nomenclature-arrivals.edit', nomenclatureArrival.id)"
+                                class="me-2"
+                            />
 
                             <DeleteBtn
                                 :url="route('nomenclature-arrivals.destroy', nomenclatureArrival.id)"
@@ -62,9 +65,10 @@ import Card from "../../Shared/Card.vue";
 import DeleteBtn from "../../Shared/DeleteBtn.vue";
 import {numberFormat} from "../../functions";
 import Pagination from "../../Shared/Pagination.vue";
+import EditLinkBtn from "../../Shared/EditLinkBtn.vue";
 
 export default {
-    components: {Pagination, DeleteBtn, Card, PageWrapper, Link},
+    components: {EditLinkBtn, Pagination, DeleteBtn, Card, PageWrapper, Link},
     props: ['nomenclatureArrivals'],
     methods: {
         numberFormat

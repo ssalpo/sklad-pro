@@ -29,9 +29,10 @@
                         <button class="btn btn-outline-success btn-sm" v-if="!debt.is_paid" @click="$emit('debtSelect', debt)">Погасить долг</button>
                     </td>
                     <td class="text-end">
-                        <Link :href="route('debts.edit', debt.id)" class="btn btn-sm btn-outline-primary me-2">
-                            Ред.
-                        </Link>
+                        <EditLinkBtn
+                            :url="route('debts.edit', debt.id)"
+                            class="me-2"
+                        />
 
                         <DeleteBtn
                             :url="route('debts.destroy', debt.id)"
@@ -54,13 +55,14 @@ import {Link} from "@inertiajs/inertia-vue3";
 import Pagination from "../../Shared/Pagination.vue";
 import DeleteBtn from "../../Shared/DeleteBtn.vue";
 import {numberFormat} from "../../functions";
+import EditLinkBtn from "../../Shared/EditLinkBtn.vue";
 
 export default {
     emits: ['debtSelect'],
     name: "IndexTable",
     props: ['debts'],
     methods: {numberFormat},
-    components: {DeleteBtn, Pagination, Link, Card}
+    components: {EditLinkBtn, DeleteBtn, Pagination, Link, Card}
 }
 </script>
 
