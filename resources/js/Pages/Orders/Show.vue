@@ -31,7 +31,7 @@
                             <td width="250" class="text-start text-sm-end fw-bold">
                                 Статус
                             </td>
-                            <td>-</td>
+                            <td :class="{'text-danger': order.status === 2, 'text-success': order.status === 1}">{{shared.order.statuses[order.status]}}</td>
                         </tr>
                     </tbody>
                 </table>
@@ -74,7 +74,7 @@ import {numberFormat} from "../../functions";
 
 export default {
     components: {Card, PageWrapper, Link},
-    props: ['order', 'showcasesCount'],
+    props: ['order', 'showcasesCount', 'shared'],
     methods: {
         numberFormat
     }

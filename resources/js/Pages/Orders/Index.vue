@@ -21,6 +21,7 @@
                         <th>Сумма</th>
                         <th>Прибыль</th>
                         <th>Клиент</th>
+                        <th>Статус</th>
                         <th>Дата создания</th>
                     </tr>
                     </thead>
@@ -35,6 +36,7 @@
                             <td>{{numberFormat(order.amount, 2)}} сом.</td>
                             <td>{{numberFormat(order.profit, 2)}} сом.</td>
                             <td>{{order.client.name || '-'}}</td>
+                            <td :class="{'text-danger': order.status === 2, 'text-success': order.status === 1}">{{shared.order.statuses[order.status]}}</td>
                             <td width="160">{{order.created_at_formatted}}</td>
                         </tr>
                     </tbody>
@@ -58,7 +60,7 @@ import Pagination from "../../Shared/Pagination.vue";
 
 export default {
     components: {Pagination, Card, PageWrapper, Link},
-    props: ['orders', 'showcasesCount'],
+    props: ['orders', 'showcasesCount', 'shared'],
     methods: {
         numberFormat
     }

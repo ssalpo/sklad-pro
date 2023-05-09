@@ -29,8 +29,8 @@ class Order extends Model
         'created_at_formatted'
     ];
 
-    public const STATUS_SOLD = 2;
-    public const STATUS_CANCELED = 3;
+    public const STATUS_SOLD = 1;
+    public const STATUS_CANCELED = 2;
 
     public const STATUS_LABELS = [
         self::STATUS_SOLD => 'Продано',

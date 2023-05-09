@@ -28,6 +28,7 @@ class OrderController extends Controller
                 'amount' => $m->amount,
                 'showcase' => ['name' => $m->showcase?->name],
                 'profit' => $m->profit,
+                'status' => $m->status,
                 'client' => ['name' => $m->client?->name],
                 'created_at_formatted' => $m->created_at_formatted
             ]);
@@ -71,6 +72,7 @@ class OrderController extends Controller
                 'amount' => $order->amount,
                 'showcase' => ['name' => $order->showcase?->name],
                 'profit' => $order->profit,
+                'status' => $order->status,
                 'client' => ['name' => $order->client?->name],
                 'items' => $order->orderItems->transform(fn($m) => [
                     'price_for_sale' => $m->price_for_sale,
