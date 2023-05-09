@@ -7,6 +7,12 @@
                         <div class="text-truncate fw-bolder">
                             Долг №{{debt.id}}
                         </div>
+                        <div class="fw-bold my-1" v-if="debt.client?.name">
+                            Клиент: {{debt.client?.name}}
+                        </div>
+                        <div class="fw-bold my-1" v-if="debt.order?.id">
+                            Заказ: №{{debt.order?.id}}
+                        </div>
                         <div class="fw-bold my-1">
                             Сумма: <span class="text-danger">{{numberFormat(debt.amount)}} сом.</span>
                         </div>
@@ -41,6 +47,12 @@
         @close="showMoreContent = false"
     >
         <dl class="row">
+            <dt class="col-12" v-if="selectedDebt?.client?.name">Клиент:</dt>
+            <dd class="col-12 mt-1" v-if="selectedDebt?.client?.name">{{selectedDebt?.client?.name}}</dd>
+
+            <dt class="col-12" v-if="selectedDebt?.order?.id">Заказ:</dt>
+            <dd class="col-12 mt-1" v-if="selectedDebt?.order?.id">№{{selectedDebt?.order?.id}}</dd>
+
             <dt class="col-12">Сумма долга:</dt>
             <dd class="col-12 text-danger mt-1">{{numberFormat(selectedDebt?.amount || 0, 2)}} сом.</dd>
 
