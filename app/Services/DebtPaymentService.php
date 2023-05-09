@@ -43,4 +43,9 @@ class DebtPaymentService
 
         return $payment;
     }
+
+    public function getTotalPayments()
+    {
+        return DebtPayment::whereHas('debt')->sum('amount');
+    }
 }

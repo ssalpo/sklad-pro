@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\DebtRequest;
 use App\Models\Debt;
+use App\Services\DebtPaymentService;
 use App\Services\DebtService;
 use App\Services\Toast;
 use Illuminate\Http\Request;
@@ -11,20 +12,24 @@ use Illuminate\Http\Request;
 class DebtController extends Controller
 {
     public function __construct(
-        public DebtService $debtService
+        public DebtService $debtService,
+        public DebtPaymentService $debtPaymentService
     )
     {
     }
 
     public function index()
     {
+        $totalDebts = $this->debtService->getTotalDebts();
+        $totalPayments = $this->debtPaymentService->getTotalPayments();
+
         $debts = Debt::with('client', 'order')
             ->withSum('payments', 'amount')
             ->orderBy('created_at', 'DESC')
             ->paginate()
             ->onEachSide(0);
 
-        return inertia('Debts/Index', compact('debts'));
+        return inertia('Debts/Index', compact('totalDebts', 'totalPayments', 'debts'));
     }
 
     public function create()

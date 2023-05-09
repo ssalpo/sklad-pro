@@ -47,4 +47,9 @@ class DebtService
 
         return $debt;
     }
+
+    public function getTotalDebts()
+    {
+        return Debt::sum('amount');
+    }
 }

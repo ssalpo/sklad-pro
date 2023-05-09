@@ -6,6 +6,41 @@
             <Link :href="route('debts.create')" class="btn btn-primary">+ Добавить</Link>
         </template>
 
+        <div class="mb-3 row row-cards">
+            <div class="col-sm-6 col-lg-3">
+                <MetricCard
+                    :card-title="`${totalDebts} сом.`"
+                    card-description="Общая сумма долга"
+                >
+                    <template #icon>
+                        <IconCreditCard :size="24" stroke-width="2"/>
+                    </template>
+                </MetricCard>
+            </div>
+            <div class="col-sm-6 col-lg-3">
+                <MetricCard
+                    icon-bg="bg-success"
+                    :card-title="`${totalPayments} сом.`"
+                    card-description="Общая сумма погашений"
+                >
+                    <template #icon>
+                        <IconCreditCardOff :size="24" stroke-width="2"/>
+                    </template>
+                </MetricCard>
+            </div>
+            <div class="col-sm-6 col-lg-3">
+                <MetricCard
+                    icon-bg="bg-yellow"
+                    :card-title="`${totalDebts - totalPayments} сом.`"
+                    card-description="Остаток для погашения"
+                >
+                    <template #icon>
+                        <IconBusinessplan :size="24" stroke-width="2"/>
+                    </template>
+                </MetricCard>
+            </div>
+        </div>
+
         <IndexMobile
             @debtSelect="onDebtSelect"
             :debts="debts"
@@ -36,10 +71,26 @@ import Modal from "../../Shared/Modal.vue";
 import IndexMobile from "./IndexMobile.vue";
 import IndexTable from "./IndexTable.vue";
 import DebtPaymentModal from "../../Shared/Form/DebtPaymentModal.vue";
+import MetricCard from "../../Shared/MetricCard.vue";
+import {IconCreditCard, IconCreditCardOff, IconBusinessplan} from "@tabler/icons-vue";
 
 export default {
-    components: {DebtPaymentModal, IndexTable, IndexMobile, Modal, Pagination, DeleteBtn, Card, PageWrapper, Link},
-    props: ['debts'],
+    components: {
+        MetricCard,
+        DebtPaymentModal,
+        IndexTable,
+        IndexMobile,
+        Modal,
+        Pagination,
+        DeleteBtn,
+        Card,
+        PageWrapper,
+        Link,
+        IconCreditCard,
+        IconCreditCardOff,
+        IconBusinessplan,
+    },
+    props: ['debts', 'totalDebts', 'totalPayments'],
     data() {
         return {
             selectedDebt: null,
