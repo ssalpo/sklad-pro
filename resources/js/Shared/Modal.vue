@@ -86,6 +86,14 @@ export default {
             body.classList.remove("modal-open")
         }
     },
+    mounted() {
+        let vm = this
+
+        document.querySelector('.modal').addEventListener('click', function(e) {
+            if (e.target !== e.currentTarget) return
+            vm.close()
+        });
+    },
     watch: {
         isOpen(status) {
             this.toggleBodyClass(status)
