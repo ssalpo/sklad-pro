@@ -5,6 +5,7 @@ use App\Http\Controllers\AutocompleteController;
 use App\Http\Controllers\ClientController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\DebtController;
+use App\Http\Controllers\DebtPaymentController;
 use App\Http\Controllers\NomenclatureArrivalController;
 use App\Http\Controllers\NomenclatureController;
 use App\Http\Controllers\NomenclatureOperationController;
@@ -34,6 +35,8 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::resource('nomenclature-operations', NomenclatureOperationController::class);
 
     Route::resource('units', UnitController::class);
+
+    Route::resource('debts/{debt}/payments', DebtPaymentController::class, ['as' => 'debts']);
 
     Route::resource('debts', DebtController::class);
 

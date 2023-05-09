@@ -11,7 +11,7 @@ class DebtPaymentRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +22,15 @@ class DebtPaymentRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'created_by' => 'required',
+            'amount' => 'required|regex:/^\d+(\.\d{1,3})?$/',
         ];
+    }
+
+    protected function prepareForValidation()
+    {
+        return $this->merge([
+            'created_by' => auth()->id()
+        ]);
     }
 }

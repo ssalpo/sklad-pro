@@ -7,6 +7,7 @@ use App\Models\Traits\DatesFormatable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Debt extends Model
@@ -37,6 +38,11 @@ class Debt extends Model
         static::addGlobalScope(new CurrentCompanyScope);
     }
 
+    public function scopeNotPaid($q)
+    {
+        $q->where('is_paid', false);
+    }
+
     public function client(): BelongsTo
     {
         return $this->belongsTo(Client::class);
@@ -45,5 +51,15 @@ class Debt extends Model
     public function order(): BelongsTo
     {
         return $this->belongsTo(Order::class);
+    }
+
+    public function payments(): HasMany
+    {
+        return $this->hasMany(DebtPayment::class);
+    }
+
+    public function markAsPaid()
+    {
+        return $this->update(['is_paid' => true]);
     }
 }

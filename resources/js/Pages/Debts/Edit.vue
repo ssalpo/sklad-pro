@@ -1,6 +1,6 @@
 <template>
     <PageWrapper
-        :header-title="!debt?.id ? `Новая витрина` : `Редактирование ${debt.name}`"
+        :header-title="!debt?.id ? `Новый долг` : `Редактирование долга №${debt.id}`"
     >
         <form @submit.prevent="submit">
             <card>

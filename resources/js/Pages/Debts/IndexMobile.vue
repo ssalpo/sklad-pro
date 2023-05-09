@@ -5,23 +5,37 @@
                 <div class="row">
                     <div class="col">
                         <div class="text-truncate fw-bolder">
-                            Долг №{{debt.id}}
+                            Долг №{{ debt.id }}
                         </div>
                         <div class="fw-bold my-1" v-if="debt.client?.name">
-                            Клиент: {{debt.client?.name}}
+                            Клиент: {{ debt.client?.name }}
                         </div>
                         <div class="fw-bold my-1" v-if="debt.order?.id">
-                            Заказ: №{{debt.order?.id}}
+                            Заказ: №{{ debt.order?.id }}
                         </div>
                         <div class="fw-bold my-1">
-                            Сумма: <span class="text-danger">{{numberFormat(debt.amount)}} сом.</span>
+                            Сумма: <span class="text-danger">{{ numberFormat(debt.amount) }} сом.</span>
+                        </div>
+                        <div class="fw-bold my-1">
+                            Остаток: <span
+                            class="text-danger">{{ numberFormat(debt.amount - debt.payments_sum_amount) }} сом.</span>
+                        </div>
+                        <div class="fw-bold my-1">
+                            Статус: <span
+                            :class="{'text-success': debt.is_paid, 'text-danger': !debt.is_paid}">{{ debt.is_paid ? 'Оплачено' : 'Не оплачено' }}</span>
                         </div>
 
                         <div>
                             <a href="" @click.prevent="showMore(debt)">Подробнее</a>
                         </div>
                     </div>
-                    <div class="col-auto fw-bold text-red d-flex flex-column justify-content-around">
+                    <div class="col-auto fw-bold text-red d-flex flex-column justify-content-around align-items-end">
+                        <div v-if="!debt.is_paid">
+                            <button @click="$emit('debtSelect', debt)"
+                                    class="btn btn-outline-success btn-sm text-success">Погасить долг
+                            </button>
+                        </div>
+
                         <div>
                             <Link :href="route('debts.edit', debt.id)" class="btn btn-sm btn-outline-primary me-2">
                                 Ред.
@@ -46,21 +60,39 @@
         :visibility="showMoreContent"
         @close="showMoreContent = false"
     >
-        <dl class="row">
-            <dt class="col-12" v-if="selectedDebt?.client?.name">Клиент:</dt>
-            <dd class="col-12 mt-1" v-if="selectedDebt?.client?.name">{{selectedDebt?.client?.name}}</dd>
+        <Link v-if="selectedDebt !== null"
+              :href="route('debts.payments.index', selectedDebt.id)"
+              class="btn btn-outline-primary mb-3"
+        >
+            История погашений
+        </Link>
 
-            <dt class="col-12" v-if="selectedDebt?.order?.id">Заказ:</dt>
-            <dd class="col-12 mt-1" v-if="selectedDebt?.order?.id">№{{selectedDebt?.order?.id}}</dd>
+        <dl class="row" v-if="selectedDebt !== null">
+            <dt class="col-12" v-if="selectedDebt.client?.name">Клиент:</dt>
+            <dd class="col-12 mt-1" v-if="selectedDebt.client?.name">{{ selectedDebt.client?.name }}</dd>
 
-            <dt class="col-12">Сумма долга:</dt>
-            <dd class="col-12 text-danger mt-1">{{numberFormat(selectedDebt?.amount || 0, 2)}} сом.</dd>
+            <dt class="col-12" v-if="selectedDebt.order?.id">Заказ:</dt>
+            <dd class="col-12 mt-1" v-if="selectedDebt.order?.id">№{{ selectedDebt.order?.id }}</dd>
 
-            <dt class="col-12 mt-2">Комментарий:</dt>
-            <dd class="col-12 text-muted mt-1">{{selectedDebt?.comment || '-'}}</dd>
+            <dt class="col-12">Статус:</dt>
+            <dd class="col-12 mt-1"
+                :class="{'text-success': selectedDebt.is_paid, 'text-danger': !selectedDebt.is_paid}">
+                {{ selectedDebt.is_paid ? 'Оплачено' : 'Не оплачено' }}
+            </dd>
+
+            <dt class="col-12">Общая сумма долга:</dt>
+            <dd class="col-12 text-danger mt-1">{{ numberFormat(selectedDebt.amount || 0, 2) }} сом.</dd>
+
+            <dt class="col-12">Остаток для погашения:</dt>
+            <dd class="col-12 text-danger mt-1">
+                {{ numberFormat(selectedDebt.amount - selectedDebt.payments_sum_amount || 0, 2) }} сом.
+            </dd>
 
             <dt class="col-12 mt-2">Дата создания:</dt>
-            <dd class="col-12 mt-1">{{selectedDebt?.created_at_formatted}}</dd>
+            <dd class="col-12 mt-1">{{ selectedDebt.created_at_formatted }}</dd>
+
+            <dt class="col-12 mt-2">Комментарий:</dt>
+            <dd class="col-12 text-muted mt-1">{{ selectedDebt.comment || '-' }}</dd>
         </dl>
     </Modal>
 </template>
@@ -75,6 +107,7 @@ import {numberFormat} from "../../functions";
 
 export default {
     name: "IndexMobile",
+    emits: ['debtSelect'],
     props: ['debts'],
     components: {Modal, DeleteBtn, Pagination, Link, Card},
     data() {

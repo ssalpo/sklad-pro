@@ -90,11 +90,14 @@ export default {
         isOpen(status) {
             this.toggleBodyClass(status)
         },
-        visibility(status) {
-            if (status) this.open()
-            else this.close()
+        visibility: {
+            immediate: true,
+            handler(status) {
+                if (status) this.open()
+                else this.close()
 
-            this.toggleBodyClass(status)
+                this.toggleBodyClass(status)
+            }
         }
     }
 }

@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Scopes\CurrentCompanyScope;
 use App\Models\Traits\DatesFormatable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -20,6 +21,10 @@ class DebtPayment extends Model
 
     protected $casts = [
         'amount' => 'double'
+    ];
+
+    protected $appends = [
+        'created_at_formatted'
     ];
 
     public function debt(): BelongsTo

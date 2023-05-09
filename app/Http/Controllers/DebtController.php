@@ -19,6 +19,8 @@ class DebtController extends Controller
     public function index()
     {
         $debts = Debt::with('client', 'order')
+            ->withSum('payments', 'amount')
+            ->orderBy('created_at', 'DESC')
             ->paginate()
             ->onEachSide(0);
 
