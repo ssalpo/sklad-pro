@@ -9,7 +9,9 @@
         <div class="nav-item dropdown">
             <a href="#" class="nav-link d-flex lh-1 text-reset p-0" data-bs-toggle="dropdown"
                aria-label="Open user menu" aria-expanded="false">
-                <span class="avatar avatar-sm">СС</span>
+                <span class="avatar avatar-sm avatar-rounded">
+                    <IconUserCircle :size="24" stroke-width="2"/>
+                </span>
                 <div class="d-none d-xl-block ps-2">
                     <div>{{$page.props.shared.userName}}</div>
                 </div>
@@ -24,7 +26,9 @@
 
     <a href="#" v-if="type === 'sidebar'" class="nav-link d-flex lh-1 text-reset p-0" data-bs-toggle="dropdown"
        aria-label="Open user menu">
-        <span class="avatar avatar-sm"></span>
+        <span class="avatar avatar-sm avatar-rounded">
+            <IconUserCircle :size="24" stroke-width="2"/>
+        </span>
         <div class="d-none d-xl-block ps-2">
             <div>{{$page.props.shared.userName}}</div>
         </div>
@@ -40,11 +44,12 @@
 
 <script>
 import {Head, Link} from "@inertiajs/inertia-vue3";
+import {IconCreditCard, IconUserCircle} from "@tabler/icons-vue";
 
 export default {
     props: {
         type: String
     },
-    components: {Head, Link}
+    components: {IconCreditCard, Head, Link, IconUserCircle}
 }
 </script>

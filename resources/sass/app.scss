@@ -1,5 +1,10 @@
 @import '../../node_modules/@tabler/core/dist/css/tabler.min.css';
 @import "vue-toastification/dist/index.css";
+@import "spinner";
+
+body {
+    overflow-y: auto;
+}
 
 .invalid-feedback-simple {
     width: 100%;
