@@ -168,11 +168,7 @@
                     </li>
 
                     <li class="nav-item d-inline-flex d-sm-none">
-                        <Link
-                            class="nav-link"
-                            :href="route('storehouse-balance')"
-                            :class="{active: $page.component.startsWith('StorehouseBalance')}"
-                        >
+                        <a href="#" @click.prevent="logout" class="nav-link">
                             <span class="nav-link-icon d-md-none d-lg-inline-block">
                                 <IconLogin :size="24" stroke-width="1.5"/>
                             </span>
@@ -180,7 +176,7 @@
                             <span class="nav-link-title">
                                 Выйти
                             </span>
-                        </Link>
+                        </a>
                     </li>
                 </ul>
             </div>
@@ -206,7 +202,6 @@ import {Link} from "@inertiajs/inertia-vue3"
 import {queryParams} from "../functions";
 
 export default {
-    methods: {queryParams},
     components: {
         IconFilter,
         Link,
@@ -232,6 +227,12 @@ export default {
         storehouseIsActive() {
             return this.$page.component.startsWith('NomenclatureArrivals') ||
                 this.$page.component.startsWith('NomenclatureOperations');
+        }
+    },
+    methods: {
+        queryParams,
+        logout() {
+            this.$inertia.delete(route('logout'))
         }
     }
 }
