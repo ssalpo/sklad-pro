@@ -32,10 +32,10 @@
                             @click="$inertia.visit(route('orders.show', order.id))"
                         >
                             <td>{{order.id}}</td>
-                            <td v-if="showcasesCount > 0">{{order.showcase.name || '-'}}</td>
+                            <td v-if="showcasesCount > 0">{{order.showcase?.name || '-'}}</td>
                             <td>{{numberFormat(order.amount, 2)}} сом.</td>
                             <td>{{numberFormat(order.profit, 2)}} сом.</td>
-                            <td>{{order.client.name || '-'}}</td>
+                            <td>{{order.client?.name || '-'}}</td>
                             <td :class="{'text-danger': order.status === 2, 'text-success': order.status === 1}">{{shared.order.statuses[order.status]}}</td>
                             <td width="160">{{order.created_at_formatted}}</td>
                         </tr>

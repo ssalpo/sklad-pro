@@ -9,11 +9,11 @@
                     <tbody>
                         <tr v-if="showcasesCount">
                             <td width="250" class="text-start text-sm-end fw-bold">Витрина</td>
-                            <td>{{order.showcase.name || '-'}}</td>
+                            <td>{{order.showcase?.name || '-'}}</td>
                         </tr>
                         <tr>
                             <td width="250" class="text-start text-sm-end fw-bold">Клиент</td>
-                            <td>{{order.client.name || '-'}}</td>
+                            <td>{{order.client?.name || '-'}}</td>
                         </tr>
                         <tr>
                             <td width="250" class="text-start text-sm-end fw-bold">
