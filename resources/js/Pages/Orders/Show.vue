@@ -8,27 +8,27 @@
                 <table class="table table-vcenter text-nowrap card-table">
                     <tbody>
                         <tr v-if="showcasesCount">
-                            <td width="250" class="text-start text-sm-end fw-bold">Витрина</td>
+                            <td width="150" class="text-start text-sm-end fw-bold">Витрина</td>
                             <td>{{order.showcase?.name || '-'}}</td>
                         </tr>
                         <tr>
-                            <td width="250" class="text-start text-sm-end fw-bold">Клиент</td>
+                            <td class="text-start text-sm-end fw-bold">Клиент</td>
                             <td>{{order.client?.name || '-'}}</td>
                         </tr>
                         <tr>
-                            <td width="250" class="text-start text-sm-end fw-bold">
+                            <td class="text-start text-sm-end fw-bold">
                                 Общая сумма
                             </td>
                             <td>{{numberFormat(order.amount)}} сом.</td>
                         </tr>
                         <tr>
-                            <td width="250" class="text-start text-sm-end fw-bold">
+                            <td class="text-start text-sm-end fw-bold">
                                 Прибыль
                             </td>
                             <td>{{numberFormat(order.profit)}} сом.</td>
                         </tr>
                         <tr>
-                            <td width="250" class="text-start text-sm-end fw-bold">
+                            <td class="text-start text-sm-end fw-bold">
                                 Статус
                             </td>
                             <td :class="{'text-danger': order.status === 2, 'text-success': order.status === 1}">

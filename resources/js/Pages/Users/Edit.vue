@@ -9,6 +9,7 @@
                         label="Имя"
                         class="mb-3"
                         label-required
+                        autocomplete="off"
                         placeholder="Введите имя пользователя"
                         v-model="form.name"
                         :invalid-text="form.errors.name"
@@ -18,6 +19,7 @@
                         label="Логин"
                         class="mb-3"
                         label-required
+                        autocomplete="off"
                         placeholder="Введите логин пользователя"
                         v-model="form.username"
                         :invalid-text="form.errors.username"
@@ -29,6 +31,7 @@
                         class="mb-3"
                         :label-required="!user?.id"
                         placeholder="Введите пароль"
+                        autocomplete="off"
                         v-model="form.password"
                         :invalid-text="form.errors.password"
                     />
