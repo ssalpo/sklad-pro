@@ -1,7 +1,7 @@
 <template>
     <PageWrapper
         header-title="Приход"
-        header-pre-title="В списке отображается все приходы по номенклатуре"
+        header-pre-title="В списке отображается все приходы по товарам"
     >
 
         <template #headerActions>
@@ -18,7 +18,7 @@
                     <thead>
                     <tr>
                         <th width="40">ID</th>
-                        <th>Номенклатура</th>
+                        <th>Товар</th>
                         <th>Кол-во</th>
                         <th>Себестоимость</th>
                         <th>Цена прихода</th>

@@ -41,7 +41,7 @@ class NomenclatureController extends Controller
     {
         $this->nomenclatureService->store($request->validated());
 
-        Toast::success('Номенклатура успешно добавлена.');
+        Toast::success('Товар успешно добавлен.');
 
         return to_route('nomenclatures.index');
     }
@@ -57,7 +57,7 @@ class NomenclatureController extends Controller
     {
         $this->nomenclatureService->update($id, $request->validated());
 
-        Toast::success('Данные номенклатуры успешно изменены.');
+        Toast::success('Данные по товару успешно изменены.');
 
         return to_route('nomenclatures.index');
     }

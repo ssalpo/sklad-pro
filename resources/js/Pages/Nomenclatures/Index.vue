@@ -1,13 +1,13 @@
 <template>
     <PageWrapper
-        header-title="Номенклатура"
-        header-pre-title="В списке отображается все ваши доступные номенклатуры"
+        header-title="Товар"
+        header-pre-title="В списке отображается все ваши доступные товары"
     >
 
         <template #headerActions>
             <Link :href="route('nomenclatures.create')" class="btn btn-primary">
                 <IconCirclePlus :size="18" class="me-2" stroke-width="1.7" />
-                Добавить номенклатуру
+                Добавить товар
             </Link>
         </template>
 

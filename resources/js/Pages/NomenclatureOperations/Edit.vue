@@ -6,7 +6,7 @@
             <card>
                 <div class="col col-sm-6 offset-sm-3 mb-3">
                     <SelectNomenclatures
-                        label="Номенклатура"
+                        label="Товар"
                         label-required
                         v-model="form.nomenclature_id"
                         :invalidText="form.errors.nomenclature_id"
@@ -93,8 +93,8 @@ export default {
     computed: {
         headerTitle() {
             let editTypeLabels = {
-                1: 'Списание номенклатуры',
-                2: 'Возврат номенклатуры'
+                1: 'Списание товаров',
+                2: 'Возврат товаров'
             }
 
             return !this.nomenclatureOperation?.id

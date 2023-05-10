@@ -6,7 +6,7 @@
         remote
         :remote-url="route('autocomplete.nomenclatures')"
         full
-        placeholder="Выберите номенклатуру"
+        placeholder="Выберите товар"
     />
 </template>
 

@@ -1,7 +1,7 @@
 <template>
     <PageWrapper
         header-title="Приход"
-        header-pre-title="В списке отображается все приходы по номенклатуре"
+        header-pre-title="В списке отображается все приходы по товарам"
     >
 
         <template #headerActions>

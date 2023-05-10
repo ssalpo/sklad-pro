@@ -1,14 +1,14 @@
 <template>
     <PageWrapper
         header-title="Остаток на складе"
-        header-pre-title="В списке отображается все ваши остатки по номенклатурам"
+        header-pre-title="В списке отображается все ваши остатки по товарам"
     >
         <card without-body>
             <div class="table-responsive">
                 <table class="table table-vcenter card-table">
                     <thead>
                     <tr>
-                        <th>Номенклатура</th>
+                        <th>Товар</th>
                         <th>Кол-во</th>
                     </tr>
                     </thead>

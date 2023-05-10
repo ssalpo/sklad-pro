@@ -15,7 +15,7 @@
                 <table class="table table-vcenter text-nowrap card-table">
                     <thead>
                     <tr>
-                        <th>Номенклатура</th>
+                        <th>Товар</th>
                         <th>Кол-во</th>
                         <th>Себестоимость</th>
                         <th>Комментарий</th>

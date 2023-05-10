@@ -6,7 +6,7 @@
             <card>
                 <div class="col col-sm-6 offset-sm-3 mb-3">
                     <SelectNomenclatures
-                        label="Номенклатура"
+                        label="Товар"
                         label-required
                         v-model="form.nomenclature_id"
                         :invalidText="form.errors.nomenclature_id"

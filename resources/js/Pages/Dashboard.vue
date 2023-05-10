@@ -65,13 +65,13 @@
         <card
             class="mt-3"
             without-body
-            card-title="Продажи по номенклатуре"
+            card-title="Продажи по товарам"
         >
             <div class="table-responsive">
                 <table class="table table-vcenter text-nowrap card-table">
                     <thead>
                     <tr>
-                        <th>Номенклатура</th>
+                        <th>Товар</th>
                         <th>Сумма</th>
                         <th>Прибыль</th>
                     </tr>
@@ -96,7 +96,7 @@
                 <table class="table table-vcenter text-nowrap card-table">
                     <thead>
                     <tr>
-                        <th>Номенклатура</th>
+                        <th>Товар</th>
                         <th>Сумма</th>
                     </tr>
                     </thead>

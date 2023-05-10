@@ -1,6 +1,6 @@
 <template>
     <PageWrapper
-        :header-title="!nomenclature?.id ? `Новая номенклатура` : `Редактирование ${nomenclature.name}`"
+        :header-title="!nomenclature?.id ? `Новый товар` : `Редактирование ${nomenclature.name}`"
     >
         <form @submit.prevent="submit">
             <card>
@@ -8,7 +8,7 @@
                     <TextInput
                         label="Название"
                         label-required
-                        placeholder="Введите название номенклатуры"
+                        placeholder="Введите название товара"
                         v-model="form.name"
                         :invalid-text="form.errors.name"
                     />

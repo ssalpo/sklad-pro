@@ -55,7 +55,7 @@
                 <table class="table table-vcenter text-nowrap card-table">
                     <thead>
                     <tr>
-                        <th width="40">Номенклатура</th>
+                        <th width="40">Товар</th>
                         <th>Цена за ед.</th>
                         <th>Кол-во</th>
                         <th>Сумма продажи</th>
