@@ -148,8 +148,6 @@ export default {
         onChange(option) {
             this.clearSearchQuery()
 
-            console.log(this.modelValue !== option.id ? option.id : null)
-
             this.$emit('update:modelValue', this.modelValue !== option.id ? option.id : null)
         },
         clearSearchQuery() {

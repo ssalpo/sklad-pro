@@ -40,7 +40,8 @@ class OrderController extends Controller
             ->transform(
                 fn($m) => [
                     'id' => $m->id,
-                    'text' => $m->name
+                    'text' => sprintf('%s (%s сом.)', $m->name, $m->price_for_sale),
+                    'price_for_sale' => $m->price_for_sale
                 ]
             );
 

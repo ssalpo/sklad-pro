@@ -48,6 +48,7 @@
 import NumericField from "./NumericField.vue";
 import {IconTrash} from "@tabler/icons-vue";
 import SelectNomenclatures from "./SelectNomenclatures.vue";
+import find from "lodash/find";
 
 export default {
     name: "OrderNomenclatures",
@@ -70,6 +71,11 @@ export default {
         selectedNomenclatures: {
             type: Array,
             default: []
+        }
+    },
+    watch: {
+        ['orderItem.nomenclature_id']: function (id) {
+            this.orderItem.price_for_sale = find(this.nomenclatures, {id}).price_for_sale
         }
     }
 }

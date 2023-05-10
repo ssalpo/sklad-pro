@@ -114,8 +114,6 @@ export default {
             return this.form.orderItems.reduce((a, e) => {
                 if (!e.nomenclature_id) return a;
 
-                let nomenclature = this.groupedNomenclatures[e.nomenclature_id];
-
                 return a + (e.price_for_sale * parseInt(e.quantity) || 0);
             }, 0)
         },
