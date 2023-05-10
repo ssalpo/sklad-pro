@@ -34,7 +34,7 @@ class OrderItem extends Model
 
     public function nomenclature()
     {
-        return $this->belongsTo(Nomenclature::class);
+        return $this->belongsTo(Nomenclature::class)->withTrashed();
     }
 
     public function getTotalAmountAttribute()

@@ -44,7 +44,7 @@ class NomenclatureArrival extends Model
 
     public function nomenclature(): BelongsTo
     {
-        return $this->belongsTo(Nomenclature::class);
+        return $this->belongsTo(Nomenclature::class)->withTrashed();
     }
 
     public function getArrivalAtFormattedAttribute()

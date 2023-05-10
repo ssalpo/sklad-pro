@@ -68,17 +68,17 @@ class Order extends Model
 
     public function showcase(): BelongsTo
     {
-        return $this->belongsTo(Showcase::class);
+        return $this->belongsTo(Showcase::class)->withTrashed();
     }
 
     public function user(): BelongsTo
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class)->withTrashed();
     }
 
     public function client(): BelongsTo
     {
-        return $this->belongsTo(Client::class);
+        return $this->belongsTo(Client::class)->withTrashed();
     }
 
     public function orderItems(): HasMany
