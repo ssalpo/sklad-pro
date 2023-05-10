@@ -1,6 +1,6 @@
 <template>
     <PageWrapper
-        header-title="Приход"
+        header-title="Продажи"
         header-pre-title="В списке отображается все приходы по товарам"
     >
 
