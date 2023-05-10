@@ -5,7 +5,10 @@
     >
 
         <template #headerActions>
-            <Link :href="route('clients.create')" class="btn btn-primary">+ Добавить клиента</Link>
+            <Link :href="route('clients.create')" class="btn btn-primary">
+                <IconCirclePlus :size="18" class="me-2" stroke-width="1.7" />
+                Добавить клиента
+            </Link>
         </template>
 
 
@@ -59,9 +62,10 @@ import Card from "../../Shared/Card.vue";
 import DeleteBtn from "../../Shared/DeleteBtn.vue";
 import Pagination from "../../Shared/Pagination.vue";
 import EditLinkBtn from "../../Shared/EditLinkBtn.vue";
+import {IconCirclePlus} from "@tabler/icons-vue";
 
 export default {
-    components: {EditLinkBtn, Pagination, DeleteBtn, Card, PageWrapper, Link},
+    components: {IconCirclePlus, EditLinkBtn, Pagination, DeleteBtn, Card, PageWrapper, Link},
     props: ['clients']
 }
 </script>

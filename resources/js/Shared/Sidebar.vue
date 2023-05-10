@@ -7,15 +7,16 @@
                 <span class="navbar-toggler-icon"></span>
             </button>
 
-            <h1 class="navbar-brand navbar-brand-autodark">
-                <a href="">
-                    <img src="../../img/logo-white.svg" width="110" height="32" alt="Tabler" class="navbar-brand-image">
-                </a>
+            <h1 class="navbar-brand navbar-brand-autodark d-none d-sm-inline-flex" style="font-size: 20px">
+                <IconBuilding :size="28" class="me-2" stroke-width="2" />
+                СКЛАД 1.0
             </h1>
 
             <div class="navbar-nav flex-row d-lg-none">
-                <div class="nav-item dropdown">
-                    <UserDropdown v-if="$page.props.shared.isAuth" type="sidebar"/>
+                <div class="nav-item">
+                    <Link :href="route('orders.create')" class="btn btn-success">
+                        <IconCirclePlus :size="18" class="me-2" stroke-width="1.7" /> Новый заказ
+                    </Link>
                 </div>
             </div>
 
@@ -165,6 +166,22 @@
                             </div>
                         </div>
                     </li>
+
+                    <li class="nav-item d-inline-flex d-sm-none">
+                        <Link
+                            class="nav-link"
+                            :href="route('storehouse-balance')"
+                            :class="{active: $page.component.startsWith('StorehouseBalance')}"
+                        >
+                            <span class="nav-link-icon d-md-none d-lg-inline-block">
+                                <IconLogin :size="24" stroke-width="1.5"/>
+                            </span>
+
+                            <span class="nav-link-title">
+                                Выйти
+                            </span>
+                        </Link>
+                    </li>
                 </ul>
             </div>
         </div>
@@ -173,12 +190,16 @@
 
 <script>
 import {
+    IconCirclePlus,
+    IconLogin,
+    IconBuilding,
     IconChartHistogram,
     IconListDetails,
     IconCalculator,
     IconBuildingStore,
     IconList,
     IconBusinessplan,
+    IconFilter,
 } from "@tabler/icons-vue"
 import UserDropdown from "./UserDropdown.vue"
 import {Link} from "@inertiajs/inertia-vue3"
@@ -187,8 +208,12 @@ import {queryParams} from "../functions";
 export default {
     methods: {queryParams},
     components: {
+        IconFilter,
         Link,
         UserDropdown,
+        IconCirclePlus,
+        IconLogin,
+        IconBuilding,
         IconList,
         IconChartHistogram,
         IconListDetails,

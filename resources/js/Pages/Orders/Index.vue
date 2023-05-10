@@ -6,7 +6,8 @@
 
         <template #headerActions>
             <Link :href="route('orders.create')" class="btn btn-primary">
-                + Новый заказ
+                <IconCirclePlus :size="18" class="me-2" stroke-width="1.7" />
+                Новый заказ
             </Link>
         </template>
 
@@ -57,9 +58,10 @@ import {Link} from "@inertiajs/inertia-vue3";
 import Card from "../../Shared/Card.vue";
 import {numberFormat} from "../../functions";
 import Pagination from "../../Shared/Pagination.vue";
+import {IconCirclePlus} from "@tabler/icons-vue";
 
 export default {
-    components: {Pagination, Card, PageWrapper, Link},
+    components: {IconCirclePlus, Pagination, Card, PageWrapper, Link},
     props: ['orders', 'showcasesCount', 'shared'],
     methods: {
         numberFormat

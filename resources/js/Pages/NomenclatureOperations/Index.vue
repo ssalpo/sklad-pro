@@ -4,7 +4,10 @@
     >
 
         <template #headerActions>
-            <Link :href="route('nomenclature-operations.create', {type: queryParams('type')})" class="btn btn-primary">+ {{createBtnTitle}}</Link>
+            <Link :href="route('nomenclature-operations.create', {type: queryParams('type')})" class="btn btn-primary">
+                <IconCirclePlus :size="18" class="me-2" stroke-width="1.7" />
+                {{createBtnTitle}}
+            </Link>
         </template>
 
         <card without-body>
@@ -59,9 +62,10 @@ import {numberFormat} from "../../functions";
 import Pagination from "../../Shared/Pagination.vue";
 import {queryParams} from "../../functions";
 import EditLinkBtn from "../../Shared/EditLinkBtn.vue";
+import {IconCirclePlus} from "@tabler/icons-vue";
 
 export default {
-    components: {EditLinkBtn, Pagination, DeleteBtn, Card, PageWrapper, Link},
+    components: {IconCirclePlus, EditLinkBtn, Pagination, DeleteBtn, Card, PageWrapper, Link},
     props: ['nomenclatureOperations'],
     methods: {
         numberFormat,

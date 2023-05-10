@@ -5,7 +5,10 @@
     >
 
         <template #headerActions>
-            <Link :href="route('nomenclature-arrivals.create')" class="btn btn-primary">+ Новый приход</Link>
+            <Link :href="route('nomenclature-arrivals.create')" class="btn btn-primary">
+                <IconCirclePlus :size="18" class="me-2" stroke-width="1.7" />
+                Новый приход
+            </Link>
         </template>
 
 
@@ -66,9 +69,10 @@ import DeleteBtn from "../../Shared/DeleteBtn.vue";
 import {numberFormat} from "../../functions";
 import Pagination from "../../Shared/Pagination.vue";
 import EditLinkBtn from "../../Shared/EditLinkBtn.vue";
+import {IconCirclePlus} from "@tabler/icons-vue";
 
 export default {
-    components: {EditLinkBtn, Pagination, DeleteBtn, Card, PageWrapper, Link},
+    components: {IconCirclePlus, EditLinkBtn, Pagination, DeleteBtn, Card, PageWrapper, Link},
     props: ['nomenclatureArrivals'],
     methods: {
         numberFormat
