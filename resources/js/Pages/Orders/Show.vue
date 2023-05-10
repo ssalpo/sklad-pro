@@ -31,7 +31,19 @@
                             <td width="250" class="text-start text-sm-end fw-bold">
                                 Статус
                             </td>
-                            <td :class="{'text-danger': order.status === 2, 'text-success': order.status === 1}">{{shared.order.statuses[order.status]}}</td>
+                            <td :class="{'text-danger': order.status === 2, 'text-success': order.status === 1}">
+                                {{shared.order.statuses[order.status]}}
+                                <span v-if="order.status === 2 && order.cancel_reason">({{order.cancel_reason}})</span>
+                            </td>
+                        </tr>
+                        <tr v-if="order.status !== 2">
+                            <td></td>
+                            <td>
+                                <OrderCancelModal
+                                    v-if="order.status !== 2"
+                                    :order="order"
+                                />
+                            </td>
                         </tr>
                     </tbody>
                 </table>
@@ -51,10 +63,10 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <tr v-for="item in order.items">
+                    <tr v-for="item in order.order_items">
                         <td>{{item.nomenclature.name}}</td>
                         <td>{{item.price_for_sale}} сом.</td>
-                        <td>{{ item.quantity}} {{item.nomenclature.unit}}</td>
+                        <td>{{ item.quantity}} {{item.nomenclature.unit.name}}</td>
                         <td>{{item.total_amount}} сом.</td>
                         <td>{{item.total_profit}} сом.</td>
                     </tr>
@@ -71,9 +83,10 @@ import PageWrapper from "../../Shared/PageWrapper.vue";
 import {Link} from "@inertiajs/inertia-vue3";
 import Card from "../../Shared/Card.vue";
 import {numberFormat} from "../../functions";
+import OrderCancelModal from "../../Shared/Modals/OrderCancelModal.vue";
 
 export default {
-    components: {Card, PageWrapper, Link},
+    components: {OrderCancelModal, Card, PageWrapper, Link},
     props: ['order', 'showcasesCount', 'shared'],
     methods: {
         numberFormat

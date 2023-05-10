@@ -23,6 +23,7 @@ class Order extends Model
         'amount',
         'profit',
         'status',
+        'cancel_reason',
     ];
 
     protected $appends = [
@@ -58,6 +59,11 @@ class Order extends Model
             Arr::get($data, 'id'),
             fn($q, $v) => $q->where('id', $v)
         );
+    }
+
+    public function scopeSold($q): void
+    {
+        $q->where('status', self::STATUS_SOLD);
     }
 
     public function showcase(): BelongsTo

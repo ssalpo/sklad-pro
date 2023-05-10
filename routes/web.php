@@ -30,6 +30,7 @@ Route::middleware(['auth:sanctum'])->group(function () {
 
     Route::resource('nomenclature-arrivals', NomenclatureArrivalController::class);
 
+    Route::post('orders/{order}/cancel', [OrderController::class, 'cancel'])->name('orders.cancel');
     Route::resource('orders', OrderController::class);
 
     Route::resource('nomenclature-operations', NomenclatureOperationController::class);

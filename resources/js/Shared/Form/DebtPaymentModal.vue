@@ -1,6 +1,5 @@
 <template>
-    <Modal :visibility="true"
-           @close="form.reset()"
+    <Modal @close="form.reset()"
            :header-title="`Погашение по долгу №${debt?.id}`"
            v-bind="$attrs">
 
@@ -14,12 +13,11 @@
         />
 
         <template #footer="{close}">
-            <button @click="submit" class="btn btn-primary" data-bs-dismiss="modal">
+            <button @click="submit" class="btn btn-primary">
                 Добавить
             </button>
 
-            <button type="button" @click="close" class="btn btn-link link-secondary ms-auto"
-                    data-bs-dismiss="modal">
+            <button type="button" @click="close" class="btn btn-link link-secondary ms-auto">
                 Отменить
             </button>
         </template>
@@ -30,7 +28,6 @@
 import Modal from "../Modal.vue";
 import TextInput from "./TextInput.vue";
 import {useForm} from "@inertiajs/inertia-vue3";
-import {useToast} from 'vue-toastification';
 
 export default {
     name: "DebtPaymentModal",

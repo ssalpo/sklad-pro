@@ -2,11 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\OrderCancelRequest;
 use App\Http\Requests\OrderRequest;
 use App\Models\Nomenclature;
 use App\Models\Order;
 use App\Models\Showcase;
 use App\Services\OrderService;
+use App\Services\Toast;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 
 class OrderController extends Controller
@@ -22,16 +25,7 @@ class OrderController extends Controller
         $showcasesCount = Showcase::count();
 
         $orders = Order::with(['client', 'showcase'])->paginate()
-            ->onEachSide(0)
-            ->through(fn($m) => [
-                'id' => $m->id,
-                'amount' => $m->amount,
-                'showcase' => ['name' => $m->showcase?->name],
-                'profit' => $m->profit,
-                'status' => $m->status,
-                'client' => ['name' => $m->client?->name],
-                'created_at_formatted' => $m->created_at_formatted
-            ]);
+            ->onEachSide(0);
 
         return inertia('Orders/Index', compact('orders', 'showcasesCount'));
     }
@@ -65,23 +59,15 @@ class OrderController extends Controller
 
         $showcasesCount = Showcase::count();
 
-        return inertia('Orders/Show', [
-            'showcasesCount' => $showcasesCount,
-            'order' => [
-                'id' => $order->id,
-                'amount' => $order->amount,
-                'showcase' => ['name' => $order->showcase?->name],
-                'profit' => $order->profit,
-                'status' => $order->status,
-                'client' => ['name' => $order->client?->name],
-                'items' => $order->orderItems->transform(fn($m) => [
-                    'price_for_sale' => $m->price_for_sale,
-                    'quantity' => $m->quantity,
-                    'nomenclature' => ['name' => $m->nomenclature->name, 'unit' => $m->nomenclature->unit->name],
-                    'total_amount' => $m->total_amount,
-                    'total_profit' => $m->total_profit,
-                ])
-            ]
-        ]);
+        return inertia('Orders/Show', compact('showcasesCount', 'order'));
+    }
+
+    public function cancel(OrderCancelRequest $request, int $orderId): RedirectResponse
+    {
+        $this->orderService->cancel($orderId, $request->cancel_reason);
+
+        Toast::success(sprintf('Заказ №%s успешно отменен.', $orderId));
+
+        return back();
     }
 }

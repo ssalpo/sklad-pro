@@ -7,7 +7,6 @@ use App\Models\Order;
 use App\Models\Showcase;
 use Illuminate\Database\Eloquent\Collection as ModelCollection;
 use Illuminate\Support\Arr;
-use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
 
 class OrderService
@@ -67,5 +66,17 @@ class OrderService
         }
 
         return compact('amount', 'profit');
+    }
+
+    public function cancel(int $orderId, string $cancelReason): Order
+    {
+        $order = Order::sold()->findOrFail($orderId);
+
+        $order->update([
+            'cancel_reason' => $cancelReason,
+            'status' => Order::STATUS_CANCELED
+        ]);
+
+        return $order;
     }
 }

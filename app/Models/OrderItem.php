@@ -22,6 +22,11 @@ class OrderItem extends Model
         'quantity' => 'double'
     ];
 
+    protected $appends = [
+        'total_amount',
+        'total_profit',
+    ];
+
     public function order()
     {
         return $this->belongsTo(Order::class);
