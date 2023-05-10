@@ -50,7 +50,7 @@
             </div>
         </card>
 
-        <card card-title="Товары" without-body>
+        <card card-title="Список товаров" without-body>
             <div class="table-responsive">
                 <table class="table table-vcenter text-nowrap card-table">
                     <thead>
