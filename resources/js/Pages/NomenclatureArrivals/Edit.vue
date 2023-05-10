@@ -23,26 +23,6 @@
                 </div>
 
                 <div class="col col-sm-6 offset-sm-3 mb-3">
-                    <NumericField
-                        v-model="form.base_price"
-                        label="Себестоимость"
-                        label-required
-                        placeholder="Введите сумму себестоимости"
-                        :invalid-text="form.errors.base_price"
-                    />
-                </div>
-
-                <div class="col col-sm-6 offset-sm-3 mb-3">
-                    <NumericField
-                        v-model="form.price_for_sale"
-                        label="Цена продажи"
-                        label-required
-                        placeholder="Введите цену продажи"
-                        :invalid-text="form.errors.price_for_sale"
-                    />
-                </div>
-
-                <div class="col col-sm-6 offset-sm-3 mb-3">
                     <TextInput
                         label="Комментарий"
                         placeholder="Введите комментарий к приходу"
@@ -100,8 +80,6 @@ export default {
                 nomenclature_id: this.nomenclatureArrival?.nomenclature_id || "",
                 quantity: this.nomenclatureArrival?.quantity,
                 name: this.nomenclatureArrival?.name,
-                base_price: this.nomenclatureArrival?.base_price,
-                price_for_sale: this.nomenclatureArrival?.price_for_sale,
                 comment: this.nomenclatureArrival?.comment,
                 arrival_at: this.nomenclatureArrival?.arrival_at,
             })

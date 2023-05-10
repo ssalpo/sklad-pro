@@ -18,7 +18,7 @@ class UnitController extends Controller
 
     public function index()
     {
-        $units = Unit::all();
+        $units = Unit::orderBy('created_at', 'DESC')->get();
 
         return inertia('Units/Index', compact('units'));
     }

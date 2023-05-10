@@ -18,6 +18,7 @@ class NomenclatureArrivalController extends Controller
     public function index()
     {
         $nomenclatureArrivals = NomenclatureArrival::with('nomenclature.unit')
+            ->orderBy('arrival_at', 'DESC')
             ->paginate()
             ->onEachSide(0)
             ->through(fn($m) => [

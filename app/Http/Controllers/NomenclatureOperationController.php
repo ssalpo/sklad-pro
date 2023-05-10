@@ -19,6 +19,7 @@ class NomenclatureOperationController extends Controller
     {
         $nomenclatureOperations = NomenclatureOperation::with('nomenclature.unit')
             ->whereType(\request('type'))
+            ->orderBy('created_at', 'DESC')
             ->paginate()
             ->onEachSide(0)
             ->through(fn($m) => [

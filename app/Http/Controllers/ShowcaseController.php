@@ -18,7 +18,7 @@ class ShowcaseController extends Controller
 
     public function index()
     {
-        $showcases = Showcase::all();
+        $showcases = Showcase::orderBy('created_at', 'DESC')->get();
 
         return inertia('Showcases/Index', compact('showcases'));
     }

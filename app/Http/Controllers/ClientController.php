@@ -17,7 +17,9 @@ class ClientController extends Controller
 
     public function index()
     {
-        $clients = Client::paginate()->onEachSide(0);
+        $clients = Client::orderBy('created_at', 'DESC')
+            ->paginate()
+            ->onEachSide(0);
 
         return inertia('Clients/Index', compact('clients'));
     }

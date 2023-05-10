@@ -26,8 +26,6 @@ class NomenclatureArrivalRequest extends FormRequest
             'company_id' => 'required',
             'nomenclature_id' => 'required|exists:nomenclatures,id',
             'quantity' => 'required|numeric|gt:0',
-            'base_price' => 'required|regex:/^\d+(\.\d{1,3})?$/|gt:0',
-            'price_for_sale' => 'required|regex:/^\d+(\.\d{1,3})?$/|gt:0',
             'comment' => 'nullable|string',
             'arrival_at' => 'nullable|date_format:Y-m-d H:i'
         ];

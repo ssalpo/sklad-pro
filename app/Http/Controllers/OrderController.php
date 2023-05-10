@@ -25,7 +25,9 @@ class OrderController extends Controller
     {
         $showcasesCount = Showcase::count();
 
-        $orders = Order::with(['client', 'showcase'])->paginate()
+        $orders = Order::with(['client', 'showcase'])
+            ->orderBy('created_at', 'DESC')
+            ->paginate()
             ->onEachSide(0);
 
         return inertia('Orders/Index', compact('orders', 'showcasesCount'));

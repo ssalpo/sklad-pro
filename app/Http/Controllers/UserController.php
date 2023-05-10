@@ -19,7 +19,9 @@ class UserController extends Controller
 
     public function index()
     {
-        $users = User::myCompany()->get();
+        $users = User::orderBy('created_at', 'DESC')
+            ->myCompany()
+            ->get();
 
         return inertia('Users/Index', compact('users'));
     }
