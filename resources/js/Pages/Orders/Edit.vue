@@ -86,7 +86,7 @@ import OrderNomenclatures from "../../Shared/Form/OrderNomenclatures.vue";
 import SelectShowcases from "../../Shared/Form/SelectShowcases.vue";
 
 export default {
-    props: ['nomenclatures', 'showcasesCount'],
+    props: ['nomenclatures', 'showcasesCount', 'lastSelectedShowcase'],
     components: {
         SelectShowcases,
         OrderNomenclatures,
@@ -101,7 +101,7 @@ export default {
     data() {
         return {
             form: useForm({
-                showcase_id: null,
+                showcase_id: this.lastSelectedShowcase,
                 client_id: null,
                 orderItems: [
                     {nomenclature_id: null, quantity: null, price_for_sale: null}

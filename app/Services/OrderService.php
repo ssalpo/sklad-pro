@@ -7,6 +7,7 @@ use App\Models\Order;
 use App\Models\Showcase;
 use Illuminate\Database\Eloquent\Collection as ModelCollection;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
 
 class OrderService
@@ -23,6 +24,12 @@ class OrderService
 
             if (Showcase::count() <= 1) {
                 $data['showcase_id'] = Showcase::latest()->first()?->id;
+            }
+
+
+            // Запоминаем последнюю выбранную витрину
+            if($data['showcase_id']) {
+                Cache::forever(auth()->id() . ':last_showcase', $data['showcase_id']);
             }
 
             $order = Order::create(array_merge(

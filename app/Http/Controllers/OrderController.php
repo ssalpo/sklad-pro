@@ -11,6 +11,7 @@ use App\Services\OrderService;
 use App\Services\Toast;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cache;
 
 class OrderController extends Controller
 {
@@ -43,7 +44,9 @@ class OrderController extends Controller
 
         $showcasesCount = Showcase::count();
 
-        return inertia('Orders/Edit', compact('nomenclatures', 'showcasesCount'));
+        $lastSelectedShowcase = $showcasesCount > 1 ? Cache::get(auth()->id() . ':last_showcase') : null;
+
+        return inertia('Orders/Edit', compact('nomenclatures', 'showcasesCount', 'lastSelectedShowcase'));
     }
 
     public function store(OrderRequest $request)
