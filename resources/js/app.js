@@ -51,9 +51,9 @@ createInertiaApp({
             .mount(el)
 
         document.addEventListener('inertia:start', (event) => {
-            document.getElementById('sidebar-menu').classList.remove('show')
-            document.querySelector('.navbar-toggler').classList.add('collapsed')
-            document.querySelector('.navbar-toggler').setAttribute('aria-expanded', false)
+            if(!document.querySelector('.navbar-toggler.collapsed')) {
+                document.querySelector('.navbar-toggler').click()
+            }
         })
 
         // Hide preloader after app setup

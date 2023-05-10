@@ -21,9 +21,12 @@
 
             <div class="navbar-collapse collapse" id="sidebar-menu" style="">
                 <ul class="navbar-nav pt-lg-3">
-
                     <li class="nav-item">
-                        <Link class="nav-link" :href="route('dashboard.index')">
+                        <Link
+                            class="nav-link"
+                            :href="route('dashboard.index')"
+                            :class="{active: $page.component.startsWith('Dashboard')}"
+                        >
                             <span class="nav-link-icon d-md-none d-lg-inline-block">
                               <IconChartHistogram :size="24" stroke-width="1.5"/>
                             </span>
@@ -33,32 +36,6 @@
                             </span>
                         </Link>
                     </li>
-
-<!--                    <li class="nav-item">
-                        <a class="nav-link dropdown-toggle" href="#navbar-layout" data-bs-toggle="dropdown"
-                           data-bs-auto-close="false" role="button" aria-expanded="true">
-                            <span class="nav-link-icon d-md-none d-lg-inline-block">
-                              <IconChartHistogram :size="24" stroke-width="1.5"/>
-                            </span>
-
-                            <span class="nav-link-title">
-                               Аналитика
-                            </span>
-                        </a>
-
-                        <div class="dropdown-menu">
-                            <div class="dropdown-menu-columns">
-                                <div class="dropdown-menu-column">
-                                    <a class="dropdown-item" href="#">
-                                        Общая
-                                    </a>
-                                    <a class="dropdown-item" href="#">
-                                        За период
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                    </li>-->
 
                     <li class="nav-item">
                         <Link
@@ -76,7 +53,11 @@
                         </Link>
                     </li>
                     <li class="nav-item">
-                        <Link class="nav-link" :href="route('storehouse-balance')">
+                        <Link
+                            class="nav-link"
+                            :href="route('storehouse-balance')"
+                            :class="{active: $page.component.startsWith('StorehouseBalance')}"
+                        >
                             <span class="nav-link-icon d-md-none d-lg-inline-block">
                                 <IconCalculator :size="24" stroke-width="1.5"/>
                             </span>
