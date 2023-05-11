@@ -45,12 +45,14 @@ class StorehouseService
         return $storehouse;
     }
 
-    public static function getDefaultField(?int $storehouseId): null|array
+    public static function attachDefault(&$data): array
     {
-        if ($storehouseId) {
-            return [];
+        if (Storehouse::count() > 1) {
+            return $data;
         }
 
-        return ['storehouse_id' => Storehouse::getDefault()->id];
+        $data['storehouse_id'] = Storehouse::getDefault()->id;
+
+        return $data;
     }
 }

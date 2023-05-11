@@ -22,15 +22,13 @@ class OrderService
 
             $totals = $this->calculateTotals($data, $nomenclatures);
 
-            if (Storehouse::count() <= 1) {
-                $data['storehouse_id'] = Storehouse::latest()->first()?->id;
-            }
-
-
             // Запоминаем последний выбранный склад
-            if($data['storehouse_id']) {
+            if(isset($data['storehouse_id'])) {
                 Cache::forever(auth()->id() . ':last_storehouse', $data['storehouse_id']);
             }
+
+            // Прикрепляем дефолтный склад
+            StorehouseService::attachDefault($data);
 
             $order = Order::create(array_merge(
                 [
