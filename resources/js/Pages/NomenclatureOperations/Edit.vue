@@ -4,6 +4,15 @@
     >
         <form @submit.prevent="submit">
             <card>
+                <div class="col col-sm-6 offset-sm-3 mb-3" v-if="storehousesCount > 1">
+                    <SelectStorehouses
+                        v-model="form.storehouse_id"
+                        label-required
+                        :invalid-text="form.errors.storehouse_id"
+                        label="Склад"
+                    />
+                </div>
+
                 <div class="col col-sm-6 offset-sm-3 mb-3">
                     <SelectNomenclatures
                         label="Товар"
@@ -54,9 +63,11 @@ import {useForm, Link} from "@inertiajs/inertia-vue3";
 import NumericField from "../../Shared/Form/NumericField.vue";
 import SelectNomenclatures from "../../Shared/Form/SelectNomenclatures.vue";
 import {queryParams} from "../../functions";
+import SelectStorehouses from "../../Shared/Form/SelectStorehouses.vue";
 
 export default {
     components: {
+        SelectStorehouses,
         PageWrapper,
         SelectNomenclatures,
         NumericField,
@@ -64,11 +75,12 @@ export default {
         Card,
         Link
     },
-    props: ['nomenclatureOperation'],
+    props: ['nomenclatureOperation', 'storehousesCount'],
     data() {
         return {
             form: useForm({
                 type: this.nomenclatureOperation?.type,
+                storehouse_id: this.nomenclatureOperation?.storehouse_id,
                 nomenclature_id: this.nomenclatureOperation?.nomenclature_id,
                 quantity: this.nomenclatureOperation?.quantity,
                 comment: this.nomenclatureOperation?.comment,

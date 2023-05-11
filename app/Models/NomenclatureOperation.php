@@ -27,6 +27,10 @@ class NomenclatureOperation extends Model
         'quantity' => 'double'
     ];
 
+    protected $appends = [
+        'created_at_formatted'
+    ];
+
     public const OPERATION_TYPE_WITHDRAW = 1;
     public const OPERATION_TYPE_REFUND = 2;
 

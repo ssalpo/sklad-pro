@@ -9,7 +9,14 @@ class StorehouseService
 {
     public function store(array $data): Storehouse
     {
-        return Storehouse::create($data);
+        return DB::transaction(function () use ($data) {
+            if (Storehouse::count() === 1) {
+                Storehouse::latest()
+                    ->update(['is_default' => false]);
+            }
+
+            return Storehouse::create($data);
+        });
     }
 
     public function update(int $id, array $data): Storehouse
@@ -26,7 +33,7 @@ class StorehouseService
         $storehouse = Storehouse::notDefault()->findOrFail($id);
 
         DB::transaction(function () use ($storehouse, $id) {
-            if(Storehouse::count() === 2) {
+            if (Storehouse::count() === 2) {
                 Storehouse::whereNot('id', $id)
                     ->latest()
                     ->update(['is_default' => true]);

@@ -32,7 +32,7 @@ class Storehouse extends Model
         static::addGlobalScope(new CurrentCompanyScope);
     }
 
-    public function notDefault($q): void
+    public function scopeNotDefault($q): void
     {
         $q->where('is_default', false);
     }

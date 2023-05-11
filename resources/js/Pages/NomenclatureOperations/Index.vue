@@ -15,6 +15,7 @@
                 <table class="table table-vcenter text-nowrap card-table">
                     <thead>
                     <tr>
+                        <th v-if="storehousesCount > 1">Склад</th>
                         <th>Товар</th>
                         <th>Кол-во</th>
                         <th>Себестоимость</th>
@@ -25,8 +26,9 @@
                     </thead>
                     <tbody>
                     <tr v-for="nomenclatureOperation in nomenclatureOperations.data">
+                        <td v-if="storehousesCount > 1">{{ nomenclatureOperation.storehouse?.name || '' }}</td>
                         <td>{{ nomenclatureOperation.nomenclature.name }}</td>
-                        <td>{{ numberFormat(nomenclatureOperation.quantity, 2) }} {{nomenclatureOperation.nomenclature.unit}}</td>
+                        <td>{{ numberFormat(nomenclatureOperation.quantity, 2) }} {{nomenclatureOperation.nomenclature.unit.name}}</td>
                         <td>{{ numberFormat(nomenclatureOperation.base_price, 2) }}</td>
                         <td>{{ nomenclatureOperation.comment }}</td>
                         <td class="text-muted">{{ nomenclatureOperation.created_at_formatted }}</td>
@@ -66,7 +68,7 @@ import {IconCirclePlus} from "@tabler/icons-vue";
 
 export default {
     components: {IconCirclePlus, EditLinkBtn, Pagination, DeleteBtn, Card, PageWrapper, Link},
-    props: ['nomenclatureOperations'],
+    props: ['nomenclatureOperations', 'storehousesCount'],
     methods: {
         numberFormat,
         queryParams
