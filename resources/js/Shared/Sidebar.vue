@@ -145,7 +145,7 @@
                                     <Link class="dropdown-item"
                                           :class="{active: $page.component.startsWith('Nomenclatures')}"
                                           :href="route('nomenclatures.index')">
-                                        Товар
+                                        Товары
                                     </Link>
                                     <Link class="dropdown-item"
                                           :class="{active: $page.component.startsWith('Storehouses')}"

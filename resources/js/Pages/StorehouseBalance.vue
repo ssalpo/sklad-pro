@@ -4,7 +4,7 @@
         header-pre-title="В списке отображается все ваши остатки по товарам"
     >
         <card without-body>
-            <div class="table-responsive">
+<!--            <div class="table-responsive">
                 <table class="table table-vcenter card-table">
                     <thead>
                     <tr>
@@ -17,6 +17,27 @@
                             <td>{{ balance.nomenclature_name }}</td>
                             <td>{{ balance.quantity }} {{balance.unit}}</td>
                         </tr>
+                    </tbody>
+                </table>
+            </div>-->
+
+            <div class="table-responsive">
+                <table class="table table-vcenter table-bordered table-nowrap card-table">
+                    <thead>
+                    <tr>
+                        <th width="200">Товар</th>
+                        <th width="120">Всего</th>
+                        <th width="120" v-for="storehouse in balances.storehouses">{{storehouse}}</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr v-for="balance in balances.nomenclatures">
+                        <td>{{balance.nomenclature.name}}</td>
+                        <td>{{balances.nomenclatureTotals[balance.nomenclature.id]}} {{balance.nomenclature.unit}}</td>
+                        <td v-for="(storehouse, id) in balances.storehouses">
+                            {{balance.storehouses[id] !== undefined ? `${balance.storehouses[id].counts} ${balance.nomenclature.unit}` : '-'}}
+                        </td>
+                    </tr>
                     </tbody>
                 </table>
             </div>
