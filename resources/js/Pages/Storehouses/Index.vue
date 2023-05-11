@@ -37,6 +37,7 @@
                             />
 
                             <delete-btn
+                                v-if="storehouses.length > 1"
                                 :url="route('storehouses.destroy', storehouse.id)"
                             />
                         </td>

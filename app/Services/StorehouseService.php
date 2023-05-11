@@ -3,8 +3,9 @@
 namespace App\Services;
 
 use App\Models\Storehouse;
+use Illuminate\Support\Facades\DB;
 
-class storehouseService
+class StorehouseService
 {
     public function store(array $data): Storehouse
     {
@@ -22,10 +23,27 @@ class storehouseService
 
     public function delete(int $id)
     {
-        $storehouse = Storehouse::findOrFail($id);
+        $storehouse = Storehouse::notDefault()->findOrFail($id);
 
-        $storehouse->delete();
+        DB::transaction(function () use ($storehouse, $id) {
+            if(Storehouse::count() === 2) {
+                Storehouse::whereNot('id', $id)
+                    ->latest()
+                    ->update(['is_default' => true]);
+            }
+
+            $storehouse->delete();
+        });
 
         return $storehouse;
+    }
+
+    public static function getDefaultField(?int $storehouseId): null|array
+    {
+        if ($storehouseId) {
+            return [];
+        }
+
+        return ['storehouse_id' => Storehouse::getDefault()->id];
     }
 }

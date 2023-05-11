@@ -16,6 +16,8 @@ return new class extends Migration
             $table->string('name');
             $table->string('phone')->nullable();
             $table->string('address')->nullable();
+            $table->boolean('multi_storehouse')->default(false);
+            $table->softDeletes();
             $table->timestamps();
         });
     }

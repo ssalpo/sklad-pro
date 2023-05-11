@@ -13,7 +13,7 @@ class StorehousesTableSeeder extends Seeder
      */
     public function run(): void
     {
-        for ($i = 1; $i <= 10; $i++) {
+        for ($i = 1; $i <= 3; $i++) {
             Storehouse::create([
                 'company_id' => 1,
                 'name' => 'Склад  ' . $i,

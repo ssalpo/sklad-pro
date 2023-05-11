@@ -10,7 +10,11 @@ class NomenclatureArrivalService
     public function store(array $data): NomenclatureArrival
     {
         return NomenclatureArrival::create(
-            $data + $this->attachNomenclaturePrices($data['nomenclature_id'])
+            array_merge(
+                $data,
+                $this->attachNomenclaturePrices($data['nomenclature_id']),
+                StorehouseService::getDefaultField($data['storehouse_id'] ?? null)
+            )
         );
     }
 
@@ -18,7 +22,13 @@ class NomenclatureArrivalService
     {
         $nomenclatureArrival = NomenclatureArrival::findOrFail($id);
 
-        $nomenclatureArrival->update($data + $this->attachNomenclaturePrices($data['nomenclature_id']));
+        $nomenclatureArrival->update(
+            array_merge(
+                $data,
+                $this->attachNomenclaturePrices($data['nomenclature_id']),
+                StorehouseService::getDefaultField($data['storehouse_id'] ?? null)
+            )
+        );
 
         return $nomenclatureArrival;
     }

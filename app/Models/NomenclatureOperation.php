@@ -13,6 +13,7 @@ class NomenclatureOperation extends Model
     use HasFactory, SoftDeletes, DatesFormatable;
 
     protected $fillable = [
+        'storehouse_id',
         'company_id',
         'nomenclature_id',
         'type',
@@ -42,5 +43,10 @@ class NomenclatureOperation extends Model
     public function company(): BelongsTo
     {
         return $this->belongsTo(Company::class);
+    }
+
+    public function storehouse(): BelongsTo
+    {
+        return $this->belongsTo(Storehouse::class)->withTrashed();
     }
 }

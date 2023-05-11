@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\NomenclatureArrivalRequest;
 use App\Models\NomenclatureArrival;
+use App\Models\Storehouse;
 use App\Services\NomenclatureArrivalService;
 use App\Services\Toast;
 
@@ -17,27 +18,21 @@ class NomenclatureArrivalController extends Controller
 
     public function index()
     {
-        $nomenclatureArrivals = NomenclatureArrival::with('nomenclature.unit')
+        $nomenclatureArrivals = NomenclatureArrival::with('storehouse','nomenclature.unit')
             ->orderBy('arrival_at', 'DESC')
             ->paginate()
-            ->onEachSide(0)
-            ->through(fn($m) => [
-                'id' => $m->id,
-                'nomenclature' => ['name' => $m->nomenclature->name, 'unit' => $m->nomenclature->unit->name],
-                'quantity' => $m->quantity,
-                'base_price' => $m->base_price,
-                'price_for_sale' => $m->price_for_sale,
-                'arrival_at_formatted' => $m->arrival_at_formatted,
-                'created_at_formatted' => $m->created_at_formatted,
-                'comment' => $m->comment,
-            ]);
+            ->onEachSide(0);
 
-        return inertia('NomenclatureArrivals/Index', compact('nomenclatureArrivals'));
+        $storehousesCount = Storehouse::count();
+
+        return inertia('NomenclatureArrivals/Index', compact('nomenclatureArrivals', 'storehousesCount'));
     }
 
     public function create()
     {
-        return inertia('NomenclatureArrivals/Edit');
+        $storehousesCount = Storehouse::count();
+
+        return inertia('NomenclatureArrivals/Edit', compact('storehousesCount'));
     }
 
     public function store(NomenclatureArrivalRequest $request)
@@ -51,9 +46,11 @@ class NomenclatureArrivalController extends Controller
 
     public function edit(int $id)
     {
+        $storehousesCount = Storehouse::count();
+
         $nomenclatureArrival = NomenclatureArrival::findOrFail($id);
 
-        return inertia('NomenclatureArrivals/Edit', compact('nomenclatureArrival'));
+        return inertia('NomenclatureArrivals/Edit', compact('nomenclatureArrival', 'storehousesCount'));
     }
 
     public function update(NomenclatureArrivalRequest $request, int $id)

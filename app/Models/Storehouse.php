@@ -15,7 +15,12 @@ class Storehouse extends Model
 
     protected $fillable = [
         'name',
-        'company_id'
+        'company_id',
+        'is_default'
+    ];
+
+    protected $casts = [
+        'is_default' => 'boolean'
     ];
 
     protected $appends = [
@@ -27,8 +32,22 @@ class Storehouse extends Model
         static::addGlobalScope(new CurrentCompanyScope);
     }
 
+    public function notDefault($q): void
+    {
+        $q->where('is_default', false);
+    }
+
     public function company()
     {
         return $this->belongsTo(Company::class);
+    }
+
+    public static function getDefault(string $onlyField = null)
+    {
+        if($onlyField) {
+            return self::where('is_default', true)->select($onlyField)->firstOrFail()[$onlyField];
+        }
+
+        return self::where('is_default', true)->firstOrFail();
     }
 }

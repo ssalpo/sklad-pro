@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use App\Models\Storehouse;
 use Carbon\Carbon;
 use Illuminate\Foundation\Http\FormRequest;
 
@@ -22,13 +23,20 @@ class NomenclatureArrivalRequest extends FormRequest
      */
     public function rules(): array
     {
-        return [
+        $rules = [
             'company_id' => 'required',
+            'storehouse_id' => 'nullable|exists:storehouses,id',
             'nomenclature_id' => 'required|exists:nomenclatures,id',
             'quantity' => 'required|numeric|gt:0',
             'comment' => 'nullable|string',
             'arrival_at' => 'nullable|date_format:Y-m-d H:i'
         ];
+
+        if(Storehouse::count() > 1) {
+            $rules['storehouse_id'] = 'required|exists:storehouses,id';
+        }
+
+        return $rules;
     }
 
     protected function prepareForValidation()

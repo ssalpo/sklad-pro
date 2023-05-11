@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('nomenclature_arrivals', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('storehouse_id')->constrained();
             $table->foreignId('company_id')->constrained();
             $table->foreignId('nomenclature_id')->constrained();
             $table->double('quantity')->default(0);

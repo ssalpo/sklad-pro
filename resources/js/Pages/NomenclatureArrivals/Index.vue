@@ -18,6 +18,7 @@
                     <thead>
                     <tr>
                         <th width="40">ID</th>
+                        <th v-if="storehousesCount > 1">Склад</th>
                         <th>Товар</th>
                         <th>Кол-во</th>
                         <th>Себестоимость</th>
@@ -31,8 +32,9 @@
                     <tbody>
                     <tr v-for="nomenclatureArrival in nomenclatureArrivals.data">
                         <td>{{ nomenclatureArrival.id }}</td>
+                        <td v-if="storehousesCount > 1">{{ nomenclatureArrival.storehouse?.name || '-' }}</td>
                         <td>{{ nomenclatureArrival.nomenclature.name }}</td>
-                        <td>{{ nomenclatureArrival.quantity }} {{nomenclatureArrival.nomenclature.unit}}</td>
+                        <td>{{ nomenclatureArrival.quantity }} {{nomenclatureArrival.nomenclature.unit.name}}</td>
                         <td>{{ numberFormat(nomenclatureArrival.base_price, 2) }} сом.</td>
                         <td>{{ numberFormat(nomenclatureArrival.price_for_sale, 2) }} сом.</td>
                         <td>{{ nomenclatureArrival.arrival_at_formatted }}</td>
@@ -73,7 +75,7 @@ import {IconCirclePlus} from "@tabler/icons-vue";
 
 export default {
     components: {IconCirclePlus, EditLinkBtn, Pagination, DeleteBtn, Card, PageWrapper, Link},
-    props: ['nomenclatureArrivals'],
+    props: ['nomenclatureArrivals', 'storehousesCount'],
     methods: {
         numberFormat
     }

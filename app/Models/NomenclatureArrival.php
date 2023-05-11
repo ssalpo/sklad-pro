@@ -14,6 +14,7 @@ class NomenclatureArrival extends Model
     use HasFactory, SoftDeletes, DatesFormatable;
 
     protected $fillable = [
+        'storehouse_id',
         'company_id',
         'nomenclature_id',
         'quantity',
@@ -29,7 +30,8 @@ class NomenclatureArrival extends Model
     ];
 
     protected $appends = [
-        'created_at_formatted'
+        'created_at_formatted',
+        'arrival_at_formatted'
     ];
 
     protected static function booted(): void
@@ -45,6 +47,11 @@ class NomenclatureArrival extends Model
     public function nomenclature(): BelongsTo
     {
         return $this->belongsTo(Nomenclature::class)->withTrashed();
+    }
+
+    public function storehouse(): BelongsTo
+    {
+        return $this->belongsTo(Storehouse::class)->withTrashed();
     }
 
     public function getArrivalAtFormattedAttribute()

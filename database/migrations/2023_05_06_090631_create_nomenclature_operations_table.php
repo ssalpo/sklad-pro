@@ -13,8 +13,9 @@ return new class extends Migration
     {
         Schema::create('nomenclature_operations', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('company_id')->constrained()->cascadeOnDelete();
-            $table->foreignId('nomenclature_id')->constrained()->cascadeOnDelete();
+            $table->foreignId('storehouse_id')->constrained();
+            $table->foreignId('company_id')->constrained();
+            $table->foreignId('nomenclature_id')->constrained();
             $table->tinyInteger('type');
             $table->double('quantity');
             $table->decimal('base_price')->default(0);
