@@ -18,7 +18,7 @@
                     <thead>
                     <tr>
                         <th width="40">Номер заказа</th>
-                        <th width="40" v-if="showcasesCount > 0">Витрина</th>
+                        <th width="40" v-if="storehousesCount > 0">Склад</th>
                         <th>Сумма</th>
                         <th>Прибыль</th>
                         <th>Клиент</th>
@@ -33,7 +33,7 @@
                             @click="$inertia.visit(route('orders.show', order.id))"
                         >
                             <td>{{order.id}}</td>
-                            <td v-if="showcasesCount > 0">{{order.showcase?.name || '-'}}</td>
+                            <td v-if="storehousesCount > 0">{{order.storehouse?.name || '-'}}</td>
                             <td>{{numberFormat(order.amount, 2)}} сом.</td>
                             <td>{{numberFormat(order.profit, 2)}} сом.</td>
                             <td>{{order.client?.name || '-'}}</td>
@@ -62,7 +62,7 @@ import {IconCirclePlus} from "@tabler/icons-vue";
 
 export default {
     components: {IconCirclePlus, Pagination, Card, PageWrapper, Link},
-    props: ['orders', 'showcasesCount', 'shared'],
+    props: ['orders', 'storehousesCount', 'shared'],
     methods: {
         numberFormat
     }

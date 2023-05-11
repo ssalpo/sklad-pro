@@ -148,9 +148,9 @@
                                         Товар
                                     </Link>
                                     <Link class="dropdown-item"
-                                          :class="{active: $page.component.startsWith('Showcases')}"
-                                          :href="route('showcases.index')">
-                                        Витрины
+                                          :class="{active: $page.component.startsWith('Storehouses')}"
+                                          :href="route('storehouses.index')">
+                                        Склады
                                     </Link>
                                     <Link class="dropdown-item"
                                           :class="{active: $page.component.startsWith('Units')}"
@@ -218,7 +218,7 @@ export default {
     },
     computed: {
         directoriesIsActive() {
-            return this.$page.component.startsWith('Showcases') ||
+            return this.$page.component.startsWith('Storehouses') ||
                 this.$page.component.startsWith('Users') ||
                 this.$page.component.startsWith('Nomenclatures') ||
                 this.$page.component.startsWith('Clients') ||

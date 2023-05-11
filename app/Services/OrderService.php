@@ -4,7 +4,7 @@ namespace App\Services;
 
 use App\Models\Nomenclature;
 use App\Models\Order;
-use App\Models\Showcase;
+use App\Models\Storehouse;
 use Illuminate\Database\Eloquent\Collection as ModelCollection;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Cache;
@@ -22,14 +22,14 @@ class OrderService
 
             $totals = $this->calculateTotals($data, $nomenclatures);
 
-            if (Showcase::count() <= 1) {
-                $data['showcase_id'] = Showcase::latest()->first()?->id;
+            if (Storehouse::count() <= 1) {
+                $data['storehouse_id'] = Storehouse::latest()->first()?->id;
             }
 
 
-            // Запоминаем последнюю выбранную витрину
-            if($data['showcase_id']) {
-                Cache::forever(auth()->id() . ':last_showcase', $data['showcase_id']);
+            // Запоминаем последний выбранный склад
+            if($data['storehouse_id']) {
+                Cache::forever(auth()->id() . ':last_storehouse', $data['storehouse_id']);
             }
 
             $order = Order::create(array_merge(

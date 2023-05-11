@@ -10,8 +10,8 @@ use App\Http\Controllers\NomenclatureArrivalController;
 use App\Http\Controllers\NomenclatureController;
 use App\Http\Controllers\NomenclatureOperationController;
 use App\Http\Controllers\OrderController;
-use App\Http\Controllers\ShowcaseController;
 use App\Http\Controllers\StorehouseController;
+use App\Http\Controllers\StorehouseBalanceController;
 use App\Http\Controllers\UnitController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
@@ -20,7 +20,7 @@ Route::middleware(['auth:sanctum'])->group(function () {
 
     Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard.index');
 
-    Route::resource('showcases', ShowcaseController::class);
+    Route::resource('storehouses', StorehouseController::class);
 
     Route::resource('users', UserController::class);
 
@@ -41,14 +41,14 @@ Route::middleware(['auth:sanctum'])->group(function () {
 
     Route::resource('debts', DebtController::class);
 
-    Route::get('storehouse-balance', [StorehouseController::class, 'index'])->name('storehouse-balance');
+    Route::get('storehouse-balance', [StorehouseBalanceController::class, 'index'])->name('storehouse-balance');
 });
 
 // Autocomplete routes
 Route::group(['prefix' => 'autocomplete', 'as' => 'autocomplete.'], static function () {
     Route::get('nomenclatures', [AutocompleteController::class, 'nomenclatures'])->name('nomenclatures');
     Route::get('clients', [AutocompleteController::class, 'clients'])->name('clients');
-    Route::get('showcases', [AutocompleteController::class, 'showcases'])->name('showcases');
+    Route::get('storehouses', [AutocompleteController::class, 'storehouses'])->name('storehouses');
     Route::get('units', [AutocompleteController::class, 'units'])->name('units');
 })->middleware(['auth:sanctum']);
 

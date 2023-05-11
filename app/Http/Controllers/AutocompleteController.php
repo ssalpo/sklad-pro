@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Client;
 use App\Models\Nomenclature;
-use App\Models\Showcase;
+use App\Models\Storehouse;
 use App\Models\Unit;
 use Illuminate\Http\Request;
 
@@ -30,10 +30,10 @@ class AutocompleteController extends Controller
         );
     }
 
-    public function showcases()
+    public function storehouses()
     {
         return $this->transformCollection(
-            Showcase::when(
+            Storehouse::when(
                 request('q'),
                 static fn($q, $v) => $q->where('name', 'like', '%' . $v . '%')
             )->get()

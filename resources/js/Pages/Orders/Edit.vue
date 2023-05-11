@@ -12,12 +12,12 @@
                     />
                 </div>
 
-                <div class="col col-sm-6 offset-sm-3 mb-3" v-if="showcasesCount > 1">
-                    <SelectShowcases
-                        v-model="form.showcase_id"
+                <div class="col col-sm-6 offset-sm-3 mb-3" v-if="storehousesCount > 1">
+                    <SelectStorehouses
+                        v-model="form.storehouse_id"
                         label-required
-                        :invalid-text="form.errors.showcase_id"
-                        label="Витрина"
+                        :invalid-text="form.errors.storehouse_id"
+                        label="Склад"
                     />
                 </div>
 
@@ -83,12 +83,12 @@ import map from "lodash/map";
 import {numberFormat} from "../../functions";
 import SelectClients from "../../Shared/Form/SelectClients.vue";
 import OrderNomenclatures from "../../Shared/Form/OrderNomenclatures.vue";
-import SelectShowcases from "../../Shared/Form/SelectShowcases.vue";
+import SelectStorehouses from "../../Shared/Form/SelectStorehouses.vue";
 
 export default {
-    props: ['nomenclatures', 'showcasesCount', 'lastSelectedShowcase'],
+    props: ['nomenclatures', 'storehousesCount', 'lastSelectedStorehouse'],
     components: {
-        SelectShowcases,
+        SelectStorehouses,
         OrderNomenclatures,
         SelectClients,
         NumericField,
@@ -101,7 +101,7 @@ export default {
     data() {
         return {
             form: useForm({
-                showcase_id: this.lastSelectedShowcase,
+                storehouse_id: this.lastSelectedStorehouse,
                 client_id: null,
                 orderItems: [
                     {nomenclature_id: null, quantity: null, price_for_sale: null}

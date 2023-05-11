@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Showcase extends Model
+class Storehouse extends Model
 {
     use HasFactory, CurrentUser, DatesFormatable, SoftDeletes;
 

@@ -16,7 +16,7 @@ class Order extends Model
     use HasFactory, SoftDeletes, DatesFormatable;
 
     protected $fillable = [
-        'showcase_id',
+        'storehouse_id',
         'company_id',
         'user_id',
         'client_id',
@@ -66,9 +66,9 @@ class Order extends Model
         $q->where('status', self::STATUS_SOLD);
     }
 
-    public function showcase(): BelongsTo
+    public function storehouse(): BelongsTo
     {
-        return $this->belongsTo(Showcase::class)->withTrashed();
+        return $this->belongsTo(Storehouse::class)->withTrashed();
     }
 
     public function user(): BelongsTo

@@ -2,11 +2,11 @@
 
 namespace Database\Seeders;
 
-use App\Models\Showcase;
+use App\Models\Storehouse;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
-class ShowcasesTableSeeder extends Seeder
+class StorehousesTableSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -14,9 +14,9 @@ class ShowcasesTableSeeder extends Seeder
     public function run(): void
     {
         for ($i = 1; $i <= 10; $i++) {
-            Showcase::create([
+            Storehouse::create([
                 'company_id' => 1,
-                'name' => 'Showcase ' . $i,
+                'name' => 'Склад  ' . $i,
             ]);
         }
     }

@@ -4,16 +4,16 @@
         searchable
         prefetch
         remote
-        :remote-url="route('autocomplete.showcases')"
+        :remote-url="route('autocomplete.storehouses')"
         full
-        placeholder="Выберите витрину"
+        placeholder="Выберите склад"
     />
 </template>
 
 <script>
 import CustomSelect from "./CustomSelect.vue";
 export default {
-    name: "SelectShowcases",
+    name: "SelectStorehouses",
     components: {CustomSelect}
 }
 </script>

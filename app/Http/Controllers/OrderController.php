@@ -6,7 +6,7 @@ use App\Http\Requests\OrderCancelRequest;
 use App\Http\Requests\OrderRequest;
 use App\Models\Nomenclature;
 use App\Models\Order;
-use App\Models\Showcase;
+use App\Models\Storehouse;
 use App\Services\OrderService;
 use App\Services\Toast;
 use Illuminate\Http\RedirectResponse;
@@ -23,14 +23,14 @@ class OrderController extends Controller
 
     public function index()
     {
-        $showcasesCount = Showcase::count();
+        $storehousesCount = Storehouse::count();
 
-        $orders = Order::with(['client', 'showcase'])
+        $orders = Order::with(['client', 'storehouse'])
             ->orderBy('created_at', 'DESC')
             ->paginate()
             ->onEachSide(0);
 
-        return inertia('Orders/Index', compact('orders', 'showcasesCount'));
+        return inertia('Orders/Index', compact('orders', 'storehousesCount'));
     }
 
     public function create()
@@ -45,11 +45,11 @@ class OrderController extends Controller
                 ]
             );
 
-        $showcasesCount = Showcase::count();
+        $storehousesCount = Storehouse::count();
 
-        $lastSelectedShowcase = $showcasesCount > 1 ? Cache::get(auth()->id() . ':last_showcase') : null;
+        $lastSelectedstorehouse = $storehousesCount > 1 ? Cache::get(auth()->id() . ':last_storehouse') : null;
 
-        return inertia('Orders/Edit', compact('nomenclatures', 'showcasesCount', 'lastSelectedShowcase'));
+        return inertia('Orders/Edit', compact('nomenclatures', 'storehousesCount', 'lastSelectedstorehouse'));
     }
 
     public function store(OrderRequest $request)
@@ -61,11 +61,11 @@ class OrderController extends Controller
 
     public function show(Order $order)
     {
-        $order->load(['client', 'showcase', 'orderItems.nomenclature.unit']);
+        $order->load(['client', 'storehouse', 'orderItems.nomenclature.unit']);
 
-        $showcasesCount = Showcase::count();
+        $storehousesCount = Storehouse::count();
 
-        return inertia('Orders/Show', compact('showcasesCount', 'order'));
+        return inertia('Orders/Show', compact('storehousesCount', 'order'));
     }
 
     public function cancel(OrderCancelRequest $request, int $orderId): RedirectResponse
