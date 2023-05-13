@@ -37,6 +37,7 @@
                         placeholder="Выберите дату прихода"
                         :invalid-text="form.errors.arrival_at"
                         timepicker
+                        :as-modal="isMobile"
                         v-model="form.arrival_at"
                     />
                 </div>
