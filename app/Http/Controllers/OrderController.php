@@ -26,6 +26,7 @@ class OrderController extends Controller
         $showcasesCount = Showcase::count();
 
         $orders = Order::with(['client', 'showcase'])
+            ->filter(request()?->all())
             ->orderBy('created_at', 'DESC')
             ->paginate()
             ->onEachSide(0);

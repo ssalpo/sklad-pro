@@ -10,6 +10,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Carbon;
 
 class Order extends Model
 {
@@ -48,6 +49,29 @@ class Order extends Model
         $q->when(
             Arr::get($data, 'showcase'),
             fn($q, $v) => $q->where('showcase_id', $v)
+        );
+
+        $q->when(
+            Arr::get($data, 'query'),
+            fn($q, $v) => $q->where('id', $v)
+                ->orWhere('amount', $v)
+                ->orWhere('profit', $v)
+        );
+
+        $q->when(
+            Arr::get($data, 'created_start'),
+            function ($q) use ($data) {
+                $dateFrom = Carbon::parse(Arr::get($data, 'created_start', ''))->startOfDay();
+
+                $dateTo = Carbon::parse(
+                    Arr::get(
+                        $data, 'created_end',
+                        $dateFrom ? $dateFrom->clone()->endOfDay() : ''
+                    )
+                )->endOfDay();
+
+                $q->whereBetween('created_at', [$dateFrom, $dateTo]);
+            }
         );
 
         $q->when(

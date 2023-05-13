@@ -1,6 +1,6 @@
 <template>
     <slot name="btn" v-if="withBtn" :open="open">
-        <button :class="[btnClass]" @click="open">
+        <button :class="[btnClass]" v-bind="$attrs" @click="open">
             {{ btnText }}
         </button>
     </slot>
