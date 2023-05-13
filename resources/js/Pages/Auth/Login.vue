@@ -6,9 +6,10 @@
     <div class="page page-center">
         <div class="container container-tight py-4">
             <div class="text-center mb-4">
-                <a href="/" class="navbar-brand navbar-brand-autodark">
-                    <img src="../../../img/logo-blue.svg" height="36" />
-                </a>
+                <h1 class="navbar-brand navbar-brand-autodark" style="font-size: 20px">
+                    <IconBuilding :size="28" class="me-2" stroke-width="2" />
+                    СКЛАД 1.0
+                </h1>
             </div>
             <div class="card card-md">
                 <div class="card-body">
@@ -48,10 +49,11 @@
 import {Head, Link, useForm} from '@inertiajs/inertia-vue3'
 import AuthLayout from "../../Layouts/AuthLayout.vue";
 import TextInput from "../../Shared/Form/TextInput.vue";
+import {IconBuilding} from "@tabler/icons-vue";
 
 export default {
     layout: AuthLayout,
-    components: {TextInput, Link, Head},
+    components: {IconBuilding, TextInput, Link, Head},
     data() {
         return {
             form: useForm({
