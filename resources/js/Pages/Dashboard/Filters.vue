@@ -1,7 +1,6 @@
 <template>
     <Modal
         with-btn
-        :centered="false"
         header-title="Фильтрация"
         @submit="submit"
     >
@@ -15,11 +14,13 @@
 
         <div class="input-group mb-3">
             <AirDatePicker
+                :as-modal="isMobile"
                 v-model="form.start"
                 placeholder="Дата начала"
             />
             <span class="input-group-text">-</span>
             <AirDatePicker
+                :as-modal="isMobile"
                 v-model="form.end"
                 placeholder="Дата конечная"
             />

@@ -125,6 +125,8 @@ export default {
             }
         },
         defaultOptions() {
+            let vm = this
+
             let options = {
                 ...this.options,
                 onSelect: this.onSelect,
@@ -146,8 +148,27 @@ export default {
 
                 position({$datepicker, $target, $pointer, done}) {
                     let popper = createPopper($target, $datepicker, {
-                        placement: 'top',
+                        placement: 'bottom',
+                        strategy: 'fixed',
                         modifiers: [
+                            {
+                                name: 'computeStyle',
+                                enabled: true,
+                                phase: 'beforeWrite',
+                                fn({state}) {
+                                    if(vm.asModal) {
+                                        state.styles.popper = {
+                                            ...state.styles.popper,
+                                            position: 'fixed',
+                                            left: `${(window.innerWidth - state.rects.popper.width) / 2}px`,
+                                            top: '50%',
+                                            transform: 'translateY(-50%)',
+                                        }
+                                    }
+
+                                    return state
+                                },
+                            },
                             {
                                 name: 'flip',
                                 options: {
