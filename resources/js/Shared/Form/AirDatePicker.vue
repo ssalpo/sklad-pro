@@ -1,17 +1,19 @@
 <template>
-    <label class="form-label" :class="{required: labelRequired}" :for="`datepicker-${uid}`" v-if="label">{{ label }}</label>
+    <label class="form-label" :class="{required: labelRequired}" :for="`datepicker-${uid}`" v-if="label">{{
+            label
+        }}</label>
 
     <input :id="`datepicker-${uid}`" v-bind="$attrs" :ref="uid" class="form-control" v-show="!inline" type="text"/>
 
-    <div class="invalid-feedback-simple" v-if="invalidText && !withoutInvalidText">{{invalidText}}</div>
+    <div class="invalid-feedback-simple" v-if="invalidText && !withoutInvalidText">{{ invalidText }}</div>
 </template>
 
 <script>
-import Uuid from "../../Mixins/Uuid";
+import Uuid from "../../Mixins/Uuid"
 import AirDatepicker from 'air-datepicker'
 import 'air-datepicker/air-datepicker.css'
-
-let instance = null;
+import {parse} from 'date-fns'
+import { createPopper } from '@popperjs/core'
 
 export default {
     name: "AirDatePicker",
@@ -27,7 +29,7 @@ export default {
         monthPicker: Boolean,
         dateFormat: {
             type: String,
-            default: 'dd-MM-yyyy'
+            default: 'dd.MM.yyyy'
         },
         options: {
             type: Object,
@@ -56,22 +58,61 @@ export default {
         multipleDatesSeparator: {
             type: String,
             default: ' - '
+        },
+        parseDisabled: Boolean,
+        parseFormat: {
+            type: String,
+            default: 'dd.MM.yyyy' // date-fnt date format
+        },
+
+        minDate: String,
+        maxDate: String,
+    },
+    data() {
+        return {
+            instance: null
         }
     },
     mounted() {
-        instance = new AirDatepicker(this.$refs[this.uid], this.defaultOptions())
+        this.instance = new AirDatepicker(this.$refs[this.uid], this.defaultOptions())
 
-        if(this.modelValue) {
-            instance.selectDate(new Date(this.modelValue))
+        if (this.modelValue) {
+            this.instance.selectDate(this.parseValue(this.modelValue))
         }
 
         this.selectCurrentDefaultDate()
+
+        this.setMinDate(this.minDate)
+        this.setMaxDate(this.maxDate)
     },
     methods: {
+        parseValue(v) {
+            if(this.parseDisabled) return v;
+
+            return Array.isArray(v)
+                ? v.map(e => parse(e, this.parseFormat, new Date))
+                : parse(v, this.parseFormat, new Date)
+        },
+        setMinDate(v) {
+            if(!v) {
+                this.instance.update({minDate: ''})
+                return
+            }
+
+            this.instance.update({minDate: this.parseValue(v)})
+        },
+        setMaxDate(v) {
+            if(!v) {
+                this.instance.update({maxDate: ''})
+                return
+            }
+
+            this.instance.update({maxDate: this.parseValue(v)})
+        },
         selectCurrentDefaultDate() {
             if (!this.selectCurrentDate) return
 
-            instance.selectDate(new Date)
+            this.instance.selectDate(new Date)
         },
         onSelect({date, formattedDate, datepicker}) {
             this.$emit('update:modelValue', formattedDate)
@@ -101,7 +142,40 @@ export default {
 
                 selectedDates: this.selectedDates,
 
-                multipleDates: this.multipleDates
+                multipleDates: this.multipleDates,
+
+                position({$datepicker, $target, $pointer, done}) {
+                    let popper = createPopper($target, $datepicker, {
+                        placement: 'top',
+                        modifiers: [
+                            {
+                                name: 'flip',
+                                options: {
+                                    padding: {
+                                        top: 0
+                                    }
+                                }
+                            },
+                            {
+                                name: 'offset',
+                                options: {
+                                    offset: [0, 20]
+                                }
+                            },
+                            {
+                                name: 'arrow',
+                                options: {
+                                    element: $pointer
+                                }
+                            }
+                        ]
+                    })
+
+                    return function completeHide() {
+                        popper.destroy();
+                        done();
+                    }
+                }
             }
 
             // Config for month picker
@@ -124,10 +198,24 @@ export default {
             return options
         }
     },
+    watch: {
+        minDate(v) {
+            this.setMinDate(v)
+        },
+        maxDate(v) {
+            this.setMaxDate(v)
+        }
+    },
     destroyed() {
-        if (!instance) return;
+        if (!this.instance) return;
 
-        instance.destroy();
+        this.instance.destroy();
     }
 }
 </script>
+
+<style>
+.air-datepicker-global-container {
+    z-index: 99999999 !important;
+}
+</style>

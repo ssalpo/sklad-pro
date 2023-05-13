@@ -46,6 +46,11 @@ class Order extends Model
     public function scopeFilter($q, $data): void
     {
         $q->when(
+            Arr::get($data, 'showcase'),
+            fn($q, $v) => $q->where('showcase_id', $v)
+        );
+
+        $q->when(
             Arr::get($data, 'client'),
             fn($q, $v) => $q->where('client_id', $v)
         );

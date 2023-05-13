@@ -1,5 +1,5 @@
 <template>
-    <slot name="btn" v-if="withBtn">
+    <slot name="btn" v-if="withBtn" :open="open">
         <button :class="[btnClass]" @click="open">
             {{ btnText }}
         </button>
@@ -9,7 +9,7 @@
         <div class="modal-backdrop fade" :class="{show: isOpen}" v-if="isOpen" @click="close"></div>
 
         <div class="modal modal-blur fade" :class="{show: isOpen, 'd-block': isOpen === true}">
-            <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+            <div class="modal-dialog modal-dialog-scrollable" :class="{'modal-dialog-centered': centered}">
                 <div class="modal-content">
                     <div class="modal-header" v-if="!headerDisable">
                         <h4 class="modal-title">
@@ -27,7 +27,7 @@
                     </div>
 
                     <div class="modal-footer text-right" v-if="$slots.footer">
-                        <slot name="footer" :close="close"/>
+                        <slot name="footer" :close="close" :submit="submit"/>
                     </div>
                 </div>
                 <!-- /.modal-content -->
@@ -40,6 +40,7 @@
 <script>
 
 export default {
+    inheritAttrs: false,
     name: 'Modal',
     emits: ['open', 'close'],
     props: {
@@ -48,6 +49,10 @@ export default {
             default: false
         },
         headerTitle: String,
+        centered: {
+            type: Boolean,
+            default: true
+        },
         withBtn: Boolean,
         btnClass: {
             type: String,
@@ -74,6 +79,9 @@ export default {
             this.isOpen = false
 
             this.$emit('close')
+        },
+        submit() {
+            this.$emit('submit')
         },
         toggleBodyClass(status) {
             const body = document.querySelector("body")

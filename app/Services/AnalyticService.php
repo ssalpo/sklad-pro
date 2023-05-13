@@ -14,7 +14,7 @@ class AnalyticService
     public function ordersProfitInRange(string|Carbon|null $from, string|Carbon|null $to, int $status = Order::STATUS_SOLD)
     {
         $dateFrom = $from ? Carbon::parse($from)->startOfDay() : null;
-        $dateTo = $to ? Carbon::parse($to)->endOfDay() : null;
+        $dateTo = $to ? Carbon::parse($to)->endOfDay() : ($dateFrom ? $dateFrom->clone()->endOfDay() : null);
 
         return Order::whereBetween('created_at', [$dateFrom, $dateTo])
             ->filter(request())
@@ -25,7 +25,7 @@ class AnalyticService
     public function ordersAmountInRange(string|Carbon|null $from, string|Carbon|null $to, int $status = Order::STATUS_SOLD)
     {
         $dateFrom = $from ? Carbon::parse($from)->startOfDay() : null;
-        $dateTo = $to ? Carbon::parse($to)->endOfDay() : null;
+        $dateTo = $to ? Carbon::parse($to)->endOfDay() : ($dateFrom ? $dateFrom->clone()->endOfDay() : null);
 
         return Order::whereBetween('created_at', [$dateFrom, $dateTo])
             ->filter(request())
@@ -36,7 +36,7 @@ class AnalyticService
     public function getNomenclatureTotalsInRange(string|Carbon|null $from, string|Carbon|null $to, int $status = Order::STATUS_SOLD)
     {
         $dateFrom = $from ? Carbon::parse($from)->startOfDay() : null;
-        $dateTo = $to ? Carbon::parse($to)->endOfDay() : null;
+        $dateTo = $to ? Carbon::parse($to)->endOfDay() : ($dateFrom ? $dateFrom->clone()->endOfDay() : null);
 
         return DB::table(DB::raw('order_items o_i'))
             ->select(
@@ -50,6 +50,10 @@ class AnalyticService
                 fn($q) => $q->on('o.id', '=', 'o_i.order_id')
                     ->where('o.company_id', auth()->user()->company_id)
                     ->where('o.status', $status)
+                    ->when(
+                        Arr::get($this->filters, 'showcase'),
+                        fn($q, $v) => $q->where('o.showcase_id', $v)
+                    )
                     ->when(
                         Arr::get($this->filters, 'client'),
                         fn($q, $v) => $q->where('o.client_id', $v)

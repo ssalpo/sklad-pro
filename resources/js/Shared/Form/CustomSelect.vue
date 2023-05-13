@@ -2,6 +2,7 @@
     <label class="form-label" :class="{required: labelRequired}" :for="uid" v-if="label">{{ label }}</label>
 
     <div v-bind="$attrs"
+         :id="`dropdown${uid}`"
          class="dropdown d-block custom-select-wrapper"
          :class="{'full-width': full, 'is-invalid': invalidText}"
     >
@@ -9,54 +10,58 @@
         <button :class="['btn dropdown-toggle custom-select-btn', btnClass]"
                 type="button"
                 :id="`dropdownMenuButton${uid}`"
-                data-bs-toggle="dropdown"
+                :data-bs-toggle="!autoPosition ? 'dropdown' : ''"
                 aria-expanded="false"
+                @click="toggleDropdown"
         >
             <span v-if="selected">{{ selected }}</span>
             <span v-if="!selected && placeholder" class="text-muted">{{ placeholder }}</span>
         </button>
 
         <!-- Dropdown wrapper -->
-        <div class="dropdown-menu" :aria-labelledby="`dropdownMenuButton${uid}`">
-            <!-- Search Input -->
+        <Teleport to="body" :disabled="!autoPosition">
+            <div class="dropdown-menu" :class="{show: autoPosition && isOpen}" :id="`dropdownMenu${uid}`"
+                 :aria-labelledby="`dropdownMenuButton${uid}`">
+                <!-- Search Input -->
 
-            <div class="custom-select-search-input" v-if="searchable">
-                <input type="text"
-                       @keyup="onSearch"
-                       ref="searchInput"
-                       class="form-control"
-                       placeholder="Найти"
-                />
+                <div class="custom-select-search-input" :id="`dropdownInput${uid}`" v-if="searchable">
+                    <input type="text"
+                           @keyup="onSearch"
+                           ref="searchInput"
+                           class="form-control"
+                           placeholder="Найти"
+                    />
+                </div>
+
+                <!-- Not found text -->
+                <div
+                    class="dropdown-item disabled"
+                    v-if="!listOptions.length && !loading"
+                >
+                    Ничего не найдено
+                </div>
+
+                <!-- Loading indicator -->
+                <div
+                    class="dropdown-item disabled"
+                    v-if="loading"
+                >
+                    Загрузка...
+                </div>
+
+
+                <!-- List Item -->
+                <a class="dropdown-item"
+                   href="javascript:void(0)"
+                   v-if="!loading"
+                   v-for="option in listOptions"
+                   :class="activeStateClasses(option)"
+                   @click.prevent="onChange(option)"
+                >
+                    {{ option.text }}
+                </a>
             </div>
-
-            <!-- Not found text -->
-            <div
-                class="dropdown-item disabled"
-                v-if="!listOptions.length && !loading"
-            >
-                Ничего не найдено
-            </div>
-
-            <!-- Loading indicator -->
-            <div
-                class="dropdown-item disabled"
-                v-if="loading"
-            >
-                Загрузка...
-            </div>
-
-
-            <!-- List Item -->
-            <a class="dropdown-item"
-               href="javascript:void(0)"
-               v-if="!loading"
-               v-for="option in listOptions"
-               :class="activeStateClasses(option)"
-               @click.prevent="onChange(option)"
-            >
-                {{ option.text }}
-            </a>
-        </div>
+        </Teleport>
     </div>
 
     <div class="invalid-feedback" v-if="invalidText && !withoutInvalidText">{{ invalidText }}</div>
@@ -100,10 +105,12 @@ export default {
         modelValue: {
             type: [String, Number],
             default: null
-        }
+        },
+        autoPosition: Boolean
     },
     data() {
         return {
+            isOpen: false,
             listOptions: this.options,
             searchQuery: '',
             selected: null,
@@ -113,7 +120,56 @@ export default {
     created() {
         this.prefetchData()
     },
+    mounted() {
+        if (this.autoPosition) {
+            this.detectOutsideClick()
+            this.onResizeWindow()
+        }
+    },
     methods: {
+        onResizeWindow() {
+            window.addEventListener('resize', (e) => {
+                if (this.isOpen) {
+                    this.setDropdownPosition()
+                }
+            }, true);
+        },
+        detectOutsideClick() {
+            window.addEventListener('click', (e) => {
+                if (
+                    e.target.parentElement?.id !== `dropdownInput${this.uid}` &&
+                    e.target.parentElement?.id !== `dropdownMenuButton${this.uid}` &&
+                    e.target.parentElement?.id !== `dropdown${this.uid}` &&
+                    e.target.parentElement?.id !== `dropdownMenu${this.uid}`
+                ) {
+                    this.isOpen = false
+                }
+            });
+        },
+        setDropdownPosition() {
+            let button = document.querySelector(`#dropdownMenuButton${this.uid}`);
+
+            if(!button) return
+
+            let buttonPosition = button.getBoundingClientRect();
+
+            let dropdownMenu = document.querySelector(`#dropdownMenu${this.uid}`);
+
+            dropdownMenu.style.top = `${buttonPosition.top + buttonPosition.height + 2}px`
+            dropdownMenu.style.left = `${buttonPosition.left}px`
+            dropdownMenu.style.width = `${buttonPosition.width}px`
+
+            dropdownMenu.style.position = 'absolute'
+            dropdownMenu.style.display = this.isOpen ? 'block' : 'none'
+            dropdownMenu.style.zIndex = 9999999
+        },
+        toggleDropdown() {
+            if (!this.autoPosition) return;
+
+            this.setDropdownPosition();
+
+            this.isOpen = !this.isOpen
+        },
         onSearch: debounce(function (e) {
             this.searchQuery = e.target.value
 
@@ -147,6 +203,7 @@ export default {
         },
         onChange(option) {
             this.clearSearchQuery()
+            this.toggleDropdown()
 
             this.$emit('update:modelValue', this.modelValue !== option.id ? option.id : null)
         },
@@ -182,6 +239,9 @@ export default {
             handler: function (v) {
                 this.setSelected(v)
             }
+        },
+        isOpen() {
+            this.setDropdownPosition();
         }
     }
 }

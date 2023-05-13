@@ -8,10 +8,8 @@
                     <h2 class="page-title">Аналитика</h2>
                 </div>
 
-                <div class="col-6 d-block d-md-none text-end">
-                    <button class="btn btn-primary px-2">
-                        <IconFilter :size="18" stroke-width="1.5"/>
-                    </button>
+                <div class="col-6 text-end">
+                    <DashboardFilters />
                 </div>
         </template>
 
@@ -86,41 +84,22 @@
                 </table>
             </div>
         </card>
-
-<!--        <card
-            without-body
-            class="mt-3"
-            card-title="Продажи по товарам"
-        >
-            <div class="table-responsive">
-                <table class="table table-vcenter text-nowrap card-table">
-                    <thead>
-                    <tr>
-                        <th>Товар</th>
-                        <th>Сумма</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-
-                    </tbody>
-                </table>
-            </div>
-        </card>-->
     </PageWrapper>
 </template>
 <script>
 import {Head, Link} from "@inertiajs/inertia-vue3";
-import PageWrapper from "../Shared/PageWrapper.vue";
-import Card from "../Shared/Card.vue";
-import DeleteBtn from "../Shared/DeleteBtn.vue";
+import PageWrapper from "../../Shared/PageWrapper.vue";
+import Card from "../../Shared/Card.vue";
+import DeleteBtn from "../../Shared/DeleteBtn.vue";
 import {
     IconFilter
 } from "@tabler/icons-vue"
-import {numberFormat} from "../functions";
+import {numberFormat} from "../../functions";
+import DashboardFilters from "./Filters.vue";
 
 export default {
     methods: {numberFormat},
     props: ['totalProfitAmount', 'totalSalesAmount', 'nomenclatureProfits', 'filterParams'],
-    components: {IconFilter, DeleteBtn, Card, PageWrapper, Head, Link}
+    components: {DashboardFilters, IconFilter, DeleteBtn, Card, PageWrapper, Head, Link}
 }
 </script>

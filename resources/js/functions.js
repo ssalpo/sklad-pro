@@ -1,6 +1,7 @@
 import omit from "lodash/omit";
 
 export function queryParams(key) {
+    console.log((new URLSearchParams(window.location.search)).values())
     let params = Object.fromEntries(new URLSearchParams(window.location.search).entries())
 
     return key ? params[key] : params;

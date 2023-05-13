@@ -16,8 +16,8 @@ class DashboardController extends Controller
     {
         $filterParams = request()?->all();
 
-        $dateFrom = request()?->input('date.0') ?? now();
-        $dateTo = request()?->input('date.1') ?? now();
+        $dateFrom = request()?->input('start') ?? now();
+        $dateTo = request()?->input('end');
 
         $totalProfitAmount = $this->analyticService->setFilters($filterParams)
             ->ordersProfitInRange($dateFrom, $dateTo);
@@ -28,6 +28,6 @@ class DashboardController extends Controller
         $nomenclatureProfits = $this->analyticService->setFilters($filterParams)
             ->getNomenclatureTotalsInRange($dateFrom, $dateTo);
 
-        return inertia('Dashboard', compact('totalProfitAmount', 'totalSalesAmount', 'nomenclatureProfits', 'filterParams'));
+        return inertia('Dashboard/Index', compact('totalProfitAmount', 'totalSalesAmount', 'nomenclatureProfits', 'filterParams'));
     }
 }
