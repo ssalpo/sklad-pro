@@ -9,6 +9,8 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Arr;
+use Illuminate\Support\Carbon;
 
 class Debt extends Model
 {
@@ -36,6 +38,37 @@ class Debt extends Model
     protected static function booted(): void
     {
         static::addGlobalScope(new CurrentCompanyScope);
+    }
+
+    public function scopeFilters($q, array $data = [])
+    {
+        $q->when(
+            Arr::get($data, 'query'),
+            fn($q, $v) => $q->whereId($v)
+                ->orWhere('comment', 'like', '%' . $v . '%')
+                ->orWhere('amount', $v)
+        );
+
+        $q->when(
+            Arr::get($data, 'client'),
+            fn($q, $v) => $q->whereClientId($v)
+        );
+
+        $q->when(
+            Arr::get($data, 'created_start'),
+            function ($q) use ($data) {
+                $dateFrom = Carbon::parse(Arr::get($data, 'created_start', ''))->startOfDay();
+
+                $dateTo = Carbon::parse(
+                    Arr::get(
+                        $data, 'created_end',
+                        $dateFrom ? $dateFrom->clone()->endOfDay() : ''
+                    )
+                )->endOfDay();
+
+                $q->whereBetween('created_at', [$dateFrom, $dateTo]);
+            }
+        );
     }
 
     public function scopeNotPaid($q)

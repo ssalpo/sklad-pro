@@ -3,6 +3,8 @@
         header-title="Долги клиентов"
     >
         <template #headerActions>
+            <DebtFilters />
+
             <Link :href="route('debts.create')" class="btn btn-primary">
                 <IconCirclePlus :size="18" class="me-2" stroke-width="1.7" />
                 Добавить
@@ -76,9 +78,11 @@ import IndexTable from "./IndexTable.vue";
 import DebtPaymentModal from "../../Shared/Form/DebtPaymentModal.vue";
 import MetricCard from "../../Shared/MetricCard.vue";
 import {IconCreditCard, IconCreditCardOff, IconBusinessplan, IconCirclePlus} from "@tabler/icons-vue";
+import DebtFilters from "./Filters.vue";
 
 export default {
     components: {
+        DebtFilters,
         IconCirclePlus,
         MetricCard,
         DebtPaymentModal,

@@ -24,6 +24,7 @@ class DebtController extends Controller
         $totalPayments = $this->debtPaymentService->getTotalPayments();
 
         $debts = Debt::with('client', 'order')
+            ->filters(request()?->all())
             ->withSum('payments', 'amount')
             ->orderBy('created_at', 'DESC')
             ->paginate()
