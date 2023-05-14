@@ -40,7 +40,6 @@
 </template>
 
 <script>
-import $ from 'jquery'
 import Uuid from "../Mixins/Uuid";
 
 export default {
