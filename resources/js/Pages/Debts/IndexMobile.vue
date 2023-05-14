@@ -56,10 +56,10 @@
         </template>
     </card>
 
-    <Modal
-        :header-title="`Долг №${selectedDebt?.id}`"
-        :visibility="showMoreContent"
-        @close="showMoreContent = false"
+    <BsModal
+        ref="debtShowMoreModal"
+        centered
+        :title="`Долг №${selectedDebt?.id}`"
     >
         <Link v-if="selectedDebt !== null"
               :href="route('debts.payments.index', selectedDebt.id)"
@@ -95,7 +95,7 @@
             <dt class="col-12 mt-2">Комментарий:</dt>
             <dd class="col-12 text-muted mt-1">{{ selectedDebt.comment || '-' }}</dd>
         </dl>
-    </Modal>
+    </BsModal>
 </template>
 
 <script>
@@ -103,15 +103,15 @@ import Card from "../../Shared/Card.vue";
 import {Link} from "@inertiajs/inertia-vue3";
 import Pagination from "../../Shared/Pagination.vue";
 import DeleteBtn from "../../Shared/DeleteBtn.vue";
-import Modal from "../../Shared/Modal.vue";
 import {numberFormat} from "../../functions";
 import EditLinkBtn from "../../Shared/EditLinkBtn.vue";
+import BsModal from "../../Shared/BsModal.vue";
 
 export default {
     name: "IndexMobile",
     emits: ['debtSelect'],
     props: ['debts'],
-    components: {EditLinkBtn, Modal, DeleteBtn, Pagination, Link, Card},
+    components: {BsModal, EditLinkBtn, DeleteBtn, Pagination, Link, Card},
     data() {
         return {
             showMoreContent: false,
@@ -121,7 +121,7 @@ export default {
     methods: {
         numberFormat,
         showMore(debt) {
-            this.showMoreContent = true
+            this.$refs.debtShowMoreModal.show()
             this.selectedDebt = debt
         }
     },

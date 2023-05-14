@@ -1,11 +1,11 @@
 <template>
-    <Modal
+    <BsModal
         with-btn
-        header-title="Фильтрация"
+        title="Фильтрация"
         @submit="submit"
     >
-        <template #btn="{open}">
-            <button class="btn btn-primary px-2" @click="open">
+        <template #btn="{show}">
+            <button class="btn btn-primary px-2" @click="show">
                 <IconFilter :size="18" stroke-width="1.5"/>
 
                 <span class="d-none d-sm-block">Фильтр</span>
@@ -32,8 +32,8 @@
             :invalid-text="form.errors.showcase"
         />
 
-        <template #footer="{submit, close}">
-            <button @click="submit" class="btn btn-primary">
+        <template #footer="{hide}">
+            <button class="btn btn-primary">
                 Найти
             </button>
 
@@ -41,11 +41,11 @@
                 <IconX size="20" stroke-width="2"/>
             </Link>
 
-            <button v-else type="button" @click="close" class="btn btn-link link-secondary ms-auto">
+            <button v-else type="button" @click="hide" class="btn btn-link link-secondary ms-auto">
                 Отменить
             </button>
         </template>
-    </Modal>
+    </BsModal>
 </template>
 
 <script>
@@ -55,12 +55,12 @@ import {useForm, Link} from "@inertiajs/inertia-vue3";
 import queryString from 'query-string';
 import {IconFilter, IconSearch, IconX} from "@tabler/icons-vue"
 import {size} from "lodash/collection";
-import Modal from "../../Shared/Modal.vue";
 import SelectShowcases from "../../Shared/Form/SelectShowcases.vue";
+import BsModal from "../../Shared/BsModal.vue";
 
 export default {
     name: "DashboardFilters",
-    components: {SelectShowcases, IconFilter, Modal, AirDatePicker, Card, IconSearch, IconX, Link},
+    components: {BsModal, SelectShowcases, IconFilter, AirDatePicker, Card, IconSearch, IconX, Link},
     data() {
         return {
             isFiltered: false,
