@@ -1,10 +1,9 @@
 <template>
-    <Modal
+    <BsModal
         ref="cancelModal"
-        :header-title="`Отмена заказа №${order.id}`"
+        :title="`Отмена заказа №${order.id}`"
         with-btn
         btn-text="Отменить"
-        :visibility="modalVisibility"
         btn-class="btn btn-danger"
     >
         <TextInput
@@ -16,28 +15,27 @@
             :invalid-text="form.errors.cancel_reason"
         />
 
-        <template #footer="{close}">
+        <template #footer="{hide}">
             <button @click="submit" class="btn btn-primary">
                 Добавить
             </button>
 
-            <button type="button" @click="close" class="btn btn-link link-secondary ms-auto">
+            <button type="button" @click="hide" class="btn btn-link link-secondary ms-auto">
                 Отменить
             </button>
         </template>
-    </Modal>
+    </BsModal>
 </template>
 
 <script>
-import Modal from "../Modal.vue";
 import TextInput from "../Form/TextInput.vue";
 import {useForm} from "@inertiajs/inertia-vue3";
+import BsModal from "../BsModal.vue";
 
 export default {
     name: "OrderCancelModal",
-    components: {TextInput, Modal},
+    components: {BsModal, TextInput},
     props: {
-        modalVisibility: false,
         order: {
             type: Object,
             required: true
@@ -52,17 +50,17 @@ export default {
     },
     methods: {
         submit() {
-            let vm = this;
-
             this.form.post(route('orders.cancel', this.order.id), {
                 preserveState: true,
-                preserveScroll: true,
-                onSuccess() {
-                    vm.$refs.cancelModal.close();
-                }
+                preserveScroll: true
             })
-
-        }
+        },
+        show() {
+            this.$refs.cancelModal.show();
+        },
+        hide() {
+            this.$refs.cancelModal.hide();
+        },
     }
 }
 </script>

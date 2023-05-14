@@ -227,7 +227,7 @@ export default {
             this.setMaxDate(v)
         }
     },
-    destroyed() {
+    unmounted() {
         if (!this.instance) return;
 
         this.instance.destroy();

@@ -1,13 +1,19 @@
 <template>
-    <Modal
+    <BsModal
         ref="modal"
-        header-title="Новый клиент"
+        title="Новый клиент"
         with-btn
+        centered
+        @hidden="form.reset()"
+        @submit="submit"
     >
-        <template #btn="{open}">
-            <button type="button" @click="open" class="btn btn-link">
-                + Новый клиент
-            </button>
+        <template #btn="{show}">
+            <div class="mt-2">
+                <button type="button" @click="show" class="btn btn-sm btn-link">
+                    <IconCirclePlus :size="18" class="me-1" stroke-width="1" />
+                    Новый клиент
+                </button>
+            </div>
         </template>
 
         <div class="mb-3">
@@ -16,7 +22,6 @@
                 label-required
                 placeholder="Введите имя"
                 v-model="form.name"
-                @keydown.enter="submit"
                 :invalid-text="form.errors.get('name')"
             />
         </div>
@@ -25,32 +30,32 @@
             label="Телефон"
             placeholder="Введите номер телефона"
             v-model="form.phone"
-            @keydown.enter="submit"
             :invalid-text="form.errors.get('phone')"
         />
 
-        <template #footer="{close}">
-            <button @click="submit" class="btn btn-primary">
+        <template #footer="{hide}">
+            <button class="btn btn-primary">
                 Добавить
             </button>
 
-            <button type="button" @click="close" class="btn btn-link link-secondary ms-auto">
+            <button type="button" @click="hide" class="btn btn-link link-secondary ms-auto">
                 Отменить
             </button>
         </template>
-    </Modal>
+    </BsModal>
 </template>
 
 <script>
-import Modal from "../Modal.vue";
 import TextInput from "../Form/TextInput.vue";
 import Form from 'vform'
 import {useToast} from "vue-toastification";
+import BsModal from "../BsModal.vue";
+import {IconCirclePlus} from "@tabler/icons-vue";
 
 export default {
     emits: ['success'],
     name: "NewClientModal",
-    components: {TextInput, Modal},
+    components: {IconCirclePlus, BsModal, TextInput},
     data() {
         return {
             form: new Form({
@@ -67,7 +72,9 @@ export default {
 
                 this.form.reset()
 
-                this.$refs.modal.close()
+                this.$refs.modal.hide()
+
+                useToast().success('Клиент успешно добавлен.')
             } catch (e) {
                 useToast().error('Ошибка добавления нового клиента.')
             }

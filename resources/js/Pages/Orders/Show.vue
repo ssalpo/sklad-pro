@@ -40,7 +40,6 @@
                             <td></td>
                             <td>
                                 <OrderCancelModal
-                                    v-if="order.status !== 2"
                                     :order="order"
                                 />
                             </td>
