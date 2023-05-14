@@ -59,9 +59,8 @@
     </PageWrapper>
 
     <DebtPaymentModal
+        ref="paymentModal"
         :debt="selectedDebt"
-        :visibility="modalVisibility"
-        @close="modalVisibility = false"
     />
 </template>
 
@@ -101,15 +100,14 @@ export default {
     props: ['debts', 'totalDebts', 'totalPayments'],
     data() {
         return {
-            selectedDebt: null,
-            modalVisibility: false
+            selectedDebt: null
         }
     },
     methods: {
         numberFormat,
         onDebtSelect(debt) {
             this.selectedDebt = debt
-            this.modalVisibility = true;
+            this.$refs.paymentModal.show()
         }
     },
 }
