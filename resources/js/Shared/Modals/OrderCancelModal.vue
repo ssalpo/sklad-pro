@@ -16,11 +16,11 @@
         />
 
         <template #footer="{hide}">
-            <button @click="submit" class="btn btn-primary">
+            <button @click="submit" :disabled="form.processing" class="btn btn-primary">
                 Добавить
             </button>
 
-            <button type="button" @click="hide" class="btn btn-link link-secondary ms-auto">
+            <button type="button" :disabled="form.processing" @click="hide" class="btn btn-link link-secondary ms-auto">
                 Отменить
             </button>
         </template>

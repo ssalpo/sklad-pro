@@ -47,7 +47,7 @@
         </div>
 
         <template #footer="{hide}">
-            <button class="btn btn-primary">
+            <button :disabled="form.processing" class="btn btn-primary">
                 Найти
             </button>
 
@@ -55,7 +55,7 @@
                 <IconX size="20" stroke-width="2"/>
             </Link>
 
-            <button v-else type="button" @click="hide" class="btn btn-link link-secondary ms-auto">
+            <button v-else :disabled="form.processing" type="button" @click="hide" class="btn btn-link link-secondary ms-auto">
                 Отменить
             </button>
         </template>

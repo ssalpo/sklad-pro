@@ -34,7 +34,7 @@
         />
 
         <template #footer="{hide}">
-            <button class="btn btn-primary">
+            <button class="btn btn-primary" :disabled="form.busy">
                 Добавить
             </button>
 
