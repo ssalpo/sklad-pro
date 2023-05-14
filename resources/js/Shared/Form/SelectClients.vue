@@ -1,5 +1,6 @@
 <template>
     <CustomSelect
+        ref="selectClients"
         v-bind="$attrs"
         searchable
         prefetch
@@ -15,6 +16,11 @@ import CustomSelect from "./CustomSelect.vue";
 
 export default {
     name: "SelectClients",
-    components: {CustomSelect}
+    components: {CustomSelect},
+    methods: {
+        refreshData() {
+            this.$refs.selectClients.refreshData()
+        }
+    }
 }
 </script>

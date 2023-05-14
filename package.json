@@ -25,6 +25,7 @@
         "query-string": "^8.1.0",
         "sass": "^1.58.3",
         "uuid": "^9.0.0",
+        "vform": "^2.1.2",
         "vue": "^3.2.36",
         "vue-cookies": "^1.8.3",
         "vue-toastification": "^2.0.0-rc.5"

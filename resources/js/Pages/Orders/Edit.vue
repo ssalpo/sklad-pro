@@ -6,10 +6,13 @@
             <card>
                 <div class="col col-sm-6 offset-sm-3 mb-3">
                     <SelectClients
+                        ref="selectClients"
                         v-model="form.client_id"
                         :invalid-text="form.errors.client_id"
                         label="Клиент"
                     />
+
+                    <NewClientModal @success="setClient" />
                 </div>
 
                 <div class="col col-sm-6 offset-sm-3 mb-3" v-if="showcasesCount > 1">
@@ -84,10 +87,12 @@ import {numberFormat} from "../../functions";
 import SelectClients from "../../Shared/Form/SelectClients.vue";
 import OrderNomenclatures from "../../Shared/Form/OrderNomenclatures.vue";
 import SelectShowcases from "../../Shared/Form/SelectShowcases.vue";
+import NewClientModal from "../../Shared/Modals/NewClientModal.vue";
 
 export default {
     props: ['nomenclatures', 'showcasesCount', 'lastSelectedShowcase'],
     components: {
+        NewClientModal,
         SelectShowcases,
         OrderNomenclatures,
         SelectClients,
@@ -139,6 +144,11 @@ export default {
         },
         removeOrderItem(index) {
             this.form.orderItems.splice(index, 1)
+        },
+        setClient(client) {
+            this.$refs.selectClients.refreshData();
+
+            this.form.client_id = parseInt(client.id)
         }
     }
 }

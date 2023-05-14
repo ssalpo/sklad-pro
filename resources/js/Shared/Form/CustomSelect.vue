@@ -180,6 +180,9 @@ export default {
 
             this.getData()
         },
+        refreshData() {
+            this.prefetchData()
+        },
         getData() {
             if (this.remote && this.remoteUrl) {
                 this.loading = true;

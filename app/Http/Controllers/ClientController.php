@@ -31,7 +31,14 @@ class ClientController extends Controller
 
     public function store(ClientRequest $request)
     {
-        $this->clientService->store($request->validated());
+        $client = $this->clientService->store($request->validated());
+
+        if($request->has('modal')) {
+            return response()->json([
+                'id' => $client->id,
+                'name' => $client->name
+            ]);
+        }
 
         Toast::success('Клиент успешно добавлен.');
 
