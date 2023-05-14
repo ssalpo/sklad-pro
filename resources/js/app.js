@@ -51,7 +51,10 @@ createInertiaApp({
             .mount(el)
 
         document.addEventListener('inertia:start', (event) => {
-            if(!document.querySelector('.navbar-toggler.collapsed')) {
+            if(
+                !document.querySelector('.navbar-toggler.collapsed') &&
+                document.querySelector('.navbar-toggler')
+            ) {
                 document.querySelector('.navbar-toggler').click()
             }
         })
