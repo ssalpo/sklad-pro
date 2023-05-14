@@ -10,12 +10,12 @@
                 <div class="row g-2 align-items-center">
                     <slot name="headerRewrite" />
 
-                    <div class="col-sm-12 col-md-auto" v-if="!$slots.headerRewrite">
+                    <div :class="{'col-sm-12 col-md-auto': !headerInline, 'col-auto': headerInline}" v-if="!$slots.headerRewrite">
                         <!-- Page pre-title -->
                         <h2 class="page-title" v-if="$slots.headerTitle || headerTitle">
                             <slot v-if="!headerTitle" name="headerTitle"/>
 
-                            <span v-else>
+                            <span class="text-truncate" v-else>
                                 <Link :href="backUrl" v-if="backUrl" class="text-primary">
                                     <IconArrowBack :size="14" stroke-width="2" />
                                 </link>
@@ -32,7 +32,7 @@
                     </div>
 
                     <!-- Page title actions -->
-                    <div class="col-12 col-md-auto ms-auto d-print-none" v-if="$slots.headerActions && !$slots.headerRewrite">
+                    <div class="ms-auto" :class="{'col-sm-12 col-md-auto': !headerInline, 'col-auto': headerInline}" v-if="$slots.headerActions && !$slots.headerRewrite">
                         <div class="btn-list">
                             <slot name="headerActions"/>
                         </div>
@@ -58,6 +58,7 @@ export default {
         backUrl: String,
         headerPreTitle: String,
         headerTitle: String,
+        headerInline: Boolean,
         metaTitle: String,
         useTitleAsMeta: {
             type: Boolean,

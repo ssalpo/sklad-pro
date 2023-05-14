@@ -49,6 +49,13 @@ class NomenclatureArrivalController extends Controller
         return to_route('nomenclature-arrivals.index');
     }
 
+    public function show(NomenclatureArrival $nomenclatureArrival)
+    {
+        $nomenclatureArrival->load('nomenclature.unit');
+
+        return inertia('NomenclatureArrivals/Show', compact('nomenclatureArrival'));
+    }
+
     public function edit(int $id)
     {
         $nomenclatureArrival = NomenclatureArrival::findOrFail($id);
