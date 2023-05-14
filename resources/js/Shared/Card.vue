@@ -5,7 +5,7 @@
 
             <h3 v-else class="card-title">{{ cardTitle }}</h3>
         </div>
-        <div :class="{'card-body': !withoutBody}">
+        <div :class="[{'card-body': !withoutBody}, cardBodyClass]">
             <slot/>
         </div>
         <div class="card-footer" v-if="$slots.cardFooter">
@@ -22,7 +22,8 @@ export default {
     components: {IconPlus, Link},
     props: {
         cardTitle: String,
-        withoutBody: Boolean
+        withoutBody: Boolean,
+        cardBodyClass: String
     }
 }
 </script>
