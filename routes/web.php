@@ -10,6 +10,7 @@ use App\Http\Controllers\NomenclatureArrivalController;
 use App\Http\Controllers\NomenclatureController;
 use App\Http\Controllers\NomenclatureOperationController;
 use App\Http\Controllers\OrderController;
+use App\Http\Controllers\PwaController;
 use App\Http\Controllers\ShowcaseController;
 use App\Http\Controllers\StorehouseController;
 use App\Http\Controllers\UnitController;
@@ -57,4 +58,8 @@ Route::controller(LoginController::class)->group(static function () {
     Route::get('/', 'create')->name('login')->middleware('guest');
     Route::post('login', 'store')->middleware('guest');
     Route::delete('logout', 'destroy')->name('logout');
+});
+
+Route::group(['prefix' => 'pwa', 'as' => 'pwa.'], static function () {
+    Route::get('manifest', [PwaController::class, 'manifest'])->name('manifest');
 });
