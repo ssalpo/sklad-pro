@@ -23,9 +23,9 @@ class UserRequest extends FormRequest
     {
         return [
             'company_id' => 'required',
-            'name' => 'required|min:3|max:255',
-            'username' => 'required|min:3|max:40',
-            'password' => 'nullable|min:3|max:40',
+            'name' => 'required|min:1|max:255',
+            'username' => 'required|min:1|max:40',
+            'password' => 'nullable|min:1|max:40',
         ];
     }
 

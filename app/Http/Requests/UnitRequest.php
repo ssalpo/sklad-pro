@@ -23,7 +23,7 @@ class UnitRequest extends FormRequest
     {
         return [
             'company_id' => 'required|integer',
-            'name' => 'required|min:3|max:255'
+            'name' => 'required|min:1|max:255'
         ];
     }
 
