@@ -6,9 +6,9 @@
     <div class="page page-center">
         <div class="container container-tight py-4">
             <div class="text-center mb-4">
-                <h1 class="navbar-brand navbar-brand-autodark" style="font-size: 20px">
+                <h1 class="navbar-brand navbar-brand-autodark" style="font-size: 18px">
                     <IconBuilding :size="28" class="me-2" stroke-width="2" />
-                    СКЛАД 1.0
+                    СКЛАД ПРО 1.0
                 </h1>
             </div>
             <div class="card card-md">

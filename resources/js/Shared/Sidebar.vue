@@ -7,9 +7,9 @@
                 <span class="navbar-toggler-icon"></span>
             </button>
 
-            <h1 class="navbar-brand navbar-brand-autodark d-none d-sm-inline-flex" style="font-size: 20px">
+            <h1 class="navbar-brand navbar-brand-autodark d-none d-sm-inline-flex" style="font-size: 18px">
                 <IconBuilding :size="28" class="me-2" stroke-width="2" />
-                СКЛАД 1.0
+                СКЛАД ПРО 1.0
             </h1>
 
             <div class="navbar-nav flex-row d-lg-none">
