@@ -42,6 +42,7 @@ class OrderController extends Controller
                 fn($m) => [
                     'id' => $m->id,
                     'text' => sprintf('%s (%s сом.)', $m->name, $m->price_for_sale),
+                    'barcode' => $m->barcode,
                     'price_for_sale' => $m->price_for_sale
                 ]
             );

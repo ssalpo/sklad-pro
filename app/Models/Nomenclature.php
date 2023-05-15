@@ -19,6 +19,7 @@ class Nomenclature extends Model
         'base_price',
         'price_for_sale',
         'unit_id',
+        'barcode'
     ];
 
     protected $appends = [

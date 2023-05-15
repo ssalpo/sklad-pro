@@ -46,9 +46,16 @@
                 </div>
 
                 <div class="col col-sm-6 offset-sm-3 mb-3">
-                    <div class="row mt-3">
+                    <div class="row mt-3 align-items-center">
                         <div class="col-12 col-sm-6">
-                            <button type="button" v-if="this.canAddNomenclature" @click="addOrderItem" class="btn btn-sm btn-outline-success">
+                            <BarcodeScannerModal
+                                btn-class="btn-sm px-1"
+                                icon-text
+                                :icon-size="16"
+                                @detected="onDetectBarcode"
+                            />
+
+                            <button type="button" v-if="this.canAddNomenclature" @click="addOrderItem" class="btn btn-sm btn-outline-success ms-2">
                                 <IconPlus :size="14" stroke-width="2" /> Добавить товар
                             </button>
                         </div>
@@ -88,10 +95,13 @@ import SelectClients from "../../Shared/Form/SelectClients.vue";
 import OrderNomenclatures from "../../Shared/Form/OrderNomenclatures.vue";
 import SelectShowcases from "../../Shared/Form/SelectShowcases.vue";
 import NewClientModal from "../../Shared/Modals/NewClientModal.vue";
+import BarcodeScannerModal from "../../Shared/Modals/BarcodeScannerModal.vue";
+import find from "lodash/find";
 
 export default {
     props: ['nomenclatures', 'showcasesCount', 'lastSelectedShowcase'],
     components: {
+        BarcodeScannerModal,
         NewClientModal,
         SelectShowcases,
         OrderNomenclatures,
@@ -108,9 +118,7 @@ export default {
             form: useForm({
                 showcase_id: this.lastSelectedShowcase,
                 client_id: null,
-                orderItems: [
-                    {nomenclature_id: null, quantity: null, price_for_sale: null}
-                ]
+                orderItems: []
             })
         }
     },
@@ -137,10 +145,17 @@ export default {
         submit() {
             this.form.post(route('orders.store'))
         },
-        addOrderItem() {
+        addOrderItem(nomenclature) {
             if (!this.canAddNomenclature) return;
 
-            this.form.orderItems.push({nomenclature_id: null, quantity: null, price_for_sale: null})
+            this.form.orderItems.push({nomenclature_id: nomenclature?.id, quantity: 1, price_for_sale: nomenclature?.price_for_sale})
+        },
+        onDetectBarcode(code) {
+            let nomenclature = find(this.nomenclatures, {'barcode': parseInt(code)})
+
+            if(nomenclature?.id && this.selectedNomenclatures.includes(nomenclature?.id)) return
+
+            this.addOrderItem(nomenclature)
         },
         removeOrderItem(index) {
             this.form.orderItems.splice(index, 1)

@@ -1,14 +1,23 @@
 <template>
     <fieldset class="form-fieldset">
-        <SelectNomenclatures
-            v-model="orderItem.nomenclature_id"
-            :disabled-values="selectedNomenclatures"
-            without-invalid-text
-            :options="nomenclatures"
-            :prefetch="false"
-            :remote="false"
-            :invalidText="formData.errors['orderItems.' + currentIndex + '.nomenclature_id']"
-        />
+        <div class="row">
+            <div class="col-10">
+                <SelectNomenclatures
+                    v-model="orderItem.nomenclature_id"
+                    :disabled-values="selectedNomenclatures"
+                    without-invalid-text
+                    :options="nomenclatures"
+                    :prefetch="false"
+                    :remote="false"
+                    :invalidText="formData.errors['orderItems.' + currentIndex + '.nomenclature_id']"
+                />
+            </div>
+            <div class="col-2">
+                <BarcodeScannerModal
+                    @detected="onDetectBarCode"
+                />
+            </div>
+        </div>
 
         <div class="row mt-3">
             <div class="col-4">
@@ -46,14 +55,15 @@
 
 <script>
 import NumericField from "./NumericField.vue";
-import {IconTrash} from "@tabler/icons-vue";
+import {IconTrash, IconScan} from "@tabler/icons-vue";
 import SelectNomenclatures from "./SelectNomenclatures.vue";
 import find from "lodash/find";
+import BarcodeScannerModal from "../Modals/BarcodeScannerModal.vue";
 
 export default {
     name: "OrderNomenclatures",
     emits: ['removeItem'],
-    components: {SelectNomenclatures, IconTrash, NumericField},
+    components: {BarcodeScannerModal, SelectNomenclatures, IconTrash, IconScan, NumericField},
     props: {
         currentIndex: Number,
         formData: {
@@ -76,6 +86,15 @@ export default {
     watch: {
         ['orderItem.nomenclature_id']: function (id) {
             this.orderItem.price_for_sale = find(this.nomenclatures, {id}).price_for_sale
+        }
+    },
+    methods: {
+        onDetectBarCode(code) {
+            let nomenclature = find(this.nomenclatures, {'barcode': parseInt(code)})
+
+            if(nomenclature?.id && this.selectedNomenclatures.includes(nomenclature?.id)) return
+
+            this.orderItem.nomenclature_id = parseInt(nomenclature?.id)
         }
     }
 }
