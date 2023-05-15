@@ -66,8 +66,8 @@
                         <td>{{item.nomenclature.name}}</td>
                         <td>{{item.price_for_sale}} сом.</td>
                         <td>{{ item.quantity}} {{item.nomenclature.unit.name}}</td>
-                        <td>{{item.total_amount}} сом.</td>
-                        <td>{{item.total_profit}} сом.</td>
+                        <td>{{numberFormat(item.total_amount, 2)}} сом.</td>
+                        <td>{{numberFormat(item.total_profit, 2)}} сом.</td>
                     </tr>
                     </tbody>
                 </table>
