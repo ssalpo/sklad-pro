@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\NomenclatureChangeBarcodeRequest;
 use App\Http\Requests\NomenclatureRequest;
 use App\Models\Nomenclature;
 use App\Services\NomenclatureService;
 use App\Services\Toast;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 
 class NomenclatureController extends Controller
@@ -18,16 +20,9 @@ class NomenclatureController extends Controller
 
     public function index()
     {
-        $nomenclatures = Nomenclature::with('unit')->paginate()
-            ->onEachSide(0)
-            ->through(fn($m) => [
-                'id' => $m->id,
-                'name' => $m->name,
-                'base_price' => $m->base_price,
-                'price_for_sale' => $m->price_for_sale,
-                'created_at_formatted' => $m->created_at_formatted,
-                'unit' => ['name' => $m->unit->name]
-            ]);
+        $nomenclatures = Nomenclature::with('unit')
+            ->paginate()
+            ->onEachSide(0);
 
         return inertia('Nomenclatures/Index', compact('nomenclatures'));
     }
@@ -69,5 +64,16 @@ class NomenclatureController extends Controller
         Toast::success(sprintf('"%s" успешно удалена.', $nomenclature->name));
 
         return to_route('nomenclatures.index');
+    }
+
+    public function changeBarcode(int $nomenclatureId, NomenclatureChangeBarcodeRequest $request): RedirectResponse
+    {
+        $this->nomenclatureService->changeBarcode(
+            $nomenclatureId, $request->code
+        );
+
+        Toast::success('Штрихкод успешно изменен.');
+
+        return back();
     }
 }

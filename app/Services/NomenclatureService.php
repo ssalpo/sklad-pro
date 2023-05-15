@@ -28,4 +28,13 @@ class NomenclatureService
 
         return $nomenclature;
     }
+
+    public function changeBarcode(int $nomenclatureId, int $code)
+    {
+        $nomenclature = Nomenclature::findOrFail($nomenclatureId);
+
+        $nomenclature->update(['barcode' => $code]);
+
+        return $nomenclature;
+    }
 }

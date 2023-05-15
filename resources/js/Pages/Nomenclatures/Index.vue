@@ -23,6 +23,7 @@
                         <th>Цена продажи</th>
                         <th>Единица измерения</th>
                         <th>Дата создания</th>
+                        <th>Номер штрихкода</th>
                         <th width="120"></th>
                     </tr>
                     </thead>
@@ -34,6 +35,13 @@
                         <td>{{ numberFormat(nomenclature.price_for_sale, 2) }} сом.</td>
                         <td class="text-muted">{{ nomenclature.unit.name }}</td>
                         <td class="text-muted">{{ nomenclature.created_at_formatted }}</td>
+                        <td>
+                            <NomenclatureBarcodeChangeModal
+                                btn-size="btn-sm px-2"
+                                :nomenclature="nomenclature"
+                                :btn-text="nomenclature.barcode"
+                            />
+                        </td>
                         <td class="text-end">
                             <EditLinkBtn
                                 :url="route('nomenclatures.edit', nomenclature.id)"
@@ -66,9 +74,12 @@ import {numberFormat} from "../../functions";
 import Pagination from "../../Shared/Pagination.vue";
 import EditLinkBtn from "../../Shared/EditLinkBtn.vue";
 import {IconCirclePlus} from "@tabler/icons-vue";
+import NomenclatureBarcodeChangeModal from "../../Shared/Modals/NomenclatureBarcodeChangeModal.vue";
 
 export default {
-    components: {IconCirclePlus, EditLinkBtn, Pagination, DeleteBtn, Card, PageWrapper, Link},
+    components: {
+        NomenclatureBarcodeChangeModal,
+        IconCirclePlus, EditLinkBtn, Pagination, DeleteBtn, Card, PageWrapper, Link},
     props: ['nomenclatures'],
     methods: {
         numberFormat
