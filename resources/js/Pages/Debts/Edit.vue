@@ -25,10 +25,14 @@
 
                 <div class="col col-sm-6 offset-sm-3 mb-3">
                     <SelectClients
+                        ref="selectClients"
                         v-model="form.client_id"
                         :invalid-text="form.errors.client_id"
                         label="Клиент"
+                        label-required
                     />
+
+                    <NewClientModal @success="setClient" />
                 </div>
 
                 <template #cardFooter>
@@ -51,9 +55,10 @@ import TextInput from "../../Shared/Form/TextInput.vue";
 import {useForm, Link} from "@inertiajs/inertia-vue3";
 import NumericField from "../../Shared/Form/NumericField.vue";
 import SelectClients from "../../Shared/Form/SelectClients.vue";
+import NewClientModal from "../../Shared/Modals/NewClientModal.vue";
 
 export default {
-    components: {SelectClients, NumericField, TextInput, Card, PageWrapper, Link},
+    components: {NewClientModal, SelectClients, NumericField, TextInput, Card, PageWrapper, Link},
     props: ['debt'],
     data() {
         return {
@@ -72,6 +77,13 @@ export default {
             }
 
             this.form.put(route('debts.update', this.debt.id))
+        },
+        setClient(client) {
+            this.$refs.selectClients.refreshData()
+
+            this.form.client_id = parseInt(client.id)
+
+            this.form.clearErrors()
         }
     }
 }

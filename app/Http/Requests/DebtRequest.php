@@ -24,7 +24,7 @@ class DebtRequest extends FormRequest
         return [
             'company_id' => 'required',
             'created_by' => 'required',
-            'client_id' => 'nullable|exists:clients,id',
+            'client_id' => 'required|exists:clients,id',
             'order_id' => 'nullable|exists:orders,id',
             'amount' => 'required|regex:/^\d+(\.\d{1,3})?$/',
             'comment' => 'nullable|string|min:1|max:300'
