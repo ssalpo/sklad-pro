@@ -19,8 +19,7 @@
         </button>
 
         <!-- Dropdown wrapper -->
-        <Teleport to="body" :disabled="!autoPosition">
-            <div class="dropdown-menu" :class="{show: autoPosition && isOpen}" :id="`dropdownMenu${uid}`"
+        <div class="dropdown-menu" :class="{show: autoPosition && isOpen}" :id="`dropdownMenu${uid}`"
                  :aria-labelledby="`dropdownMenuButton${uid}`">
                 <!-- Search Input -->
 
@@ -61,7 +60,6 @@
                     {{ option.text }}
                 </a>
             </div>
-        </Teleport>
     </div>
 
     <div class="invalid-feedback" v-if="invalidText && !withoutInvalidText">{{ invalidText }}</div>
@@ -122,11 +120,21 @@ export default {
     },
     mounted() {
         if (this.autoPosition) {
+            this.moveToParentNode()
             this.detectOutsideClick()
             this.onResizeWindow()
         }
     },
     methods: {
+        moveToParentNode() {
+            let menuElement = document.querySelector(`#dropdownMenu${this.uid}`);
+
+            let modalDialog = menuElement.closest('.modal');
+
+            if(modalDialog !== null) {
+                modalDialog.appendChild(menuElement)
+            }
+        },
         onResizeWindow() {
             window.addEventListener('resize', (e) => {
                 if (this.isOpen) {
@@ -149,7 +157,7 @@ export default {
         setDropdownPosition() {
             let button = document.querySelector(`#dropdownMenuButton${this.uid}`);
 
-            if(!button) return
+            if (!button) return
 
             let buttonPosition = button.getBoundingClientRect();
 
@@ -161,7 +169,6 @@ export default {
 
             dropdownMenu.style.position = 'absolute'
             dropdownMenu.style.display = this.isOpen ? 'block' : 'none'
-            dropdownMenu.style.zIndex = 9999999
         },
         toggleDropdown() {
             if (!this.autoPosition) return;
