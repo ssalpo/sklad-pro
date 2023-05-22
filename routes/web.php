@@ -11,7 +11,7 @@ use App\Http\Controllers\NomenclatureController;
 use App\Http\Controllers\NomenclatureOperationController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ShowcaseController;
-use App\Http\Controllers\StorehouseController;
+use App\Http\Controllers\StorehouseBalanceController;
 use App\Http\Controllers\UnitController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
@@ -42,7 +42,7 @@ Route::middleware(['auth:sanctum'])->group(function () {
 
     Route::resource('debts', DebtController::class);
 
-    Route::get('storehouse-balance', [StorehouseController::class, 'index'])->name('storehouse-balance');
+    Route::get('storehouse-balance', [StorehouseBalanceController::class, 'index'])->name('storehouse-balance');
 });
 
 // Autocomplete routes

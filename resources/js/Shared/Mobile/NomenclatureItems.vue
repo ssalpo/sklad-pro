@@ -11,7 +11,7 @@
                             <small>Себестоимость: {{numberFormat(item.base_price)}} c.</small>
                         </div>
                     </div>
-                    <div class="col-auto text-muted">
+                    <div class="col-auto">
                         <span class="badge badge-outline text-green">
                             <small>{{numberFormat(item.price_for_sale)}} c.</small>
                         </span>

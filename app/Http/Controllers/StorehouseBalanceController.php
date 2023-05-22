@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Services\StorehouseBalanceService;
 use Illuminate\Http\Request;
 
-class StorehouseController extends Controller
+class StorehouseBalanceController extends Controller
 {
     public function __construct(
         public StorehouseBalanceService $storehouseBalanceService
@@ -17,6 +17,6 @@ class StorehouseController extends Controller
     {
         $balances = $this->storehouseBalanceService->getNomenclatureBalances();
 
-        return inertia('StorehouseBalance', compact('balances'));
+        return inertia('StorehouseBalance/Index', compact('balances'));
     }
 }
