@@ -17,7 +17,7 @@
                 <table class="table table-vcenter text-nowrap card-table">
                     <thead>
                     <tr>
-                        <th width="40">ID</th>
+                        <th width="40">#</th>
                         <th>Название</th>
                         <th>Себестоимость</th>
                         <th>Цена продажи</th>
@@ -29,7 +29,7 @@
                     </thead>
                     <tbody>
                     <tr v-for="(nomenclature, index) in nomenclatures.data">
-                        <td>{{ ((nomenclatures.current_page - 1) * nomenclatures.per_page) + index + 1 }}</td>
+                        <td>{{ (nomenclatures.total - index) - ((nomenclatures.current_page - 1) * nomenclatures.per_page) }}</td>
                         <td>{{ nomenclature.name }}</td>
                         <td>{{ numberFormat(nomenclature.base_price, 2) }} сом.</td>
                         <td>{{ numberFormat(nomenclature.price_for_sale, 2) }} сом.</td>
