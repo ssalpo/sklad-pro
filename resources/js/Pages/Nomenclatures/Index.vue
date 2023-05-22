@@ -29,7 +29,7 @@
                     </thead>
                     <tbody>
                     <tr v-for="nomenclature in nomenclatures.data">
-                        <td>{{ nomenclature.id }}</td>
+                        <td>{{ ((nomenclatures.current_page - 1) * nomenclatures.per_page) + index + 1 }}</td>
                         <td>{{ nomenclature.name }}</td>
                         <td>{{ numberFormat(nomenclature.base_price, 2) }} сом.</td>
                         <td>{{ numberFormat(nomenclature.price_for_sale, 2) }} сом.</td>
