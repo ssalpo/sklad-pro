@@ -28,7 +28,7 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <tr v-for="nomenclature in nomenclatures.data">
+                    <tr v-for="(nomenclature, index) in nomenclatures.data">
                         <td>{{ ((nomenclatures.current_page - 1) * nomenclatures.per_page) + index + 1 }}</td>
                         <td>{{ nomenclature.name }}</td>
                         <td>{{ numberFormat(nomenclature.base_price, 2) }} сом.</td>
