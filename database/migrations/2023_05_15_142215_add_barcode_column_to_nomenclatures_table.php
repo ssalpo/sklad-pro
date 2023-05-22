@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('nomenclatures', function (Blueprint $table) {
-            $table->bigInteger('barcode')->nullable();
+            $table->string('barcode')->nullable();
         });
     }
 
