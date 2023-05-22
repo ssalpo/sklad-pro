@@ -21,6 +21,7 @@ class NomenclatureController extends Controller
     public function index()
     {
         $nomenclatures = Nomenclature::with('unit')
+            ->orderBy('created_at', 'DESC')
             ->paginate()
             ->onEachSide(0);
 
