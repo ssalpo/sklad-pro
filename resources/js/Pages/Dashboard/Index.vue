@@ -26,7 +26,7 @@
                                 </div>
                                 <div class="col">
                                     <div class="font-weight-medium">
-                                        {{numberFormat(totalProfitAmount, 2)}} сом.
+                                        {{numberFormat(totalProfitAmount, 2)}} с.
                                     </div>
                                     <div class="text-muted">
                                         Прибыль
@@ -47,7 +47,7 @@
                                 </div>
                                 <div class="col">
                                     <div class="font-weight-medium">
-                                        {{numberFormat(totalSalesAmount, 2)}} сом.
+                                        {{numberFormat(totalSalesAmount, 2)}} с.
                                     </div>
                                     <div class="text-muted">
                                         Продажи
@@ -77,8 +77,8 @@
                     <tbody>
                         <tr v-for="nomenclature in nomenclatureProfits">
                             <td>{{nomenclature.name}}</td>
-                            <td>{{numberFormat(nomenclature.amount, 2)}} сом.</td>
-                            <td>{{numberFormat(nomenclature.profit, 2)}} сом.</td>
+                            <td>{{numberFormat(nomenclature.amount, 2)}} с.</td>
+                            <td>{{numberFormat(nomenclature.profit, 2)}} с.</td>
                         </tr>
                     </tbody>
                 </table>

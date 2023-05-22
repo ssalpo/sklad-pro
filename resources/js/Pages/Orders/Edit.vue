@@ -60,7 +60,7 @@
                             </button>
                         </div>
                         <div class="col-12 col-sm-6 mt-3 mt-sm-0" v-if="this.form.orderItems.length > 0">
-                            Итого: {{ numberFormat(totalSum, 2) }} сом.
+                            Итого: {{ numberFormat(totalSum, 2) }} с.
                         </div>
                     </div>
                 </div>

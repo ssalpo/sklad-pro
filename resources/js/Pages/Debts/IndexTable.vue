@@ -18,8 +18,8 @@
                 <tbody>
                 <tr v-for="debt in debts.data">
                     <td>{{ debt.id }}</td>
-                    <td>{{ numberFormat(debt.amount, 2) }} сом.</td>
-                    <td class="text-danger">{{ numberFormat(debt.amount - debt.payments_sum_amount, 2) }} сом.</td>
+                    <td>{{ numberFormat(debt.amount, 2) }} с.</td>
+                    <td class="text-danger">{{ numberFormat(debt.amount - debt.payments_sum_amount, 2) }} с.</td>
                     <td :class="{'text-success': debt.is_paid, 'text-danger': !debt.is_paid}">{{debt.is_paid ? 'Оплачено' : 'Не оплачено'}}</td>
                     <td>{{ debt.client?.name || '-' }}</td>
                     <td>{{ debt.comment }}</td>

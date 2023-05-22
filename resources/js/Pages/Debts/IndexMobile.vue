@@ -14,11 +14,11 @@
                             Заказ: №{{ debt.order?.id }}
                         </div>
                         <div class="fw-bold my-1">
-                            Сумма: <span class="text-danger">{{ numberFormat(debt.amount) }} сом.</span>
+                            Сумма: <span class="text-danger">{{ numberFormat(debt.amount) }} с.</span>
                         </div>
                         <div class="fw-bold my-1">
                             Остаток: <span
-                            class="text-danger">{{ numberFormat(debt.amount - debt.payments_sum_amount) }} сом.</span>
+                            class="text-danger">{{ numberFormat(debt.amount - debt.payments_sum_amount) }} с.</span>
                         </div>
                         <div class="fw-bold my-1">
                             Статус: <span
@@ -82,11 +82,11 @@
             </dd>
 
             <dt class="col-12">Общая сумма долга:</dt>
-            <dd class="col-12 text-danger mt-1">{{ numberFormat(selectedDebt.amount || 0, 2) }} сом.</dd>
+            <dd class="col-12 text-danger mt-1">{{ numberFormat(selectedDebt.amount || 0, 2) }} с.</dd>
 
             <dt class="col-12">Остаток для погашения:</dt>
             <dd class="col-12 text-danger mt-1">
-                {{ numberFormat(selectedDebt.amount - selectedDebt.payments_sum_amount || 0, 2) }} сом.
+                {{ numberFormat(selectedDebt.amount - selectedDebt.payments_sum_amount || 0, 2) }} с.
             </dd>
 
             <dt class="col-12 mt-2">Дата создания:</dt>

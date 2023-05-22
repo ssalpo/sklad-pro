@@ -28,11 +28,11 @@
                     </tr>
                     <tr>
                         <td width="150" class="text-start text-sm-end fw-bold">Себестоимость</td>
-                        <td>{{ numberFormat(nomenclatureArrival.base_price, 2) }} сом.</td>
+                        <td>{{ numberFormat(nomenclatureArrival.base_price, 2) }} с.</td>
                     </tr>
                     <tr>
                         <td width="150" class="text-start text-sm-end fw-bold">Цена продажи</td>
-                        <td>{{ numberFormat(nomenclatureArrival.price_for_sale, 2) }} сом.</td>
+                        <td>{{ numberFormat(nomenclatureArrival.price_for_sale, 2) }} с.</td>
                     </tr>
                     <tr>
                         <td width="150" class="text-start text-sm-end fw-bold">Дата прихода</td>

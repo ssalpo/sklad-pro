@@ -20,8 +20,8 @@
                     <td>{{ nomenclatureArrival.id }}</td>
                     <td>{{ nomenclatureArrival.nomenclature.name }}</td>
                     <td>{{ nomenclatureArrival.quantity }} {{nomenclatureArrival.nomenclature.unit}}</td>
-                    <td>{{ numberFormat(nomenclatureArrival.base_price, 2) }} сом.</td>
-                    <td>{{ numberFormat(nomenclatureArrival.price_for_sale, 2) }} сом.</td>
+                    <td>{{ numberFormat(nomenclatureArrival.base_price, 2) }} с.</td>
+                    <td>{{ numberFormat(nomenclatureArrival.price_for_sale, 2) }} с.</td>
                     <td>{{ nomenclatureArrival.arrival_at_formatted }}</td>
                     <td class="text-muted">{{ nomenclatureArrival.created_at_formatted }}</td>
                     <td class="text-muted">{{ nomenclatureArrival.comment }}</td>

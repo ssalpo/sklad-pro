@@ -49,6 +49,13 @@ class NomenclatureController extends Controller
         return inertia('Nomenclatures/Edit', compact('nomenclature'));
     }
 
+    public function show(Nomenclature $nomenclature)
+    {
+        $nomenclature->load('unit');
+
+        return inertia('Nomenclatures/Show', compact('nomenclature'));
+    }
+
     public function update(NomenclatureRequest $request, int $id)
     {
         $this->nomenclatureService->update($id, $request->validated());

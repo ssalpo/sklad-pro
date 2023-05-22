@@ -19,13 +19,13 @@
                             <td class="text-start text-sm-end fw-bold">
                                 Общая сумма
                             </td>
-                            <td>{{numberFormat(order.amount)}} сом.</td>
+                            <td>{{numberFormat(order.amount)}} с.</td>
                         </tr>
                         <tr>
                             <td class="text-start text-sm-end fw-bold">
                                 Прибыль
                             </td>
-                            <td>{{numberFormat(order.profit)}} сом.</td>
+                            <td>{{numberFormat(order.profit)}} с.</td>
                         </tr>
                         <tr>
                             <td class="text-start text-sm-end fw-bold">
@@ -64,10 +64,10 @@
                     <tbody>
                     <tr v-for="item in order.order_items">
                         <td>{{item.nomenclature.name}}</td>
-                        <td>{{item.price_for_sale}} сом.</td>
+                        <td>{{item.price_for_sale}} с.</td>
                         <td>{{ item.quantity}} {{item.nomenclature.unit.name}}</td>
-                        <td>{{numberFormat(item.total_amount, 2)}} сом.</td>
-                        <td>{{numberFormat(item.total_profit, 2)}} сом.</td>
+                        <td>{{numberFormat(item.total_amount, 2)}} с.</td>
+                        <td>{{numberFormat(item.total_profit, 2)}} с.</td>
                     </tr>
                     </tbody>
                 </table>
