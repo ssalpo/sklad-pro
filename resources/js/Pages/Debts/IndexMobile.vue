@@ -1,6 +1,8 @@
 <template>
     <card class="mb-3">
-        <div class="divide-y">
+        <EmptyResult v-if="!debts.data.length" />
+
+        <div class="divide-y" v-else>
             <div v-for="debt in debts.data">
                 <div class="row">
                     <div class="col">
@@ -106,12 +108,13 @@ import DeleteBtn from "../../Shared/DeleteBtn.vue";
 import {numberFormat} from "../../functions";
 import EditLinkBtn from "../../Shared/EditLinkBtn.vue";
 import BsModal from "../../Shared/BsModal.vue";
+import EmptyResult from "../../Shared/EmptyResult.vue";
 
 export default {
     name: "IndexMobile",
     emits: ['debtSelect'],
     props: ['debts'],
-    components: {BsModal, EditLinkBtn, DeleteBtn, Pagination, Link, Card},
+    components: {EmptyResult, BsModal, EditLinkBtn, DeleteBtn, Pagination, Link, Card},
     data() {
         return {
             showMoreContent: false,

@@ -1,6 +1,8 @@
 <template>
     <card without-body>
-        <div class="table-responsive">
+        <EmptyResult v-if="!nomenclatureArrivals.data.length" />
+
+        <div class="table-responsive" v-else>
             <table class="table table-vcenter text-nowrap card-table">
                 <thead>
                 <tr>
@@ -52,11 +54,12 @@ import EditLinkBtn from "../../Shared/EditLinkBtn.vue";
 import Pagination from "../../Shared/Pagination.vue";
 import DeleteBtn from "../../Shared/DeleteBtn.vue";
 import {numberFormat} from "../../functions";
+import EmptyResult from "../../Shared/EmptyResult.vue";
 
 export default {
     name: "NomenclatureArrivalsIndexDesktop",
     methods: {numberFormat},
-    components: {DeleteBtn, Pagination, EditLinkBtn, Card},
+    components: {EmptyResult, DeleteBtn, Pagination, EditLinkBtn, Card},
     props: {
         nomenclatureArrivals: {
             type: Array,

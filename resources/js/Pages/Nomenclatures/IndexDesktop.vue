@@ -1,6 +1,8 @@
 <template>
     <card without-body>
-        <div class="table-responsive">
+        <EmptyResult v-if="!nomenclatures.data.length" />
+
+        <div class="table-responsive" v-else>
             <table class="table table-vcenter text-nowrap card-table">
                 <thead>
                 <tr>
@@ -57,11 +59,12 @@ import NomenclatureBarcodeChangeModal from "../../Shared/Modals/NomenclatureBarc
 import Card from "../../Shared/Card.vue";
 import EditLinkBtn from "../../Shared/EditLinkBtn.vue";
 import {numberFormat} from "../../functions";
+import EmptyResult from "../../Shared/EmptyResult.vue";
 
 export default {
     name: "NomenclaturesIndexDesktop",
     methods: {numberFormat},
-    components: {EditLinkBtn, Card, NomenclatureBarcodeChangeModal, DeleteBtn, Pagination},
+    components: {EmptyResult, EditLinkBtn, Card, NomenclatureBarcodeChangeModal, DeleteBtn, Pagination},
     props: ['nomenclatures']
 }
 </script>

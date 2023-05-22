@@ -5,7 +5,9 @@
     >
 
         <card without-body>
-            <div class="table-responsive">
+            <EmptyResult v-if="!payments.data.length" />
+
+            <div class="table-responsive" v-else>
                 <table class="table table-vcenter text-nowrap card-table">
                     <thead>
                     <tr>
@@ -45,10 +47,11 @@ import Card from "../../Shared/Card.vue";
 import DeleteBtn from "../../Shared/DeleteBtn.vue";
 import {numberFormat} from "../../functions";
 import Pagination from "../../Shared/Pagination.vue";
+import EmptyResult from "../../Shared/EmptyResult.vue";
 
 export default {
     methods: {numberFormat},
-    components: {Pagination, DeleteBtn, Card, PageWrapper, Link},
+    components: {EmptyResult, Pagination, DeleteBtn, Card, PageWrapper, Link},
     props: ['debtId', 'payments']
 }
 </script>

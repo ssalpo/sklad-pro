@@ -1,6 +1,8 @@
 <template>
     <card without-body>
-        <div class="table-responsive">
+        <EmptyResult v-if="!debts.data.length" />
+
+        <div class="table-responsive" v-else>
             <table class="table table-vcenter text-nowrap card-table">
                 <thead>
                 <tr>
@@ -56,13 +58,14 @@ import Pagination from "../../Shared/Pagination.vue";
 import DeleteBtn from "../../Shared/DeleteBtn.vue";
 import {numberFormat} from "../../functions";
 import EditLinkBtn from "../../Shared/EditLinkBtn.vue";
+import EmptyResult from "../../Shared/EmptyResult.vue";
 
 export default {
     emits: ['debtSelect'],
     name: "IndexTable",
     props: ['debts'],
     methods: {numberFormat},
-    components: {EditLinkBtn, DeleteBtn, Pagination, Link, Card}
+    components: {EmptyResult, EditLinkBtn, DeleteBtn, Pagination, Link, Card}
 }
 </script>
 

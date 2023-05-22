@@ -1,6 +1,8 @@
 <template>
     <card without-body>
-        <div class="table-responsive">
+        <EmptyResult v-if="!orders.data.length" />
+
+        <div class="table-responsive" v-else>
             <table class="table table-vcenter table-hover text-nowrap card-table">
                 <thead>
                 <tr>
@@ -41,11 +43,12 @@
 import Card from "../../Shared/Card.vue";
 import Pagination from "../../Shared/Pagination.vue";
 import {numberFormat} from "../../functions";
+import EmptyResult from "../../Shared/EmptyResult.vue";
 
 export default {
     name: "OrdersIndexDesktop",
     methods: {numberFormat},
     props: ['orders', 'showcasesCount'],
-    components: {Pagination, Card}
+    components: {EmptyResult, Pagination, Card}
 }
 </script>

@@ -11,7 +11,9 @@
         </template>
 
         <card without-body>
-            <div class="table-responsive">
+            <EmptyResult v-if="!nomenclatureOperations.data.length" />
+
+            <div class="table-responsive" v-else>
                 <table class="table table-vcenter text-nowrap card-table">
                     <thead>
                     <tr>
@@ -63,9 +65,10 @@ import Pagination from "../../Shared/Pagination.vue";
 import {queryParams} from "../../functions";
 import EditLinkBtn from "../../Shared/EditLinkBtn.vue";
 import {IconCirclePlus} from "@tabler/icons-vue";
+import EmptyResult from "../../Shared/EmptyResult.vue";
 
 export default {
-    components: {IconCirclePlus, EditLinkBtn, Pagination, DeleteBtn, Card, PageWrapper, Link},
+    components: {EmptyResult, IconCirclePlus, EditLinkBtn, Pagination, DeleteBtn, Card, PageWrapper, Link},
     props: ['nomenclatureOperations'],
     methods: {
         numberFormat,

@@ -1,6 +1,8 @@
 <template>
     <card without-body>
-        <div class="table-responsive">
+        <EmptyResult v-if="!balances.length" />
+
+        <div class="table-responsive" v-else>
             <table class="table table-vcenter card-table">
                 <thead>
                 <tr>
@@ -24,11 +26,12 @@
 <script>
 import Card from "../../Shared/Card.vue";
 import {numberFormat} from "../../functions";
+import EmptyResult from "../../Shared/EmptyResult.vue";
 
 export default {
     name: "StorehouseBalanceIndexDesktop",
     methods: {numberFormat},
-    components: {Card},
+    components: {EmptyResult, Card},
     props: ['balances']
 }
 </script>

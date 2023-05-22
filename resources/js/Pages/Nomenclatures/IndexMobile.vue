@@ -1,6 +1,9 @@
 <template>
     <card>
+        <EmptyResult v-if="!nomenclatures.data.length" />
+
         <NomenclatureItems
+            v-else
             :items="nomenclatures.data"
         />
 
@@ -14,10 +17,11 @@
 import NomenclatureItems from "../../Shared/Mobile/NomenclatureItems.vue";
 import Card from "../../Shared/Card.vue";
 import Pagination from "../../Shared/Pagination.vue";
+import EmptyResult from "../../Shared/EmptyResult.vue";
 
 export default {
     name: "NomenclaturesIndexMobile",
-    components: {Pagination, Card, NomenclatureItems},
+    components: {EmptyResult, Pagination, Card, NomenclatureItems},
     props: ['nomenclatures']
 }
 </script>
