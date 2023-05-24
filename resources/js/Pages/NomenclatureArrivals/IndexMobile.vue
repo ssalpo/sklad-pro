@@ -1,6 +1,6 @@
 <template>
     <card>
-        <EmptyResult v-if="!items.length.length" />
+        <EmptyResult v-if="!items.length" />
 
         <NomenclatureOperationItems
             :items="items"
