@@ -12,7 +12,7 @@
                 </div>
                 <div class="col-auto text-end">
                     <span class="d-inline-block badge badge-outline text-green">
-                        {{numberFormat(item.quantity)}} шт.
+                        {{numberFormat(item.quantity)}} {{item.unit.name}}
                     </span>
 
                     <span class="d-block badge badge-outline text-danger mt-1">
