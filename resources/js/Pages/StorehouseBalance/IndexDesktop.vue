@@ -1,4 +1,6 @@
 <template>
+    <StorehouseBalanceFilters class="mb-3" />
+
     <card without-body>
         <EmptyResult v-if="!balances.length" />
 
@@ -27,11 +29,12 @@
 import Card from "../../Shared/Card.vue";
 import {numberFormat} from "../../functions";
 import EmptyResult from "../../Shared/EmptyResult.vue";
+import StorehouseBalanceFilters from "./Filters.vue";
 
 export default {
     name: "StorehouseBalanceIndexDesktop",
     methods: {numberFormat},
-    components: {EmptyResult, Card},
+    components: {StorehouseBalanceFilters, EmptyResult, Card},
     props: ['balances']
 }
 </script>

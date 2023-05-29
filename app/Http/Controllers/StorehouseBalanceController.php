@@ -15,7 +15,9 @@ class StorehouseBalanceController extends Controller
 
     public function index()
     {
-        $balances = $this->storehouseBalanceService->getNomenclatureBalances();
+        $balances = $this->storehouseBalanceService
+            ->setFilters(request()?->all())
+            ->getNomenclatureBalances();
 
         return inertia('StorehouseBalance/Index', compact('balances'));
     }

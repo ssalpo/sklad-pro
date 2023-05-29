@@ -6,10 +6,13 @@ use App\Models\NomenclatureArrival;
 use App\Models\NomenclatureOperation;
 use App\Models\Order;
 use App\Models\OrderItem;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\DB;
 
 class StorehouseBalanceService
 {
+    private array $filters = [];
+
     public function getNomenclatureBalances()
     {
         $orderItems = OrderItem::select(
@@ -39,7 +42,14 @@ class StorehouseBalanceService
             DB::raw('n.base_price AS nomenclature_base_price'),
             DB::raw('SUM(quantity) AS quantity'),
             DB::raw('u.name as unit_name'),
-        )->join('nomenclatures as n', 'n.id', '=', 'nomenclature_arrivals.nomenclature_id')
+        )->join(
+            'nomenclatures as n',
+            fn($q) => $q->on('n.id', '=', 'nomenclature_arrivals.nomenclature_id')
+                ->when(
+                    Arr::get($this->filters, 'query'),
+                    fn($q, $v) => $q->where('name', 'like', '%' . $v . '%')
+                )
+        )
             ->leftJoin('units as u', 'u.id', '=', 'n.unit_id')
             ->groupBy('nomenclature_id')
             ->get()
@@ -65,5 +75,12 @@ class StorehouseBalanceService
                     ]
                 ];
             });
+    }
+
+    public function setFilters(array $filters): StorehouseBalanceService
+    {
+        $this->filters = $filters;
+
+        return $this;
     }
 }

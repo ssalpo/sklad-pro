@@ -1,4 +1,6 @@
 <template>
+    <StorehouseBalanceFilters class="mb-3" />
+
     <card>
         <EmptyResult v-if="!balances.length" />
 
@@ -13,10 +15,11 @@
 import NomenclatureArrivalItems from "../../Shared/Mobile/NomenclatureArrivalItems.vue";
 import Card from "../../Shared/Card.vue";
 import EmptyResult from "../../Shared/EmptyResult.vue";
+import StorehouseBalanceFilters from "./Filters.vue";
 
 export default {
     name: "StorehouseBalanceIndexMobile",
-    components: {EmptyResult, Card, NomenclatureArrivalItems},
+    components: {StorehouseBalanceFilters, EmptyResult, Card, NomenclatureArrivalItems},
     props: ['balances']
 }
 </script>
