@@ -1,4 +1,6 @@
 <template>
+    <NomenclatureArrivalFilters class="mb-3" />
+
     <card without-body>
         <EmptyResult v-if="!nomenclatureArrivals.data.length" />
 
@@ -55,11 +57,12 @@ import Pagination from "../../Shared/Pagination.vue";
 import DeleteBtn from "../../Shared/DeleteBtn.vue";
 import {numberFormat} from "../../functions";
 import EmptyResult from "../../Shared/EmptyResult.vue";
+import NomenclatureArrivalFilters from "./Filters.vue";
 
 export default {
     name: "NomenclatureArrivalsIndexDesktop",
     methods: {numberFormat},
-    components: {EmptyResult, DeleteBtn, Pagination, EditLinkBtn, Card},
+    components: {NomenclatureArrivalFilters, EmptyResult, DeleteBtn, Pagination, EditLinkBtn, Card},
     props: {
         nomenclatureArrivals: {
             type: Array,

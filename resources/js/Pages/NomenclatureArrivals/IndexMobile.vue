@@ -1,4 +1,6 @@
 <template>
+    <NomenclatureArrivalFilters class="mb-3" />
+
     <card>
         <EmptyResult v-if="!items.length" />
 
@@ -17,10 +19,11 @@ import NomenclatureOperationItems from "../../Shared/Mobile/NomenclatureOperatio
 import Card from "../../Shared/Card.vue";
 import Pagination from "../../Shared/Pagination.vue";
 import EmptyResult from "../../Shared/EmptyResult.vue";
+import NomenclatureArrivalFilters from "./Filters.vue";
 
 export default {
     name: "NomenclatureArrivalsIndexMobile",
-    components: {EmptyResult, Pagination, Card, NomenclatureOperationItems},
+    components: {NomenclatureArrivalFilters, EmptyResult, Pagination, Card, NomenclatureOperationItems},
     props: {
         nomenclatureArrivals: {
             type: Array,

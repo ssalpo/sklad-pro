@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Arr;
 
 class NomenclatureArrival extends Model
 {
@@ -35,6 +36,17 @@ class NomenclatureArrival extends Model
     protected static function booted(): void
     {
         static::addGlobalScope(new CurrentCompanyScope);
+    }
+
+    public function scopeFilters($q, array $data): void
+    {
+        $q->when(
+            Arr::get($data, 'query'),
+            fn($q, $v) => $q->whereHas(
+                'nomenclature',
+                fn($q) => $q->where('name', 'like', '%' . $v . '%')
+            )
+        );
     }
 
     public function company(): BelongsTo
