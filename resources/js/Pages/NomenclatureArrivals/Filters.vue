@@ -11,7 +11,7 @@
                 <IconSearch size="16" stroke-width="3"/>
             </button>
 
-            <Link v-if="isFiltered" :href="route('storehouse-balance')" class="btn btn-danger btn-icon ms-2">
+            <Link v-if="isFiltered" :href="route('nomenclature-arrivals.index')" class="btn btn-danger btn-icon ms-2">
                 <IconX size="16" stroke-width="2"/>
             </Link>
         </div>

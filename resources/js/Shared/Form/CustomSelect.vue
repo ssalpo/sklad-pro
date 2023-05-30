@@ -14,8 +14,8 @@
                 aria-expanded="false"
                 @click="toggleDropdown"
         >
-            <span v-if="selected">{{ selected }}</span>
-            <span v-if="!selected && placeholder" class="text-muted">{{ placeholder }}</span>
+            <span v-if="selected" class="text-truncate">{{ selected }}</span>
+            <span v-if="!selected && placeholder" class="text-muted text-truncate">{{ placeholder }}</span>
         </button>
 
         <!-- Dropdown wrapper -->

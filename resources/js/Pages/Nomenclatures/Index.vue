@@ -1,6 +1,6 @@
 <template>
     <PageWrapper
-        header-title="Товар"
+        header-title="Товары"
         header-pre-title="В списке отображается все ваши доступные товары"
     >
 
