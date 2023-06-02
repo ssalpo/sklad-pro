@@ -11,6 +11,8 @@
             </Link>
         </template>
 
+        <NomenclatureFilters class="mb-3" />
+
         <NomenclaturesIndexMobile
             v-if="isMobile"
             :nomenclatures="nomenclatures"
@@ -36,9 +38,11 @@ import {IconCirclePlus} from "@tabler/icons-vue";
 import NomenclatureBarcodeChangeModal from "../../Shared/Modals/NomenclatureBarcodeChangeModal.vue";
 import NomenclaturesIndexDesktop from "./IndexDesktop.vue";
 import NomenclaturesIndexMobile from "./IndexMobile.vue";
+import NomenclatureFilters from "./Filters.vue";
 
 export default {
     components: {
+        NomenclatureFilters,
         NomenclaturesIndexMobile,
         NomenclaturesIndexDesktop,
         NomenclatureBarcodeChangeModal,

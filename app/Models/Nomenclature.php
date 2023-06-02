@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Arr;
 
 class Nomenclature extends Model
 {
@@ -29,6 +30,17 @@ class Nomenclature extends Model
     protected static function booted(): void
     {
         static::addGlobalScope(new CurrentCompanyScope);
+    }
+
+    public function scopeFilters($q, $data): void
+    {
+        $q->when(
+            Arr::get($data, 'query'),
+            fn($q, $v) => $q->where('name', 'like', "%$v%")
+                ->orWhere('barcode', 'like', "%$v%")
+                ->orWhere('base_price', $v)
+                ->orWhere('price_for_sale', $v)
+        );
     }
 
     public function nomenclatureArrivals(): HasMany
