@@ -19,15 +19,15 @@
                 <table class="table table-vcenter text-nowrap card-table">
                     <thead>
                     <tr>
-                        <th width="40">ID</th>
+                        <th width="40">#</th>
                         <th>Название</th>
                         <th>Дата создания</th>
                         <th width="120"></th>
                     </tr>
                     </thead>
                     <tbody>
-                    <tr v-for="unit in units">
-                        <td>{{ unit.id }}</td>
+                    <tr v-for="(unit, index) in units">
+                        <td :data-id="unit.id">{{ index + 1 }}</td>
                         <td>{{ unit.name }}</td>
                         <td class="text-muted">
                             {{ unit.created_at_formatted }}

@@ -30,7 +30,11 @@ class UnitController extends Controller
 
     public function store(UnitRequest $request)
     {
-        $this->unitService->store($request->validated());
+        $unit = $this->unitService->store($request->validated());
+
+        if($request->has('modal')) {
+            return response()->json($unit);
+        }
 
         Toast::success('Единица измерения успешно добавлена.');
 

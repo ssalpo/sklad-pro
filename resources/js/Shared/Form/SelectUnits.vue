@@ -1,5 +1,6 @@
 <template>
     <CustomSelect
+        ref="selectUnits"
         v-bind="$attrs"
         prefetch
         remote
@@ -13,6 +14,11 @@
 import CustomSelect from "./CustomSelect.vue";
 export default {
     name: "SelectUnits",
-    components: {CustomSelect}
+    components: {CustomSelect},
+    methods: {
+        refreshData() {
+            this.$refs.selectUnits.refreshData()
+        }
+    }
 }
 </script>

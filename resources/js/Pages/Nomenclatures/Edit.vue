@@ -36,11 +36,14 @@
 
                 <div class="col col-sm-6 offset-sm-3 mb-3">
                     <SelectUnits
+                        ref="selectUnits"
                         label="Единица измерения"
                         label-required
                         v-model="form.unit_id"
                         :invalidText="form.errors.unit_id"
                     />
+
+                    <NewUnitModal  @success="setUnit" />
                 </div>
 
                 <template #cardFooter>
@@ -64,9 +67,13 @@ import {useForm, Link} from "@inertiajs/inertia-vue3";
 import SelectUnits from "../../Shared/Form/SelectUnits.vue";
 import SelectNomenclatures from "../../Shared/Form/SelectNomenclatures.vue";
 import NumericField from "../../Shared/Form/NumericField.vue";
+import NewUnitModal from "../../Shared/Modals/NewUnitModal.vue";
+import NewClientModal from "../../Shared/Modals/NewClientModal.vue";
 
 export default {
-    components: {NumericField, SelectNomenclatures, SelectUnits, TextInput, Card, PageWrapper, Link},
+    components: {
+        NewClientModal,
+        NewUnitModal, NumericField, SelectNomenclatures, SelectUnits, TextInput, Card, PageWrapper, Link},
     props: ['nomenclature'],
     data() {
         return {
@@ -86,6 +93,13 @@ export default {
             }
 
             this.form.put(route('nomenclatures.update', this.nomenclature.id))
+        },
+        setUnit(unit) {
+            this.$refs.selectUnits.refreshData()
+
+            this.form.unit_id = parseInt(unit.id)
+
+            this.form.clearErrors()
         }
     }
 }

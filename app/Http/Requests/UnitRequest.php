@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class UnitRequest extends FormRequest
 {
@@ -23,7 +24,15 @@ class UnitRequest extends FormRequest
     {
         return [
             'company_id' => 'required|integer',
-            'name' => 'required|min:1|max:255'
+            'name' => [
+                'required',
+                'min:1',
+                'max:255',
+                Rule::unique('units', 'name')
+                    ->ignore($this->unit)
+                    ->where(fn($q) => $q->whereCompanyId(auth()->user()?->company_id))
+            ],
+            // 'required|min:1|max:255|unique:units,name,' . $this->unit
         ];
     }
 
