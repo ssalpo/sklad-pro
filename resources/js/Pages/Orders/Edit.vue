@@ -151,7 +151,7 @@ export default {
             this.form.orderItems.push({nomenclature_id: nomenclature?.id, quantity: 1, price_for_sale: nomenclature?.price_for_sale})
         },
         onDetectBarcode(code) {
-            let nomenclature = find(this.nomenclatures, {'barcode': parseInt(code)})
+            let nomenclature = find(this.nomenclatures, {'barcode': code})
 
             if(nomenclature?.id && this.selectedNomenclatures.includes(nomenclature?.id)) return
 
