@@ -9,6 +9,9 @@
                         <div class="text-truncate fw-bolder">
                             Долг №{{ debt.id }}
                         </div>
+                        <div class="text-truncate fw-bolder">
+                            Заказ №{{ debt.order_id }}
+                        </div>
                         <div class="fw-bold my-1" v-if="debt.client?.name">
                             Клиент: {{ debt.client?.name }}
                         </div>

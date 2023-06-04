@@ -73,6 +73,7 @@ import Uuid from "../../Mixins/Uuid";
 
 export default {
     mixins: [Uuid],
+    emits: ['update:modelValue', 'selected'],
     props: {
         label: String,
         labelRequired: Boolean,
@@ -216,6 +217,7 @@ export default {
             this.toggleDropdown()
 
             this.$emit('update:modelValue', this.modelValue !== option.id ? option.id : null)
+            this.$emit('selected', option)
         },
         clearSearchQuery() {
             if (!this.searchable) return

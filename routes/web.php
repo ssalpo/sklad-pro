@@ -51,6 +51,7 @@ Route::group(['prefix' => 'autocomplete', 'as' => 'autocomplete.'], static funct
     Route::get('clients', [AutocompleteController::class, 'clients'])->name('clients');
     Route::get('showcases', [AutocompleteController::class, 'showcases'])->name('showcases');
     Route::get('units', [AutocompleteController::class, 'units'])->name('units');
+    Route::get('orders-with-client', [AutocompleteController::class, 'ordersWithClient'])->name('orders_with_client');
 })->middleware(['auth:sanctum']);
 
 // Auth

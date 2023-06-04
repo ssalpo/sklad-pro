@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Client;
 use App\Models\Nomenclature;
+use App\Models\Order;
 use App\Models\Showcase;
 use App\Models\Unit;
 use Illuminate\Http\Request;
@@ -19,6 +20,18 @@ class AutocompleteController extends Controller
                     ->orWhere('barcode', 'like', '%' . $v . '%')
             )->get()
         );
+    }
+
+    public function ordersWithClient()
+    {
+        return Order::when(request('q'), static fn($q, $v) => $q->where('id', $v))
+            ->get()
+            ->transform(fn($m) => [
+                'id' => $m->id,
+                'text' => sprintf('Заказ №%s', $m->id),
+                'client_id' => $m->client_id,
+                'amount' => $m->amount
+            ]);
     }
 
     public function clients()
