@@ -24,7 +24,7 @@ class AutocompleteController extends Controller
 
     public function ordersWithClient()
     {
-        return Order::when(request('q'), static fn($q, $v) => $q->where('id', $v))
+        return Order::when(request('q'), static fn($q, $v) => $q->where('id', 'like', '%' . $v . '%'))
             ->get()
             ->transform(fn($m) => [
                 'id' => $m->id,
