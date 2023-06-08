@@ -42,6 +42,16 @@
                         <td width="150" class="text-start text-sm-end fw-bold">Дата создания</td>
                         <td>{{ nomenclature.created_at_formatted }}</td>
                     </tr>
+                    <tr>
+                        <td width="150" class="text-start text-sm-end fw-bold">Штрихкод</td>
+                        <td>
+                            <NomenclatureBarcodeChangeModal
+                                btn-size="btn-sm px-2"
+                                :nomenclature="nomenclature"
+                                :btn-text="nomenclature.barcode"
+                            />
+                        </td>
+                    </tr>
                     </tbody>
                 </table>
             </div>
@@ -56,9 +66,10 @@ import Card from "../../Shared/Card.vue";
 import {numberFormat} from "../../functions";
 import EditLinkBtn from "../../Shared/EditLinkBtn.vue";
 import DeleteBtn from "../../Shared/DeleteBtn.vue";
+import NomenclatureBarcodeChangeModal from "../../Shared/Modals/NomenclatureBarcodeChangeModal.vue";
 
 export default {
-    components: {DeleteBtn, EditLinkBtn, Card, PageWrapper, Link},
+    components: {NomenclatureBarcodeChangeModal, DeleteBtn, EditLinkBtn, Card, PageWrapper, Link},
     props: ['nomenclature'],
     methods: {
         numberFormat
