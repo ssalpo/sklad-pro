@@ -90,11 +90,11 @@ export default {
     },
     methods: {
         onDetectBarCode(code) {
-            let nomenclature = find(this.nomenclatures, {'barcode': parseInt(code)})
+            let nomenclature = find(this.nomenclatures, {'barcode': code})
 
             if(nomenclature?.id && this.selectedNomenclatures.includes(nomenclature?.id)) return
 
-            this.orderItem.nomenclature_id = parseInt(nomenclature?.id)
+            this.orderItem.nomenclature_id = nomenclature?.id
         }
     }
 }
