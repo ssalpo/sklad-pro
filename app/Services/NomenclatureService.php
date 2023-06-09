@@ -37,4 +37,13 @@ class NomenclatureService
 
         return $nomenclature;
     }
+
+    public function generateRandomBarcode(): int
+    {
+        do {
+            $code = random_int(1000000000, 99999999999);
+        } while (Nomenclature::where("barcode", $code)->exists());
+
+        return $code;
+    }
 }

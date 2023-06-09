@@ -85,4 +85,9 @@ class NomenclatureController extends Controller
 
         return back();
     }
+
+    public function generateRandomBarcode()
+    {
+        return response()->json(['barcode' => $this->nomenclatureService->generateRandomBarcode()]);
+    }
 }

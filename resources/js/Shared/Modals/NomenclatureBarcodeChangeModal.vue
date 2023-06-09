@@ -30,6 +30,10 @@
             </div>
         </div>
 
+        <div class="mt-2">
+            <button type="button" class="btn btn-sm btn-link" @click="generateBarcode">+ Сгенерировать штрихкод</button>
+        </div>
+
         <template #footer="{hide}">
             <button class="btn btn-primary" :disabled="form.processing">
                 Сохранить
@@ -81,6 +85,10 @@ export default {
                     vm.$refs.barcodeModal.hide();
                 }
             })
+        },
+        generateBarcode() {
+            axios.post(route('nomenclature.generate-random-barcode'))
+                .then((response) => this.form.code = response.data.barcode)
         }
     }
 }

@@ -24,6 +24,7 @@ Route::middleware(['auth:sanctum'])->group(function () {
 
     Route::resource('users', UserController::class);
 
+    Route::post('nomenclatures/generate-random-barcode', [NomenclatureController::class, 'generateRandomBarcode'])->name('nomenclature.generate-random-barcode');
     Route::post('nomenclatures/{nomenclature}/change-barcode', [NomenclatureController::class, 'changeBarcode'])->name('nomenclatures-nomenclature.change-barcode');
     Route::resource('nomenclatures', NomenclatureController::class);
 
