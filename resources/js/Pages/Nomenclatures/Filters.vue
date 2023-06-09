@@ -1,8 +1,12 @@
 <template>
     <form class="row" @submit.prevent="submit">
-        <div class="col-sm-6" :class="[isFiltered ? 'col-8' : 'col-10']">
+        <div class="col-sm-6 position-relative" :class="[isFiltered ? 'col-8' : 'col-10']">
+            <BarcodeScannerModal
+                @detected="onDetectedBarcode"
+                btn-positioned-absolute />
+
             <TextInput
-                placeholder="Название номенклатуры"
+                placeholder="Название номенклатуры, штрихкод"
                 v-model="form.query"
             />
         </div>
@@ -24,10 +28,11 @@ import {Link, useForm} from "@inertiajs/inertia-vue3";
 import queryString from "query-string";
 import {size} from "lodash/collection";
 import {IconX, IconSearch} from "@tabler/icons-vue";
+import BarcodeScannerModal from "../../Shared/Modals/BarcodeScannerModal.vue";
 
 export default {
     name: "NomenclatureFilters",
-    components: {IconX, Link, TextInput, IconSearch},
+    components: {BarcodeScannerModal, IconX, Link, TextInput, IconSearch},
     data() {
         return {
             isFiltered: false,
@@ -49,6 +54,11 @@ export default {
         },
         submit() {
             this.form.get(route('nomenclatures.index'))
+        },
+        onDetectedBarcode(code) {
+            this.form.query = code
+
+            this.submit();
         }
     }
 }

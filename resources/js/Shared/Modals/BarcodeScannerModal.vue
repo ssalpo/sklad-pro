@@ -7,8 +7,9 @@
         title="Сканер"
     >
         <template #btn="{show}">
-            <button type="button" @click="show" class="btn btn-outline-primary btn-icon" :class="[btnClass]">
-                <IconScan :size="iconSize" stroke-width="1.5"/>
+            <button type="button" @click="show" class="btn btn-icon main-barcode-btn"
+                    :class="[btnClass, btnPositionedAbsolute ? 'btn-default btn-link position-absolute' : 'btn-outline-primary']">
+                <IconBarcode :size="iconSize" stroke-width="1.5" />
 
                 <span v-if="iconText" class="ms-1">Сканер</span>
             </button>
@@ -24,12 +25,12 @@
 <script>
 import BsModal from "../BsModal.vue";
 import BarcodeReader from "../BarcodeReader.vue";
-import {IconScan} from "@tabler/icons-vue";
+import {IconBarcode} from "@tabler/icons-vue";
 
 export default {
     emits: ['detected'],
     name: "BarcodeScannerModal",
-    components: {IconScan, BarcodeReader, BsModal},
+    components: {IconBarcode, BarcodeReader, BsModal},
     props: {
         btnClass: String,
         iconText: {
@@ -39,7 +40,8 @@ export default {
         iconSize: {
             type: Number,
             default: 18
-        }
+        },
+        btnPositionedAbsolute: Boolean
     },
     data() {
         return {
@@ -57,5 +59,7 @@ export default {
 </script>
 
 <style scoped>
-
+    .main-barcode-btn {
+        right: 15px
+    }
 </style>

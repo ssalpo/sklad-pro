@@ -45,9 +45,12 @@ class StorehouseBalanceService
         )->join(
             'nomenclatures as n',
             fn($q) => $q->on('n.id', '=', 'nomenclature_arrivals.nomenclature_id')
-                ->when(
-                    Arr::get($this->filters, 'query'),
-                    fn($q, $v) => $q->where('name', 'like', '%' . $v . '%')
+                ->where(
+                    fn($q) => $q->when(
+                        Arr::get($this->filters, 'query'),
+                        fn($q, $v) => $q->where('n.name', 'like', '%' . $v . '%')
+                            ->orWhere('n.barcode', 'like', '%' . $v . '%')
+                    )
                 )
         )
             ->leftJoin('units as u', 'u.id', '=', 'n.unit_id')
