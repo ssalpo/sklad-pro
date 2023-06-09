@@ -50,6 +50,10 @@
                                 :nomenclature="nomenclature"
                                 :btn-text="nomenclature.barcode"
                             />
+
+                            <div class="mt-2">
+                                <svg id="barcode"></svg>
+                            </div>
                         </td>
                     </tr>
                     </tbody>
@@ -67,12 +71,24 @@ import {numberFormat} from "../../functions";
 import EditLinkBtn from "../../Shared/EditLinkBtn.vue";
 import DeleteBtn from "../../Shared/DeleteBtn.vue";
 import NomenclatureBarcodeChangeModal from "../../Shared/Modals/NomenclatureBarcodeChangeModal.vue";
+import JsBarcode from "jsbarcode";
 
 export default {
     components: {NomenclatureBarcodeChangeModal, DeleteBtn, EditLinkBtn, Card, PageWrapper, Link},
     props: ['nomenclature'],
     methods: {
         numberFormat
+    },
+    mounted() {
+        if (this.nomenclature?.barcode) {
+            JsBarcode("#barcode", this.nomenclature?.barcode, {
+                format: "CODE128",
+                width: 2,
+                height: 50,
+                margin: 0,
+                displayValue: false
+            });
+        }
     }
 }
 </script>
